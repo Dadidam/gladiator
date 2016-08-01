@@ -5,15 +5,13 @@ class Character extends React.Component {
     super();
 
     this.name = 'No Name Hero';
+    this.level = 1;
+    this.coins = 0;
+    this.health = 1; // current health value
+    this.maxHealth = 1; // max value with other modifiers
+    this.minDamage = 1;
+    this.maxDamage = 1;
     this.inventory = [];
-    this.attributes = {
-      health: 10,
-      damage: 1
-    };
-    this.params = {
-      damage: 0,
-      coins: 0
-    };
   }
 }
 
