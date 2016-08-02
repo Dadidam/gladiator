@@ -18,7 +18,6 @@ class Hero extends Character {
   }
   render() {
     let hero = this.state;
-
     let barStyle = {width:150};
     let hp = (hero.health / hero.maxHealth) * 100;
 
