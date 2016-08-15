@@ -1,12 +1,8 @@
 import React from 'react';
+import { Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import * as storage from '../services/localStorage';
-import { ProgressBar, Badge, Tooltip, OverlayTrigger } from 'react-bootstrap';
 
-// const hasCharacters = () => {
-//
-// }
-
-/*
+/* PLAYER MODEL
 player: {
   heroes: [
     {
@@ -22,19 +18,73 @@ class Player extends React.Component {
   constructor() {
     super();
     this.player = storage.get('player');
-    this.hasCharacters = () => this.player && this.player.heroes.length > 0;
+    this.state = {
+      heroName: '',
+      editMode: false,
+      formDisabled: true
+    }
+
+    this.renderNewHeroForm = this.renderNewHeroForm.bind(this);
+    this.updateHeroName = this.updateHeroName.bind(this);
+    this.createNewHero = this.createNewHero.bind(this);
+  }
+  renderNewHeroForm() {
+    this.setState({editMode: true});
+  }
+  updateHeroName(e) {
+    this.setState({
+      heroName: e.target.value,
+      formDisabled: e.target.value.length < 3
+    });
+  }
+  createNewHero() {
+    if (this.state.heroName !== '') {
+      // TODO: check if player was already created
+      storage.set('player', {
+        heroes: [
+          {
+            name: this.state.heroName,
+            exp: 0
+          },
+        ],
+        lastVisit: new Date()
+      })
+    }
   }
   render() {
-    const isNewPlayer = !this.hasCharacters();
-
     let charList = (
       <div>CharList here</div>
     );
 
-    if (isNewPlayer) {
-      charList = (
-        <div>No hero. Want to create one?</div>
-      )
+    if (this.props.isNewPlayer) {
+      if (this.state.editMode) {
+        charList = (
+          <div>
+          <h3>Create new hero</h3>
+          <Form inline>
+            <FormGroup controlId="formInlineName">
+              <ControlLabel>Hero Name</ControlLabel>
+              {' '}
+              <FormControl type="text" placeholder="Jane Doe" onChange={this.updateHeroName} />
+            </FormGroup>
+            {' '}
+            <Button type="submit" onClick={this.createNewHero} disabled={this.state.formDisabled}>
+              Create
+            </Button>
+          </Form>
+          </div>
+        )
+      } else {
+        charList = (
+          <div>
+            <div>Heroes not found.</div>
+            <div>
+              <Button bsSize="xsmall" onClick={this.renderNewHeroForm}>Create new hero</Button>
+            </div>
+          </div>
+        )
+      }
+
     }
 
     return charList;

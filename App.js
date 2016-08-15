@@ -24,7 +24,7 @@ class App extends React.Component {
         app = (
           <div>
             <Col xs={12} md={6}>
-              <Player />
+              <Player isNewPlayer={true} />
             </Col>
           </div>
         );
