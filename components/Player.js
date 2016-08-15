@@ -1,5 +1,6 @@
 import React from 'react';
 import HeroList from './HeroList';
+import Character from './Character';
 import { Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 import * as storage from '../services/localStorage';
@@ -41,23 +42,18 @@ class Player extends React.Component {
   createNewHero() {
     if (this.state.heroName !== '') {
       let player = storage.get('player');
-      if (player) {
-        player.heroes.push({
-          name: this.state.heroName,
-          exp: 0,
-          id: player.heroes.length + 1
-        })
+      let newHero = new Character;
 
+      newHero.name = this.state.heroName;
+
+      if (player) {
+        newHero.id = player.heroes.length + 1;
+        player.heroes.push(newHero);
         storage.set('player', player);
       } else {
+        newHero.id = 1;
         storage.set('player', {
-          heroes: [
-            {
-              name: this.state.heroName,
-              exp: 0,
-              id: 1
-            },
-          ],
+          heroes: [newHero],
           lastVisit: new Date(),
           activeHeroId: null
         })
