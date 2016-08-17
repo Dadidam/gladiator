@@ -61,15 +61,14 @@ class Player extends React.Component {
     }
   }
   render() {
-    let player;
-
+    const heroes = storage.get('player').heroes;
     const createBtn = (
       <div>
         <Button bsSize="xsmall" onClick={this.renderNewHeroForm}>Create new hero</Button>
       </div>
     )
 
-    const renderCreateHeroForm = (
+    const createHeroForm = (
       <div>
       <h3>Create new hero</h3>
       <Form inline>
@@ -86,33 +85,29 @@ class Player extends React.Component {
       </div>
     )
 
-    if (this.props.isNewPlayer) {
-      if (this.state.editMode) {
-        player = renderCreateHeroForm;
-      } else {
-        player = (
-          <div>
-            <div>Heroes not found.</div>
-            {createBtn}
-          </div>
-        )
-      }
-    } else {
-      const heroes = storage.get('player').heroes;
+    const noHeroMessage = (
+      <div>
+        <div>Heroes not found.</div>
+        {createBtn}
+      </div>
+    )
 
-      if (this.state.editMode) {
-        player = renderCreateHeroForm;
-      } else {
-        player = (
-          <div>
-            <HeroList heroes={heroes} updatePlayer={this.props.updatePlayer} />
-            {createBtn}
-          </div>
-        )
-      }
+    const renderHeroList = (
+      <div>
+        <HeroList heroes={heroes} updatePlayer={this.props.updatePlayer} />
+        {createBtn}
+      </div>
+    )
+
+    if (this.props.isNewPlayer && this.state.editMode || this.state.editMode) {
+      return createHeroForm;
     }
 
-    return player;
+    if (!this.state.editMode) {
+      return renderHeroList;
+    }
+
+    return noHeroMessage;
   }
 }
 
