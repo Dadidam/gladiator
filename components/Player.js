@@ -61,7 +61,6 @@ class Player extends React.Component {
     }
   }
   render() {
-    const heroes = storage.get('player').heroes;
     const createBtn = (
       <div>
         <Button bsSize="xsmall" onClick={this.renderNewHeroForm}>Create new hero</Button>
@@ -92,19 +91,28 @@ class Player extends React.Component {
       </div>
     )
 
-    const renderHeroList = (
+    const renderHeroList = (heroes, updatePlayer) => (
       <div>
-        <HeroList heroes={heroes} updatePlayer={this.props.updatePlayer} />
+        <HeroList heroes={heroes} updatePlayer={updatePlayer} />
         {createBtn}
       </div>
     )
 
-    if (this.props.isNewPlayer && this.state.editMode || this.state.editMode) {
+    const isNewPlayer = this.props.isNewPlayer;
+    const updatePlayer = this.props.updatePlayer;
+
+    const editMode = this.state.editMode;
+    const isEditMode = isNewPlayer && editMode || editMode;
+    const isListMode = !editMode && !isNewPlayer;
+
+    if (isEditMode) {
       return createHeroForm;
     }
 
-    if (!this.state.editMode) {
-      return renderHeroList;
+    if (isListMode) {
+      const heroes = storage.get('player').heroes;
+      
+      return renderHeroList(heroes, updatePlayer);
     }
 
     return noHeroMessage;
