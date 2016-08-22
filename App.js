@@ -18,8 +18,7 @@ class App extends React.Component {
     updatePlayer(player) {
       this.setState({player: player});
     }
-    render(){
-      let app;
+    render() {
       let player = this.state.player;
 
       const renderApp = (app) => (
@@ -61,20 +60,19 @@ class App extends React.Component {
 
       if (!player) {
         return renderApp(newPlayer);
-      } else {
-        if (player.activeHeroId) {
-          const hero = playerService.getHeroById(player.heroes, player.activeHeroId);
-          const mainPanel = mainPanel(hero);
-
-          return renderApp(mainPanel);
-        } else {
-          const heroList = heroList(player.heroes, this.updatePlayer);
-
-          return renderApp(heroList);
-        }
       }
 
-      return mainApp;
+      if (player.activeHeroId) {
+        const hero = playerService.getHeroById(player.heroes, player.activeHeroId);
+        const panel = mainPanel(hero);
+
+        return renderApp(panel);
+      }
+
+      const charList = heroList(player.heroes, this.updatePlayer);
+
+      return renderApp(charList);
+
     }
 }
 
