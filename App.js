@@ -50,10 +50,10 @@ class App extends React.Component {
         </div>
       );
 
-      const heroList = (heroes, updatePlayer) => (
+      const heroList = (heroes) => (
         <div>
           <Col xs={12} md={6}>
-            <Player heroes={heroes} updatePlayer={updatePlayer} />
+            <Player heroes={heroes} updatePlayer={this.updatePlayer} />
           </Col>
         </div>
       );

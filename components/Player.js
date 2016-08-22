@@ -24,7 +24,7 @@ class Player extends React.Component {
       heroName: '',
       editMode: false,
       formDisabled: true
-    }
+    };
 
     this.renderNewHeroForm = this.renderNewHeroForm.bind(this);
     this.updateHeroName = this.updateHeroName.bind(this);
