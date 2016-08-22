@@ -65,7 +65,7 @@ class Player extends React.Component {
       <div>
         <Button bsSize="xsmall" onClick={this.renderNewHeroForm}>Create new hero</Button>
       </div>
-    )
+    );
 
     const createHeroForm = (
       <div>
@@ -82,21 +82,21 @@ class Player extends React.Component {
         </Button>
       </Form>
       </div>
-    )
+    );
 
     const noHeroMessage = (
       <div>
         <div>Heroes not found.</div>
         {createBtn}
       </div>
-    )
+    );
 
     const renderHeroList = (heroes, updatePlayer) => (
       <div>
         <HeroList heroes={heroes} updatePlayer={updatePlayer} />
         {createBtn}
       </div>
-    )
+    );
 
     const isNewPlayer = this.props.isNewPlayer;
     const updatePlayer = this.props.updatePlayer;
@@ -111,7 +111,7 @@ class Player extends React.Component {
 
     if (isListMode) {
       const heroes = storage.get('player').heroes;
-      
+
       return renderHeroList(heroes, updatePlayer);
     }
 
