@@ -5,18 +5,6 @@ import { Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootst
 
 import * as storage from '../services/localStorage';
 
-/* PLAYER MODEL
-player: {
-  heroes: [
-    {
-      name: '',
-      exp: 0
-    },
-  ],
-  lastVisit: null
-}
-*/
-
 class Player extends React.Component {
   constructor() {
     super();
@@ -30,15 +18,18 @@ class Player extends React.Component {
     this.updateHeroName = this.updateHeroName.bind(this);
     this.createNewHero = this.createNewHero.bind(this);
   }
+
   renderNewHeroForm() {
     this.setState({editMode: true});
   }
+
   updateHeroName(e) {
     this.setState({
       heroName: e.target.value,
       formDisabled: e.target.value.length < 3
     });
   }
+
   createNewHero() {
     if (this.state.heroName !== '') {
       let player = storage.get('player');
@@ -58,8 +49,11 @@ class Player extends React.Component {
           activeHeroId: null
         })
       }
+
+			this.setState({editMode: false});
     }
   }
+
   render() {
     const createBtn = (
       <div>

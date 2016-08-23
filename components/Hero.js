@@ -17,11 +17,11 @@ class Hero extends Character {
     }
   }
   render() {
-    let hero = this.state;
-    let barStyle = {width:150};
-    let hp = (hero.health / hero.maxHealth) * 100;
+    const hero = this.props.params;
+    const barStyle = {width:150};
+    const hp = (hero.health / hero.maxHealth) * 100;
 
-    let hpTooltip = (
+    const hpTooltip = (
       <Tooltip id="tooltip">{`${hero.health}/${hero.maxHealth}`}</Tooltip>
     );
 
@@ -35,8 +35,9 @@ class Hero extends Character {
         </div>
         <div>Coins <Badge>{hero.coins}</Badge></div>
         <div><a href="#">Inventory</a> <Badge>{hero.inventory.length}</Badge></div>
+        <div><a href="#" onClick={this.props.changeHero}>Exit</a></div>
       </div>
-    )
+    );
   }
 }
 

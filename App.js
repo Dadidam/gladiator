@@ -14,13 +14,21 @@ class App extends React.Component {
         player: storage.get('player')
       };
       this.updatePlayer = this.updatePlayer.bind(this);
+      this.changeHero = this.changeHero.bind(this);
     }
+
     updatePlayer(player) {
       this.setState({player: player});
     }
-    render() {
-      let player = this.state.player;
 
+    changeHero() {
+        let player = this.state.player;
+        player.activeHeroId = null;
+
+        this.setState({player: player});
+    }
+
+    render() {
       const renderApp = (app) => (
         <div>
         <Grid>
@@ -42,7 +50,7 @@ class App extends React.Component {
       const mainPanel = (hero) => (
         <div>
           <Col xs={6} md={4}>
-            <Hero params={hero} />
+            <Hero params={hero} changeHero={this.changeHero} />
           </Col>
           <Col xs={6} md={3}>
             <Arena />
@@ -57,6 +65,8 @@ class App extends React.Component {
           </Col>
         </div>
       );
+
+      const player = this.state.player;
 
       if (!player) {
         return renderApp(newPlayer);
