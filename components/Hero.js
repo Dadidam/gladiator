@@ -5,16 +5,6 @@ import { ProgressBar, Badge, Tooltip, OverlayTrigger } from 'react-bootstrap';
 class Hero extends Character {
   constructor() {
     super();
-    this.state = {
-      name: this.name,
-      level: this.level,
-      coins: this.coins,
-      health: this.health,
-      maxHealth: this.maxHealth,
-      minDamage: this.minDamage,
-      maxDamage: this.maxDamage,
-      inventory: this.inventory
-    }
   }
   render() {
     const hero = this.props.params;

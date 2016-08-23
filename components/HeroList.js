@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Grid, Row, Col } from 'react-bootstrap';
 
 import * as storage from '../services/localStorage';
 
@@ -14,17 +14,22 @@ class HeroList extends React.Component {
     updatePlayer(this.player);
   }
   render() {
-    let heroes = this.props.heroes.map( hero => {
+    const heroes = this.props.heroes.map( hero => {
       return <div key={hero.id}>
         {hero.name} ({hero.exp} lvl)
-        <Button bsSize="xsmall" bsStyle="primary" value={hero} onClick={this.selectHero.bind(this, hero.id, this.props.updatePlayer)}>select</Button>
+        <Button bsSize="xsmall" bsStyle="primary" value={hero}
+								onClick={this.selectHero.bind(this, hero.id, this.props.updatePlayer)}>select</Button>
       </div>
     });
 
     return (
       <div>
         <h3>Heroes list</h3>
-        <div>{heroes}</div>
+				<Grid>
+					<Row className="show-grid">
+						<div>{heroes}</div>
+					</Row>
+				</Grid>
       </div>
     );
   }

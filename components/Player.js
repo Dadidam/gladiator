@@ -40,15 +40,18 @@ class Player extends React.Component {
       if (player) {
         newHero.id = player.heroes.length + 1;
         player.heroes.push(newHero);
-        storage.set('player', player);
       } else {
         newHero.id = 1;
-        storage.set('player', {
-          heroes: [newHero],
-          lastVisit: new Date(),
-          activeHeroId: null
-        })
+				player = {
+					heroes: [newHero],
+					lastVisit: new Date(),
+					activeHeroId: null
+				};
       }
+
+			storage.set('player', player);
+
+			this.props.updatePlayer(player);
 
 			this.setState({editMode: false});
     }

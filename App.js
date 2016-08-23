@@ -8,82 +8,93 @@ import * as storage from './services/localStorage';
 import * as playerService from './services/player';
 
 class App extends React.Component {
-    constructor() {
-      super();
-      this.state = {
-        player: storage.get('player')
-      };
-      this.updatePlayer = this.updatePlayer.bind(this);
-      this.changeHero = this.changeHero.bind(this);
-    }
+	constructor() {
+		super();
+		this.state = {
+			player: storage.get('player')
+		};
+		this.updatePlayer = this.updatePlayer.bind(this);
+		this.changeHero = this.changeHero.bind(this);
+		this.updateHero = this.updateHero.bind(this);
+	}
 
-    updatePlayer(player) {
-      this.setState({player: player});
-    }
+	updatePlayer(player) {
+		this.setState({player: player});
+	}
 
-    changeHero() {
-        let player = this.state.player;
-        player.activeHeroId = null;
+	updateHero(hero) {
+		const updatedPlayer = playerService.updatePlayerModelByHero(this.state.player, hero);
 
-        this.setState({player: player});
-    }
+		storage.set('player', updatedPlayer);
 
-    render() {
-      const renderApp = (app) => (
-        <div>
-        <Grid>
-          <Row className="show-grid">
-            {app}
-          </Row>
-          </Grid>
-        </div>
-      );
+		this.setState({player: updatedPlayer});
+	}
 
-      const newPlayer = (
-        <div>
-          <Col xs={12} md={6}>
-            <Player isNewPlayer={true} />
-          </Col>
-        </div>
-      );
+	changeHero() {
+		const player = this.state.player;
+		player.activeHeroId = null;
 
-      const mainPanel = (hero) => (
-        <div>
-          <Col xs={6} md={4}>
-            <Hero params={hero} changeHero={this.changeHero} />
-          </Col>
-          <Col xs={6} md={3}>
-            <Arena />
-          </Col>
-        </div>
-      );
+		storage.set('player', player);
 
-      const heroList = (heroes) => (
-        <div>
-          <Col xs={12} md={6}>
-            <Player heroes={heroes} updatePlayer={this.updatePlayer} />
-          </Col>
-        </div>
-      );
+		this.setState({player: player});
+	}
 
-      const player = this.state.player;
+	render() {
+		const renderApp = (app) => (
+			<div>
+			<Grid>
+				<Row className="show-grid">
+					{app}
+				</Row>
+				</Grid>
+			</div>
+		);
 
-      if (!player) {
-        return renderApp(newPlayer);
-      }
+		const newPlayer = (
+			<div>
+				<Col xs={12} md={6}>
+					<Player isNewPlayer={true} updatePlayer={this.updatePlayer} />
+				</Col>
+			</div>
+		);
 
-      if (player.activeHeroId) {
-        const hero = playerService.getHeroById(player.heroes, player.activeHeroId);
-        const panel = mainPanel(hero);
+		const mainPanel = (hero) => (
+			<div>
+				<Col xs={6} md={4}>
+					<Hero params={hero} changeHero={this.changeHero} />
+				</Col>
+				<Col xs={6} md={3}>
+					<Arena hero={hero} updateHero={this.updateHero} />
+				</Col>
+			</div>
+		);
 
-        return renderApp(panel);
-      }
+		const heroList = (heroes) => (
+			<div>
+				<Col xs={12} md={6}>
+					<Player heroes={heroes} updatePlayer={this.updatePlayer} />
+				</Col>
+			</div>
+		);
 
-      const charList = heroList(player.heroes, this.updatePlayer);
+		const player = this.state.player;
 
-      return renderApp(charList);
+		if (!player) {
+			return renderApp(newPlayer);
+		}
 
-    }
+		if (player.activeHeroId) {
+			const hero = playerService.getHeroById(player.heroes, player.activeHeroId);
+			const panel = mainPanel(hero);
+
+			return renderApp(panel);
+		}
+
+		const charList = heroList(player.heroes, this.updatePlayer);
+
+		return renderApp(charList);
+
+	}
 }
 
 export default App;
