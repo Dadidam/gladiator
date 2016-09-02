@@ -40,8 +40,13 @@ class App extends React.Component {
 	}
 
 	render() {
+
+        const appStyle = {
+            marginTop: 30
+        };
+
 		const renderApp = (app) => (
-			<div>
+			<div style={appStyle}>
 			<Grid>
 				<Row className="show-grid">
 					{app}
@@ -52,7 +57,7 @@ class App extends React.Component {
 
 		const newPlayer = (
 			<div>
-				<Col xs={12} md={6}>
+				<Col md={12}>
 					<Player isNewPlayer={true} updatePlayer={this.updatePlayer} />
 				</Col>
 			</div>
@@ -71,7 +76,7 @@ class App extends React.Component {
 
 		const heroList = (heroes) => (
 			<div>
-				<Col xs={12} md={6}>
+				<Col md={12}>
 					<Player heroes={heroes} updatePlayer={this.updatePlayer} />
 				</Col>
 			</div>
