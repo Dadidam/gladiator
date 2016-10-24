@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tooltip, Popover, Modal } from 'react-bootstrap';
+import { Tooltip, Popover, Modal, Button } from 'react-bootstrap';
 
 class Hero extends React.Component {
     constructor() {
