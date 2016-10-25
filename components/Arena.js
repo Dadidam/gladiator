@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { getHeroLevelByExp } from '../services/player';
 
 class Arena extends React.Component {
-
     collectCoins(hero, count, updateHero) {
         hero.coins += count;
 
@@ -15,6 +15,18 @@ class Arena extends React.Component {
         hero.inventory.push(item); // add new item to inventory
 
         updateHero(hero); // update changes
+    }
+
+    getExp(hero, value, updateHero) {
+        hero.exp += value;
+
+        const heroLevel = getHeroLevelByExp(hero);
+
+        if (heroLevel > hero.level) {
+            hero.level = heroLevel;
+        }
+
+        updateHero(hero);
     }
 
     render() {
@@ -68,6 +80,8 @@ class Arena extends React.Component {
                     <Button block onClick={this.getItem.bind(this, hero, sharpSword, updateHero)}>Get the Sharp Sword (3-5 attack)</Button>
                     <Button bsStyle="success" block onClick={this.getItem.bind(this, hero, rustyArmor, updateHero)}>Get the Rusty Armor (+10 maxHealth)</Button>
                     <Button bsStyle="success" block onClick={this.getItem.bind(this, hero, shinyArmor, updateHero)}>Get the Shiny Armor (+15 maxHealth)</Button>
+                    <Button block onClick={this.getExp.bind(this, hero, 25, updateHero)}>Cut the grass (+25 exp)</Button>
+                    <Button block onClick={this.getExp.bind(this, hero, 3, updateHero)}>Tell funny stories (+3 exp)</Button>
                 </div>
             </div>
         )

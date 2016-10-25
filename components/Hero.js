@@ -53,7 +53,8 @@ class Hero extends Character {
 
         return (
             <div>
-                <h3>{hero.name} ({hero.level} level)</h3>
+                <h3>{hero.name}</h3>
+                <div>{hero.level} level, {hero.exp} exp</div>
                 <div style={barStyle}>HP (+1/sec):</div>
                 <div style={barStyle}>
                     <div>

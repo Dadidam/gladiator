@@ -14,3 +14,10 @@ export const updatePlayerModelByHero = (player, hero) => {
 
 	return player;
 };
+
+export const getHeroLevelByExp = (hero) => {
+    const exp = 50;
+    const lvl = Math.floor(hero.exp / exp);
+
+    return lvl > 0 ? (lvl + 1) : 1;
+};

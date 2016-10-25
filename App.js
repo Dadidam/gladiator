@@ -17,11 +17,9 @@ class App extends React.Component {
 		this.changeHero = this.changeHero.bind(this);
 		this.updateHero = this.updateHero.bind(this);
 	}
-
 	updatePlayer(player) {
 		this.setState({player: player});
 	}
-
 	updateHero(hero) {
 		const updatedPlayer = playerService.updatePlayerModelByHero(this.state.player, hero);
 
@@ -29,7 +27,6 @@ class App extends React.Component {
 
 		this.setState({player: updatedPlayer});
 	}
-
 	changeHero() {
 		const player = this.state.player;
 		player.activeHeroId = null;
@@ -38,9 +35,7 @@ class App extends React.Component {
 
 		this.setState({player: player});
 	}
-
 	render() {
-
         const appStyle = {
             marginTop: 30
         };
