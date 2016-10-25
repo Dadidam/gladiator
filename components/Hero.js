@@ -16,22 +16,37 @@ class Hero extends Character {
             show: !this.state.show
         });
     }
+    setHealthBarType(healthValue) {
+        if (healthValue > 69) {
+            return 'success';
+        } else if (healthValue > 29) {
+            return 'warning';
+        }
+
+        return 'danger';
+    }
     render() {
         const hero = this.props.params;
-        const barStyle = { width:150 };
+        const barStyle = { width: 150 };
+        const hbStyle = { backgroundColor: '#eee'};
         const hp = (hero.health / hero.maxHealth) * 100;
 
         const hpTooltip = (
-            <Tooltip id="tooltip">{`${hero.health}/${hero.maxHealth}`}</Tooltip>
+            <Tooltip id="tooltip">{`${hero.health}/${hero.maxHealth} (${hp}%)`}</Tooltip>
         );
+
+        const healthBar = this.setHealthBarType(hp);
 
         return (
             <div>
                 <h3>{hero.name} ({hero.level} level)</h3>
+                <div style={barStyle}>HP:</div>
                 <div style={barStyle}>
-                    <OverlayTrigger placement="right" overlay={hpTooltip}>
-                        <ProgressBar bsStyle="danger" now={hp} label={`${hp}%`} />
-                    </OverlayTrigger>
+                    <div>
+                        <OverlayTrigger placement="right" overlay={hpTooltip}>
+                            <ProgressBar bsStyle={healthBar} now={hp} style={hbStyle} />
+                        </OverlayTrigger>
+                    </div>
                 </div>
                 <div>Damage <Badge>{hero.minDamage}-{hero.maxDamage}</Badge></div>
                 <div>Coins <Badge>{hero.coins}</Badge></div>
