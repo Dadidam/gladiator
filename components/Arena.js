@@ -10,9 +10,11 @@ class Arena extends React.Component {
     }
 
     getItem(hero, item, updateHero) {
-        hero.inventory.push(item);
+        item.id = hero.inventory.length + 1; // set unique item ID
 
-        updateHero(hero);
+        hero.inventory.push(item); // add new item to inventory
+
+        updateHero(hero); // update changes
     }
 
     render() {

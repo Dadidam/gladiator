@@ -1,34 +1,45 @@
 import React from 'react';
 import { Tooltip, Popover, Modal, Button } from 'react-bootstrap';
 
-class Hero extends React.Component {
+class Inventory extends React.Component {
     constructor() {
         super();
         this.close = this.close.bind(this);
+    }
+    useItem(item, hero, updateHero) {
+        switch (item.type) {
+            case 'weapon':
+                hero.equipment.weapon = item.id;
+                hero.minDamage = item.params.minDamage;
+                hero.maxDamage = item.params.maxDamage;
+
+                updateHero(hero);
+                break;
+            case 'armor':
+                hero.equipment.armor = item.id;
+                hero.maxHealth = item.params.maxHealth;
+
+                updateHero(hero);
+                break;
+            default:
+                throw new Error('Not supported type of item');
+        }
     }
     close() {
         this.props.toggle();
     }
     render() {
-
-        const popover = (
-            <Popover id="modal-popover" title="popover">
-                very popover. such engagement
-            </Popover>
-        );
-        const tooltip = (
-            <Tooltip id="modal-tooltip">
-                wow.
-            </Tooltip>
-        );
         const hero = this.props.hero;
+        const updateHero = this.props.updateHero;
 
         const weapons = hero.inventory.filter((item) => {
             return item.type === 'weapon';
         });
         const weaponList = weapons.map((item, i) => {
             return (
-                <div key={i}>{item.name}</div>
+                <div key={i}>
+                    {item.name} (<a href="#" onClick={this.useItem.bind(this, item, hero, updateHero)}>Use It!</a>)
+                </div>
             )
         });
 
@@ -37,7 +48,9 @@ class Hero extends React.Component {
         });
         const armorList = armors.map((item, i) => {
             return (
-                <div key={i}>{item.name}</div>
+                <div key={i}>
+                    {item.name} (<a href="#" onClick={this.useItem.bind(this, item, hero, updateHero)}>Use It!</a>)
+                </div>
             )
         });
 
@@ -47,13 +60,8 @@ class Hero extends React.Component {
                     <Modal.Title>Inventory ({hero.name})</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h4>Weapons</h4>
-                    {weaponList}
-
-                    <hr />
-
-                    <h4>Armors</h4>
-                    {armorList}
+                    <h4>Weapons</h4>{weaponList}<hr />
+                    <h4>Armors</h4>{armorList}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this.close}>Close</Button>
@@ -63,4 +71,4 @@ class Hero extends React.Component {
     }
 }
 
-export default Hero
+export default Inventory

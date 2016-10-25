@@ -66,7 +66,7 @@ class App extends React.Component {
 		const mainPanel = (hero) => (
 			<div>
 				<Col md={3}>
-					<Hero params={hero} changeHero={this.changeHero} />
+					<Hero params={hero} changeHero={this.changeHero} updateHero={this.updateHero} />
 				</Col>
 				<Col md={6}>
 					<Arena hero={hero} updateHero={this.updateHero} />

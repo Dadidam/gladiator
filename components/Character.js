@@ -14,6 +14,10 @@ class Character extends React.Component {
         this.minDamage = 1;
         this.maxDamage = 1;
         this.inventory = [];
+        this.equipment = { // items used by character (doll)
+            weapon: null,
+            armor: null
+        };
     }
 }
 

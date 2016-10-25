@@ -18,7 +18,7 @@ class Hero extends Character {
     }
     render() {
         const hero = this.props.params;
-        const barStyle = {width:150};
+        const barStyle = { width:150 };
         const hp = (hero.health / hero.maxHealth) * 100;
 
         const hpTooltip = (
@@ -33,10 +33,11 @@ class Hero extends Character {
                         <ProgressBar bsStyle="danger" now={hp} label={`${hp}%`} />
                     </OverlayTrigger>
                 </div>
+                <div>Damage <Badge>{hero.minDamage}-{hero.maxDamage}</Badge></div>
                 <div>Coins <Badge>{hero.coins}</Badge></div>
                 <div><a href="#" onClick={this.toggleInventory}>Inventory</a> <Badge>{hero.inventory.length}</Badge></div>
                 <div><a href="#" onClick={this.props.changeHero}>Exit</a></div>
-                <Inventory show={this.state.show} toggle={this.toggleInventory} hero={hero}/>
+                <Inventory show={this.state.show} toggle={this.toggleInventory} hero={hero} updateHero={this.props.updateHero}/>
             </div>
         );
     }
