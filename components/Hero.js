@@ -14,7 +14,6 @@ class Hero extends Character {
     componentDidMount() {
         this.restoreHealth(this.props.params, this.props.updateHero);
     }
-    //componentWillReceiveProps(nextProps) {
     componentWillUpdate(nextProps) {
         this.restoreHealth(nextProps.params, nextProps.updateHero);
     }
@@ -55,7 +54,7 @@ class Hero extends Character {
         return (
             <div>
                 <h3>{hero.name} ({hero.level} level)</h3>
-                <div style={barStyle}>HP (+1/min):</div>
+                <div style={barStyle}>HP (+1/sec):</div>
                 <div style={barStyle}>
                     <div>
                         <OverlayTrigger placement="right" overlay={hpTooltip}>
