@@ -31,11 +31,28 @@ class Arena extends React.Component {
             }
         };
 
+        const sharpSword = {
+            name: 'Sharp sword',
+            type: 'weapon',
+            params: {
+                minDamage: 3,
+                maxDamage: 5
+            }
+        };
+
         const rustyArmor = {
             name: 'Rusty armor',
             type: 'armor',
             params: {
                 maxHealth: 10
+            }
+        };
+
+        const shinyArmor = {
+            name: 'Shiny armor',
+            type: 'armor',
+            params: {
+                maxHealth: 15
             }
         };
 
@@ -48,7 +65,9 @@ class Arena extends React.Component {
                     <Button bsStyle="warning" block onClick={this.collectCoins.bind(this, hero, 3, updateHero)}>Punish the thief (+3 coins)</Button>
                     <Button bsStyle="danger" block onClick={this.collectCoins.bind(this, hero, 5, updateHero)}>Find treasure (+5 coins)</Button>
                     <Button block onClick={this.getItem.bind(this, hero, rustySword, updateHero)}>Get the Rusty Sword (2-3 attack)</Button>
+                    <Button block onClick={this.getItem.bind(this, hero, sharpSword, updateHero)}>Get the Sharp Sword (3-5 attack)</Button>
                     <Button bsStyle="success" block onClick={this.getItem.bind(this, hero, rustyArmor, updateHero)}>Get the Rusty Armor (+10 maxHealth)</Button>
+                    <Button bsStyle="success" block onClick={this.getItem.bind(this, hero, shinyArmor, updateHero)}>Get the Shiny Armor (+15 maxHealth)</Button>
                 </div>
             </div>
         )

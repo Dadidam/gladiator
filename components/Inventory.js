@@ -38,7 +38,10 @@ class Inventory extends React.Component {
         const weaponList = weapons.map((item, i) => {
             return (
                 <div key={i}>
-                    {item.name} (<a href="#" onClick={this.useItem.bind(this, item, hero, updateHero)}>Use It!</a>)
+                    {item.name} ({hero.equipment.weapon !== item.id ?
+                    <a href="#" onClick={this.useItem.bind(this, item, hero, updateHero)}>Use It!</a>
+                    : <b>In use</b>
+                })
                 </div>
             )
         });
@@ -49,7 +52,10 @@ class Inventory extends React.Component {
         const armorList = armors.map((item, i) => {
             return (
                 <div key={i}>
-                    {item.name} (<a href="#" onClick={this.useItem.bind(this, item, hero, updateHero)}>Use It!</a>)
+                    {item.name} ({hero.equipment.armor !== item.id ?
+                    <a href="#" onClick={this.useItem.bind(this, item, hero, updateHero)}>Use It!</a>
+                    : <b>In use</b>
+                })
                 </div>
             )
         });
