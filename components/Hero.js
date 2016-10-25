@@ -29,7 +29,7 @@ class Hero extends Character {
         const hero = this.props.params;
         const barStyle = { width: 150 };
         const hbStyle = { backgroundColor: '#eee'};
-        const hp = (hero.health / hero.maxHealth) * 100;
+        const hp = Math.round((hero.health / hero.maxHealth) * 100);
 
         const hpTooltip = (
             <Tooltip id="tooltip">{`${hero.health}/${hero.maxHealth} (${hp}%)`}</Tooltip>
