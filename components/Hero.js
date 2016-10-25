@@ -11,6 +11,21 @@ class Hero extends Character {
         };
         this.toggleInventory = this.toggleInventory.bind(this);
     }
+    componentDidMount() {
+        this.restoreHealth(this.props.params, this.props.updateHero);
+    }
+    //componentWillReceiveProps(nextProps) {
+    componentWillUpdate(nextProps) {
+        this.restoreHealth(nextProps.params, nextProps.updateHero);
+    }
+    restoreHealth(hero, heroUpdate) {
+        if (hero.health < hero.maxHealth) {
+            setTimeout(() => {
+                hero.health++;
+                heroUpdate(hero);
+            }, 1000);
+        }
+    }
     toggleInventory() {
         this.setState({
             show: !this.state.show
@@ -40,7 +55,7 @@ class Hero extends Character {
         return (
             <div>
                 <h3>{hero.name} ({hero.level} level)</h3>
-                <div style={barStyle}>HP:</div>
+                <div style={barStyle}>HP (+1/min):</div>
                 <div style={barStyle}>
                     <div>
                         <OverlayTrigger placement="right" overlay={hpTooltip}>

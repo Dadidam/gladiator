@@ -19,6 +19,10 @@ class Inventory extends React.Component {
                 hero.equipment.armor = item.id;
                 hero.maxHealth = item.params.maxHealth;
 
+                if (hero.health > item.params.maxHealth) {
+                    hero.health = item.params.maxHealth;
+                }
+
                 updateHero(hero);
                 break;
             default:
