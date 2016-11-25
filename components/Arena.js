@@ -30,7 +30,6 @@ class Arena extends React.Component {
     }
 
     render() {
-        const wellStyles = {maxWidth: 500, margin: '0 auto 10px'};
         const hero = this.props.hero;
         const updateHero = this.props.updateHero;
 
@@ -71,7 +70,7 @@ class Arena extends React.Component {
         return (
             <div>
                 <h3>Quests</h3>
-                <div className="well" style={wellStyles}>
+                <div className="well" style={{ maxWidth: 500, margin: '0 auto 10px' }}>
                     <Button block onClick={this.collectCoins.bind(this, hero, 1, updateHero)}>Kill the rat (+1 coin)</Button>
                     <Button bsStyle="success" block onClick={this.collectCoins.bind(this, hero, 2, updateHero)}>Beat wolf (+2 coins)</Button>
                     <Button bsStyle="warning" block onClick={this.collectCoins.bind(this, hero, 3, updateHero)}>Punish the thief (+3 coins)</Button>

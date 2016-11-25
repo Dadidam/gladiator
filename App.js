@@ -8,7 +8,8 @@ import * as storage from './services/localStorage';
 import * as playerService from './services/player';
 
 class App extends React.Component {
-	constructor() {
+
+    constructor() {
 		super();
 		this.state = {
 			player: storage.get('player')
@@ -17,17 +18,20 @@ class App extends React.Component {
 		this.changeHero = this.changeHero.bind(this);
 		this.updateHero = this.updateHero.bind(this);
 	}
-	updatePlayer(player) {
+
+    updatePlayer(player) {
 		this.setState({player: player});
 	}
-	updateHero(hero) {
+
+    updateHero(hero) {
 		const updatedPlayer = playerService.updatePlayerModelByHero(this.state.player, hero);
 
 		storage.set('player', updatedPlayer);
 
 		this.setState({player: updatedPlayer});
 	}
-	changeHero() {
+
+    changeHero() {
 		const player = this.state.player;
 		player.activeHeroId = null;
 
@@ -35,13 +39,11 @@ class App extends React.Component {
 
 		this.setState({player: player});
 	}
-	render() {
-        const appStyle = {
-            marginTop: 30
-        };
+
+    render() {
 
 		const renderApp = (app) => (
-			<div style={appStyle}>
+			<div style={{ marginTop: '30px' }}>
 			<Grid>
 				<Row className="show-grid">
 					{app}

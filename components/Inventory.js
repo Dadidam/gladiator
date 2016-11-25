@@ -1,11 +1,13 @@
 import React from 'react';
-import { Tooltip, Popover, Modal, Button } from 'react-bootstrap';
+import { Tooltip, Popover, Modal, Button, OverlayTrigger } from 'react-bootstrap';
 
 class Inventory extends React.Component {
+
     constructor() {
         super();
         this.close = this.close.bind(this);
     }
+
     useItem(item, hero, updateHero) {
         switch (item.type) {
             case 'weapon':
@@ -29,9 +31,11 @@ class Inventory extends React.Component {
                 throw new Error('Not supported type of item');
         }
     }
+
     close() {
         this.props.toggle();
     }
+
     render() {
         const hero = this.props.hero;
         const updateHero = this.props.updateHero;
@@ -40,9 +44,23 @@ class Inventory extends React.Component {
             return item.type === 'weapon';
         });
         const weaponList = weapons.map((item, i) => {
+            const params = Object.keys(item.params);
+            const tooltip = (
+                <Tooltip id="tooltip">
+                    {params.map((param, i) => {
+                            return <div key={i}>{param}: {item.params[param]}</div>
+                        }
+                    )}
+                </Tooltip>
+            );
+
             return (
                 <div key={i}>
-                    {item.name} ({hero.equipment.weapon !== item.id ?
+                    <OverlayTrigger placement="top" overlay={tooltip}>
+                        <span style={{ borderBottom: '1px dotted #333', cursor: 'pointer' }}>{item.name}</span>
+                    </OverlayTrigger>
+                    &nbsp;
+                    ({hero.equipment.weapon !== item.id ?
                     <a href="#" onClick={this.useItem.bind(this, item, hero, updateHero)}>Use It!</a>
                     : <b>In use</b>
                 })
@@ -54,12 +72,26 @@ class Inventory extends React.Component {
             return item.type === 'armor';
         });
         const armorList = armors.map((item, i) => {
+            const params = Object.keys(item.params);
+            const tooltip = (
+                <Tooltip id="tooltip">
+                    {params.map((param, i) => {
+                            return <div key={i}>{param}: {item.params[param]}</div>
+                        }
+                    )}
+                </Tooltip>
+            );
+
             return (
                 <div key={i}>
-                    {item.name} ({hero.equipment.armor !== item.id ?
-                    <a href="#" onClick={this.useItem.bind(this, item, hero, updateHero)}>Use It!</a>
-                    : <b>In use</b>
-                })
+                    <OverlayTrigger placement="top" overlay={tooltip}>
+                        <span style={{ borderBottom: '1px dotted #333', cursor: 'pointer' }}>{item.name}</span>
+                    </OverlayTrigger>
+                    &nbsp;
+                    ({hero.equipment.armor !== item.id ?
+                        <a href="#" onClick={this.useItem.bind(this, item, hero, updateHero)}>Use It11!</a>
+                    : <b>Equipped</b>
+                    })
                 </div>
             )
         });

@@ -41,8 +41,6 @@ class Hero extends Character {
     }
     render() {
         const hero = this.props.params;
-        const barStyle = { width: 150 };
-        const hbStyle = { backgroundColor: '#eee'};
         const hp = Math.round((hero.health / hero.maxHealth) * 100);
 
         const hpTooltip = (
@@ -55,11 +53,11 @@ class Hero extends Character {
             <div>
                 <h3>{hero.name}</h3>
                 <div>{hero.level} level, {hero.exp} exp</div>
-                <div style={barStyle}>HP (+1/sec):</div>
-                <div style={barStyle}>
+                <div style={{ width: 150 }}>HP (+1/sec):</div>
+                <div style={{ width: 150 }}>
                     <div>
                         <OverlayTrigger placement="right" overlay={hpTooltip}>
-                            <ProgressBar bsStyle={healthBar} now={hp} style={hbStyle} />
+                            <ProgressBar bsStyle={healthBar} now={hp} style={{ backgroundColor: '#eee'}} />
                         </OverlayTrigger>
                     </div>
                 </div>
