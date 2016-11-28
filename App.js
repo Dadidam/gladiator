@@ -1,5 +1,5 @@
 import React from 'react';
-import Hero from './components/Hero';
+import Hero from './components/Hero/Hero';
 import Arena from './components/Arena';
 import Player from './components/Player';
 import { Grid, Row, Col } from 'react-bootstrap';

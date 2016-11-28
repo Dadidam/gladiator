@@ -1,6 +1,6 @@
 import React from 'react';
 import Jumbo from './Jumbo';
-import HeroList from './HeroList';
+import HeroList from './Hero/HeroList';
 import Character from './Character';
 import { Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 

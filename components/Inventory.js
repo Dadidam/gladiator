@@ -1,8 +1,8 @@
 import React from 'react';
 import ItemsList from './Inventory/ItemsList';
-import { Tooltip, Popover, Modal, Button, OverlayTrigger } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 
-class Inventory extends React.Component {
+export default class Inventory extends React.Component {
 
     constructor() {
         super();
@@ -72,5 +72,3 @@ class Inventory extends React.Component {
         );
     }
 }
-
-export default Inventory

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Grid, Row, Col } from 'react-bootstrap';
 
-import * as storage from '../services/localStorage';
+import * as storage from '../../services/localStorage';
 
 class HeroList extends React.Component {
     constructor() {
