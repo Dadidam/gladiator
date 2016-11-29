@@ -1,3 +1,4 @@
+// TODO: check if heroId not need send as an attribute to this method
 export const getHeroById = (heroesList, heroId) => {
   const result = heroesList.filter( hero => {
     return hero.id === heroId;
