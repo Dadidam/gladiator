@@ -1,12 +1,11 @@
 import React from 'react';
-import Jumbo from './Jumbo';
-import HeroList from './Hero/HeroList';
 import Character from './Character';
-import { Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-
+import HeroSelector from './Player/HeroSelector';
+import CreateButton from './Player/CreateButton';
+import CreateHeroForm from './Player/CreateHeroForm';
 import * as storage from '../services/localStorage';
 
-class Player extends React.Component {
+export default class Player extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -59,60 +58,23 @@ class Player extends React.Component {
     }
 
     render() {
-
-        const createBtn = (
+        return (
             <div>
-                <Button bsSize="large" onClick={this.renderNewHeroForm}>Create new hero</Button>
+                <CreateHeroForm
+                    updatePlayerHandler={this.props.updatePlayer}
+                    updateHeroNameHandler={this.updateHeroName}
+                    createNewHeroHandler={this.createNewHero}
+                    formDisabled={this.state.formDisabled}
+                    editMode={this.state.editMode}
+                />
+                <HeroSelector
+                    show={!this.state.editMode}
+                    updatePlayerHandler={this.props.updatePlayer}
+                    createButton={
+                        <CreateButton renderFormHandler={this.renderNewHeroForm} />
+                    }
+                />
             </div>
-        );
-
-        const createHeroForm = (
-            <Form inline>
-                <FormGroup controlId="formInlineName">
-                    <ControlLabel>Hero Name:</ControlLabel>
-                    {' '}
-                    <FormControl type="text" placeholder="Russell Crowe" onChange={this.updateHeroName} />
-                </FormGroup>
-                {' '}
-                <Button type="submit" onClick={this.createNewHero} disabled={this.state.formDisabled}>
-                    Create
-                </Button>
-            </Form>
-        );
-
-        const renderHeroList = (heroes, updatePlayer) => (
-            <div>
-                <HeroList heroes={heroes} updatePlayer={updatePlayer} />
-                {createBtn}
-            </div>
-        );
-
-        const isNewPlayer = this.props.isNewPlayer;
-        const updatePlayer = this.props.updatePlayer;
-
-        const editMode = this.state.editMode;
-        const isEditMode = isNewPlayer && editMode || editMode;
-        const isListMode = !editMode && !isNewPlayer;
-
-        if (isEditMode) {
-            const title = 'Create new hero';
-            const text = 'What\'s the name of your hero?';
-
-            return <Jumbo title={title} description={text} controls={createHeroForm} />;
-        }
-
-        if (isListMode) {
-            const heroes = storage.get('player').heroes;
-            const heroList = renderHeroList(heroes, updatePlayer);
-
-            return <Jumbo title="Heroes list" controls={heroList} />;
-        }
-
-        const welcomeTitle = 'Welcome to the Gladiator game!';
-        const welcomeText = 'You don\'t have a heroes yet. Would you like to create one?';
-
-        return <Jumbo title={welcomeTitle} description={welcomeText} controls={createBtn} />;
+        )
     }
 }
-
-export default Player
