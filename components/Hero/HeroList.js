@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Grid, Row } from 'react-bootstrap';
 
 import * as storage from '../../services/localStorage';
+import { getHeroLevel } from '../../services/player';
 
 export default class HeroList extends React.Component {
 
@@ -21,13 +22,15 @@ export default class HeroList extends React.Component {
 
     _createHeroesList(heroes) {
         const result = heroes.map(hero => {
+            const heroLvl = getHeroLevel(hero);
+
             return (
                 <div
                     key={hero.id}
                     style={{ marginBottom: 10 }}
                 >
                     <b>{hero.name}</b>{' '}
-                    ({hero.exp} lvl)
+                    ({heroLvl} lvl)
                     <Button
                         bsSize="xsmall"
                         bsStyle="primary"

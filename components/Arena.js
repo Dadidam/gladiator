@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { getHeroLevelByExp } from '../services/player';
+import { getHeroLevel } from '../services/player';
 
 class Arena extends React.Component {
     collectCoins(hero, count, updateHero) {
@@ -20,7 +20,7 @@ class Arena extends React.Component {
     getExp(hero, value, updateHero) {
         hero.exp += value;
 
-        const heroLevel = getHeroLevelByExp(hero);
+        const heroLevel = getHeroLevel(hero);
 
         if (heroLevel > hero.level) {
             hero.level = heroLevel;
