@@ -1,9 +1,10 @@
 import React from 'react';
-import Character from './Character';
-import HeroSelector from './Player/HeroSelector';
-import CreateButton from './Player/CreateButton';
-import CreateHeroForm from './Player/CreateHeroForm';
-import * as storage from '../services/localStorage';
+import Character from 'Character';
+import HeroSelector from 'Player/HeroSelector';
+import CreateButton from 'Player/CreateButton';
+import CreateHeroForm from 'Player/CreateHeroForm';
+
+import * as storage from 'services/localStorage';
 
 export default class Player extends React.Component {
     constructor() {
@@ -58,6 +59,9 @@ export default class Player extends React.Component {
     }
 
     render() {
+        const player = storage.get('player');
+        const editMode = this.state.editMode;
+
         return (
             <div>
                 <CreateHeroForm
@@ -65,10 +69,12 @@ export default class Player extends React.Component {
                     updateHeroNameHandler={this.updateHeroName}
                     createNewHeroHandler={this.createNewHero}
                     formDisabled={this.state.formDisabled}
-                    editMode={this.state.editMode}
+                    editMode={editMode}
+                    player={player}
                 />
                 <HeroSelector
-                    show={!this.state.editMode}
+                    player={player}
+                    show={!editMode}
                     updatePlayerHandler={this.props.updatePlayer}
                     createButton={
                         <CreateButton renderFormHandler={this.renderNewHeroForm} />

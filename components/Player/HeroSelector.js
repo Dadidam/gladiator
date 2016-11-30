@@ -1,8 +1,8 @@
 import React from 'react';
-import Jumbo from '../Jumbo';
-import HeroList from '../Hero/HeroList';
-import dictionary from '../Player/Dictionary';
-import * as storage from '../../services/localStorage';
+import Jumbo from 'Jumbo';
+import HeroList from 'Hero/HeroList';
+import dictionary from 'Player/Dictionary';
+import * as storage from 'services/localStorage';
 
 export default class HeroSelector extends React.Component {
 
@@ -16,8 +16,7 @@ export default class HeroSelector extends React.Component {
     }
 
     render() {
-
-        if (!this.props.show) {
+        if (!this.props.show || !this.props.player) {
             return null;
         }
 

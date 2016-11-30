@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
-import Player from '../../components/Player';
+import Player from 'Player';
 
 export default (props) => {
 

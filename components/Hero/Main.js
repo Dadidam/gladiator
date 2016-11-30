@@ -1,7 +1,7 @@
 import React from 'react';
-import Character from './../Character';
-import Inventory from './../Inventory';
-import InfoPanel from './../Hero/InfoPanel';
+import Character from 'Character';
+import Inventory from 'Inventory';
+import InfoPanel from 'Hero/InfoPanel';
 
 export default class Hero extends Character {
 

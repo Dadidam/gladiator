@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { getHeroLevel } from '../services/player';
+import { getHeroLevel } from 'services/player';
 
 class Arena extends React.Component {
     collectCoins(hero, count, updateHero) {

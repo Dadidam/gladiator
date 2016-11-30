@@ -1,9 +1,9 @@
 import React from 'react';
 import Jumbo from '../Jumbo';
-import dictionary from '../Player/Dictionary';
+import dictionary from 'Player/Dictionary';
 import { Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
-import * as storage from '../../services/localStorage';
+import * as storage from 'services/localStorage';
 
 export default class CreateHeroForm extends React.Component {
 
@@ -32,8 +32,7 @@ export default class CreateHeroForm extends React.Component {
     }
 
     render() {
-
-        return this.props.editMode ? (
+        return !this.props.player || this.props.editMode  ? (
             <Jumbo
                 title={dictionary.createNewHero}
                 description={dictionary.newHeroNameTitle}

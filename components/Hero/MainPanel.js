@@ -1,13 +1,13 @@
 import React from 'react';
-import Arena from '../../components/Arena';
-import Hero from '../../components/Hero/Hero';
+import Arena from 'Arena';
+import Hero from 'Hero/Main';
 import { Col } from 'react-bootstrap';
 
-import * as playerService from '../../services/player';
+import { getHeroById } from 'services/player';
 
 export default (props) => {
     const _renderMainPanel = () => {
-        const hero = playerService.getHeroById(props.player.heroes, props.player.activeHeroId);
+        const hero = getHeroById(props.player.heroes, props.player.activeHeroId);
 
         return (
             <div>

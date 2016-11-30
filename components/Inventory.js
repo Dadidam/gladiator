@@ -1,5 +1,5 @@
 import React from 'react';
-import ItemsList from './Inventory/ItemsList';
+import ItemsList from 'Inventory/ItemsList';
 import { Modal, Button } from 'react-bootstrap';
 
 export default class Inventory extends React.Component {

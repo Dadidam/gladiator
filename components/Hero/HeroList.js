@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Grid, Row } from 'react-bootstrap';
 
-import * as storage from '../../services/localStorage';
-import { getHeroLevel } from '../../services/player';
+import * as storage from 'services/localStorage';
+import { getHeroLevel } from 'services/player';
 
 export default class HeroList extends React.Component {
 
