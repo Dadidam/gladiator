@@ -36,6 +36,34 @@ export default class Inventory extends React.Component {
         }
     }
 
+    deleteItem(item) {
+        const hero = this.props.hero;
+
+        // check and remove from equipped items
+        if (item.id == hero.equipment.weapon) {
+            hero.equipment.weapon = null;
+        }
+
+        if (item.id == hero.equipment.armor) {
+            hero.equipment.armor = null;
+        }
+
+        let index;
+
+        // find current index (itemId) in hero inventory
+        hero.inventory.forEach(function(invItem, i) {
+            if (invItem.id == item.id) {
+                index = i;
+            }
+        });
+
+        // delete current item from hero inventory
+        hero.inventory.splice(index, 1);
+
+        // update hero data
+        this.props.updateHero(hero);
+    }
+
     close() {
         this.props.toggle();
     }
@@ -54,6 +82,7 @@ export default class Inventory extends React.Component {
                         type="weapon"
                         hero={hero}
                         useItem={this.useItem}
+                        deleteItem={this.deleteItem}
                         updateHero={this.props.updateHero}
                     />
                     <hr />
@@ -62,6 +91,7 @@ export default class Inventory extends React.Component {
                         type="armor"
                         hero={hero}
                         useItem={this.useItem}
+                        deleteItem={this.deleteItem}
                         updateHero={this.props.updateHero}
                     />
                 </Modal.Body>

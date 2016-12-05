@@ -30,10 +30,14 @@ export default class ItemsList extends React.Component {
                         <span style={{ borderBottom: '1px dotted #333', cursor: 'pointer' }}>{item.name}</span>
                     </OverlayTrigger>
                     &nbsp;
-                    ({hero.equipment[this.props.type] !== item.id ?
-                    <a href="#" onClick={this.props.useItem.bind(this, item)}>Use It!</a>
-                    : <b>Equipped</b>
-                })
+                    {hero.equipment[this.props.type] !== item.id ?
+                        <span>
+                            <a href="#" onClick={this.props.useItem.bind(this, item)}>Use It!</a>
+                            {' '}
+                            <a href="#" style={{ color: 'red'}} onClick={this.props.deleteItem.bind(this, item)}>Delete</a>
+                        </span>
+                        : <b>Equipped</b>
+                    }
                 </div>
             )
         });
