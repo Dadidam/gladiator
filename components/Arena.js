@@ -1,8 +1,9 @@
 import React from 'react';
+import InventoryItems from 'Items';
 import { Button } from 'react-bootstrap';
 import { getHeroLevel } from 'services/player';
 
-class Arena extends React.Component {
+export default class Arena extends React.Component {
     collectCoins(hero, count, updateHero) {
         hero.coins += count;
 
@@ -10,9 +11,10 @@ class Arena extends React.Component {
     }
 
     getItem(hero, item, updateHero) {
-        item.id = hero.inventory.length + 1; // set unique item ID
+        let newItem = Object.assign({}, item); // clone item
+        newItem.id = hero.inventory.length + 1; // set unique item ID
 
-        hero.inventory.push(item); // add new item to inventory
+        hero.inventory.push(newItem); // add new item to inventory
 
         updateHero(hero); // update changes
     }
@@ -29,43 +31,13 @@ class Arena extends React.Component {
         updateHero(hero);
     }
 
+    createNewItem(item) {
+        return Object.assign({}, item);
+    }
+
     render() {
         const hero = this.props.hero;
         const updateHero = this.props.updateHero;
-
-        const rustySword = {
-            name: 'Rusty sword',
-            type: 'weapon',
-            params: {
-                minDamage: 2,
-                maxDamage: 3
-            }
-        };
-
-        const sharpSword = {
-            name: 'Sharp sword',
-            type: 'weapon',
-            params: {
-                minDamage: 3,
-                maxDamage: 5
-            }
-        };
-
-        const rustyArmor = {
-            name: 'Rusty armor',
-            type: 'armor',
-            params: {
-                maxHealth: 10
-            }
-        };
-
-        const shinyArmor = {
-            name: 'Shiny armor',
-            type: 'armor',
-            params: {
-                maxHealth: 15
-            }
-        };
 
         return (
             <div>
@@ -75,10 +47,10 @@ class Arena extends React.Component {
                     <Button bsStyle="success" block onClick={this.collectCoins.bind(this, hero, 2, updateHero)}>Beat wolf (+2 coins)</Button>
                     <Button bsStyle="warning" block onClick={this.collectCoins.bind(this, hero, 3, updateHero)}>Punish the thief (+3 coins)</Button>
                     <Button bsStyle="danger" block onClick={this.collectCoins.bind(this, hero, 5, updateHero)}>Find treasure (+5 coins)</Button>
-                    <Button block onClick={this.getItem.bind(this, hero, rustySword, updateHero)}>Get the Rusty Sword (2-3 attack)</Button>
-                    <Button block onClick={this.getItem.bind(this, hero, sharpSword, updateHero)}>Get the Sharp Sword (3-5 attack)</Button>
-                    <Button bsStyle="success" block onClick={this.getItem.bind(this, hero, rustyArmor, updateHero)}>Get the Rusty Armor (+10 maxHealth)</Button>
-                    <Button bsStyle="success" block onClick={this.getItem.bind(this, hero, shinyArmor, updateHero)}>Get the Shiny Armor (+15 maxHealth)</Button>
+                    <Button block onClick={this.getItem.bind(this, hero, InventoryItems.rustySword, updateHero)}>Get the Rusty Sword (2-3 attack)</Button>
+                    <Button block onClick={this.getItem.bind(this, hero, InventoryItems.sharpSword, updateHero)}>Get the Sharp Sword (3-5 attack)</Button>
+                    <Button bsStyle="success" block onClick={this.getItem.bind(this, hero, InventoryItems.rustyArmor, updateHero)}>Get the Rusty Armor (+10 maxHealth)</Button>
+                    <Button bsStyle="success" block onClick={this.getItem.bind(this, hero, InventoryItems.shinyArmor, updateHero)}>Get the Shiny Armor (+15 maxHealth)</Button>
                     <Button block onClick={this.getExp.bind(this, hero, 25, updateHero)}>Cut the grass (+25 exp)</Button>
                     <Button block onClick={this.getExp.bind(this, hero, 3, updateHero)}>Tell funny stories (+3 exp)</Button>
                 </div>
@@ -86,5 +58,3 @@ class Arena extends React.Component {
         )
     }
 }
-
-export default Arena
