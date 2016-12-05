@@ -28,6 +28,11 @@ export default class Hero extends Character {
                 heroUpdate(hero);
             }, 1000);
         }
+
+        if (hero.health > hero.maxHealth) {
+            hero.health = hero.maxHealth;
+            heroUpdate(hero);
+        }
     }
 
     toggleInventory() {

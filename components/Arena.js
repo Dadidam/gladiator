@@ -31,10 +31,6 @@ export default class Arena extends React.Component {
         updateHero(hero);
     }
 
-    createNewItem(item) {
-        return Object.assign({}, item);
-    }
-
     render() {
         const hero = this.props.hero;
         const updateHero = this.props.updateHero;
