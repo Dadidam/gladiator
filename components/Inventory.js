@@ -10,29 +10,29 @@ export default class Inventory extends React.Component {
 
     render() {
         return (
-            <Modal show={props.show} onHide={this.close}>
+            <Modal show={this.props.show} onHide={this.close}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Inventory ({props.hero.name})</Modal.Title>
+                    <Modal.Title>Inventory ({this.props.hero.name})</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <h4>Weapons</h4>
                     <ItemsList
                         type="weapon"
-                        hero={props.hero}
+                        hero={this.props.hero}
                         useItem={this.useItem}
                         sellItem={this.sellItem}
                         deleteItem={this.deleteItem}
-                        updateHero={props.updateHero}
+                        updateHero={this.props.updateHero}
                     />
                     <hr />
                     <h4>Armors</h4>
                     <ItemsList
                         type="armor"
-                        hero={props.hero}
+                        hero={this.props.hero}
                         useItem={this.useItem}
                         sellItem={this.sellItem}
                         deleteItem={this.deleteItem}
-                        updateHero={props.updateHero}
+                        updateHero={this.props.updateHero}
                     />
                 </Modal.Body>
                 <Modal.Footer>
@@ -43,8 +43,8 @@ export default class Inventory extends React.Component {
     }
 
     useItem = (item) => {
-        const hero = props.hero;
-        const updateHero = props.updateHero;
+        const hero = this.props.hero;
+        const updateHero = this.props.updateHero;
 
         switch (item.type) {
             case 'weapon':
@@ -70,7 +70,7 @@ export default class Inventory extends React.Component {
     };
 
     deleteItem = (item) => {
-        const hero = props.hero;
+        const hero = this.props.hero;
 
         // check and remove from equipped items
         if (item.id == hero.equipment.weapon) {
@@ -94,22 +94,22 @@ export default class Inventory extends React.Component {
         hero.inventory.splice(index, 1);
 
         // update hero data
-        props.updateHero(hero);
+        this.props.updateHero(hero);
     };
 
     sellItem = (item) => {
         // first, delete item from inventory
-        deleteItem(item);
+        this.deleteItem(item);
 
         // second, add coins to hero
-        const hero = props.hero;
+        const hero = this.props.hero;
         hero.coins += item.price.sell;
 
         // and now, update hero once again
-        props.updateHero(hero);
+        this.props.updateHero(hero);
     };
 
     close = () => {
-        props.toggle();
+        this.props.toggle();
     };
 }
