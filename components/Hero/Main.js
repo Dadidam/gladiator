@@ -3,61 +3,62 @@ import Character from 'Character';
 import Inventory from 'Inventory';
 import InfoPanel from 'Hero/InfoPanel';
 
-export default class Hero extends Character {
+export default class Hero extends React.Component {
+    constructor(props) {
+        super(props);
 
-    constructor() {
-        super();
         this.state = {
             showInventory: false
         };
-        this.toggleInventory = this.toggleInventory.bind(this);
+
+        this.hero = props.params;
+        this.updateHero = props.updateHero;
+        this.changeHero = props.changeHero;
     }
 
     componentDidMount() {
-        this.restoreHealth(this.props.params, this.props.updateHero);
+        this.restoreHealth();
     }
 
-    componentWillUpdate(nextProps) {
-        this.restoreHealth(nextProps.params, nextProps.updateHero);
-    }
-
-    restoreHealth(hero, heroUpdate) {
-        if (hero.health < hero.maxHealth) {
-            setTimeout(() => {
-                hero.health++;
-                heroUpdate(hero);
-            }, 1000);
-        }
-
-        if (hero.health > hero.maxHealth) {
-            hero.health = hero.maxHealth;
-            heroUpdate(hero);
-        }
-    }
-
-    toggleInventory() {
-        this.setState({
-            showInventory: !this.state.showInventory
-        });
+    componentWillUpdate() {
+        this.restoreHealth();
     }
 
     render() {
-        const hero = this.props.params;
-
         return (
             <div>
                 <InfoPanel
-                    hero={hero}
+                    hero={this.hero}
                     handleInventory={this.toggleInventory}
-                    handleChangeHero={this.props.changeHero}
+                    handleChangeHero={this.changeHero}
                 />
                 <Inventory
-                    hero={hero}
+                    hero={this.hero}
                     show={this.state.showInventory}
                     toggle={this.toggleInventory}
-                    updateHero={this.props.updateHero}
+                    updateHero={this.updateHero}
                 />
             </div>
         );
     }
+
+    restoreHealth = () => {
+        if (this.hero.health < this.hero.maxHealth) {
+            setTimeout(() => {
+                this.hero.health++;
+                this.updateHero(this.hero);
+            }, 5000);
+        }
+
+        if (this.hero.health > this.hero.maxHealth) {
+            this.hero.health = this.hero.maxHealth;
+            this.updateHero(this.hero);
+        }
+    };
+
+    toggleInventory = () => {
+        this.setState({
+            showInventory: !this.state.showInventory
+        });
+    };
 }

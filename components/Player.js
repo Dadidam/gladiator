@@ -7,36 +7,59 @@ import CreateHeroForm from 'Player/CreateHeroForm';
 import * as storage from 'services/localStorage';
 
 export default class Player extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
         this.state = {
             heroName: '',
             editMode: false,
             formDisabled: true
         };
 
-        this.renderNewHeroForm = this.renderNewHeroForm.bind(this);
-        this.updateHeroName = this.updateHeroName.bind(this);
-        this.createNewHero = this.createNewHero.bind(this);
+        this.updatePlayer = this.props.updatePlayer;
     }
 
-    renderNewHeroForm() {
+    render() {
+        const player = storage.get('player');
+        const editMode = this.state.editMode;
+
+        return (
+            <div>
+                <CreateHeroForm
+                    updatePlayerHandler={this.updatePlayer}
+                    updateHeroNameHandler={this.updateHeroName}
+                    createNewHeroHandler={this.createNewHero}
+                    formDisabled={this.state.formDisabled}
+                    editMode={editMode}
+                    player={player}
+                />
+                <HeroSelector
+                    player={player}
+                    show={!editMode}
+                    updatePlayerHandler={this.updatePlayer}
+                    createButton={
+                        <CreateButton renderFormHandler={this.renderNewHeroForm} />
+                    }
+                />
+            </div>
+        )
+    }
+
+    renderNewHeroForm = () => {
         this.setState({editMode: true});
-    }
+    };
 
-    updateHeroName(e) {
+    updateHeroName = (e) => {
         this.setState({
             heroName: e.target.value,
             formDisabled: e.target.value.length < 3
         });
-    }
+    };
 
-    createNewHero() {
+    createNewHero = () => {
         if (this.state.heroName !== '') {
             let player = storage.get('player');
-            let newHero = new Character;
-
-            newHero.name = this.state.heroName;
+            let newHero = new Character(this.state.heroName);
 
             if (player) {
                 newHero.id = player.heroes.length + 1;
@@ -52,35 +75,9 @@ export default class Player extends React.Component {
 
             storage.set('player', player);
 
-            this.props.updatePlayer(player);
+            this.updatePlayer(player);
 
             this.setState({editMode: false});
         }
-    }
-
-    render() {
-        const player = storage.get('player');
-        const editMode = this.state.editMode;
-
-        return (
-            <div>
-                <CreateHeroForm
-                    updatePlayerHandler={this.props.updatePlayer}
-                    updateHeroNameHandler={this.updateHeroName}
-                    createNewHeroHandler={this.createNewHero}
-                    formDisabled={this.state.formDisabled}
-                    editMode={editMode}
-                    player={player}
-                />
-                <HeroSelector
-                    player={player}
-                    show={!editMode}
-                    updatePlayerHandler={this.props.updatePlayer}
-                    createButton={
-                        <CreateButton renderFormHandler={this.renderNewHeroForm} />
-                    }
-                />
-            </div>
-        )
-    }
+    };
 }

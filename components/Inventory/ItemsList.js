@@ -2,12 +2,9 @@ import React from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 export default class ItemsList extends React.Component {
-
-    filterHeroInventory(hero, type) {
-        return hero.inventory.filter((item) => {
-            return item.type === type;
-        });
-    };
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         const hero = this.props.hero;
@@ -46,4 +43,10 @@ export default class ItemsList extends React.Component {
 
         return <div>{result}</div>;
     }
+
+    filterHeroInventory = (hero, type) => {
+        return hero.inventory.filter((item) => {
+            return item.type === type;
+        });
+    };
 }

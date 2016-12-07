@@ -7,7 +7,6 @@ import * as storage from './services/localStorage';
 import * as playerService from './services/player';
 
 export default class App extends React.Component {
-
     constructor() {
 		super();
 
@@ -20,30 +19,8 @@ export default class App extends React.Component {
 		this.updateHero = this.updateHero.bind(this);
 	}
 
-    updatePlayer(player) {
-		this.setState({player: player});
-	}
-
-    updateHero(hero) {
-		const updatedPlayer = playerService.updatePlayerModelByHero(this.state.player, hero);
-
-		storage.set('player', updatedPlayer);
-
-		this.setState({player: updatedPlayer});
-	}
-
-    changeHero() {
-		const player = this.state.player;
-		player.activeHeroId = null;
-
-		storage.set('player', player);
-
-		this.setState({player: player});
-	}
-
-
     render() {
-		const player = this.state.player;
+        const player = this.state.player;
 
         return (
             <div>
@@ -60,5 +37,26 @@ export default class App extends React.Component {
                 </UiMain>
             </div>
         );
-	}
+    }
+
+    updatePlayer = (player) => {
+		this.setState({player: player});
+	};
+
+    updateHero = (hero) => {
+		const updatedPlayer = playerService.updatePlayerModelByHero(this.state.player, hero);
+
+		storage.set('player', updatedPlayer);
+
+		this.setState({player: updatedPlayer});
+	};
+
+    changeHero = () => {
+		const player = this.state.player;
+		player.activeHeroId = null;
+
+		storage.set('player', player);
+
+		this.setState({player: player});
+	};
 }

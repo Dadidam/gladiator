@@ -6,8 +6,23 @@ import { Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootst
 import * as storage from 'services/localStorage';
 
 export default class CreateHeroForm extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-    _renderCreateForm() {
+    render() {
+        const form = this.renderForm();
+
+        return !this.props.player || this.props.editMode  ? (
+            <Jumbo
+                title={dictionary.createNewHero}
+                description={dictionary.newHeroNameTitle}
+                controls={form}
+            />
+        ) : null
+    }
+
+    renderForm = () => {
         return (
             <Form inline>
                 <FormGroup controlId="formInlineName">
@@ -22,22 +37,12 @@ export default class CreateHeroForm extends React.Component {
                 {' '}
                 <Button
                     type="submit"
-                    onClick={this.props.createNewHeroHandler}
                     disabled={this.props.formDisabled}
+                    onClick={this.props.createNewHeroHandler}
                 >
                     {dictionary.create}
                 </Button>
             </Form>
         )
-    }
-
-    render() {
-        return !this.props.player || this.props.editMode  ? (
-            <Jumbo
-                title={dictionary.createNewHero}
-                description={dictionary.newHeroNameTitle}
-                controls={this._renderCreateForm()}
-            />
-        ) : null
-    }
+    };
 }
