@@ -34,7 +34,9 @@ export default class ItemsList extends React.Component {
                         <span>
                             <a href="#" onClick={this.props.useItem.bind(this, item)}>Use It!</a>
                             {' '}
-                            <a href="#" style={{ color: 'red'}} onClick={this.props.deleteItem.bind(this, item)}>Delete</a>
+                            <a href="#" style={{ color: 'red' }} onClick={this.props.deleteItem.bind(this, item)}>Delete</a>
+                            {' '}
+                            <a href="#" style={{ color: 'green' }} onClick={this.props.sellItem.bind(this, item)}>Sell (+{item.price.sell} coins)</a>
                         </span>
                         : <b>Equipped</b>
                     }

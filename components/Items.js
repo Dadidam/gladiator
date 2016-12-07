@@ -8,6 +8,10 @@ export default {
         params: {
             minDamage: 2,
             maxDamage: 3
+        },
+        price: {
+            buy: 10,
+            sell: 1
         }
     },
     sharpSword: {
@@ -16,6 +20,10 @@ export default {
         params: {
             minDamage: 3,
             maxDamage: 5
+        },
+        price: {
+            buy: 25,
+            sell: 3
         }
     },
 
@@ -26,6 +34,10 @@ export default {
         type: 'armor',
         params: {
             maxHealth: 10
+        },
+        price: {
+            buy: 15,
+            sell: 2
         }
     },
     shinyArmor: {
@@ -33,6 +45,10 @@ export default {
         type: 'armor',
         params: {
             maxHealth: 15
+        },
+        price: {
+            buy: 30,
+            sell: 3
         }
     }
 };
