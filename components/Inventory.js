@@ -2,8 +2,47 @@ import React from 'react';
 import ItemsList from 'Inventory/ItemsList';
 import { Modal, Button } from 'react-bootstrap';
 
-export default (props) => {
-    const useItem = (item) => {
+export default class Inventory extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <Modal show={props.show} onHide={this.close}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Inventory ({props.hero.name})</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h4>Weapons</h4>
+                    <ItemsList
+                        type="weapon"
+                        hero={props.hero}
+                        useItem={this.useItem}
+                        sellItem={this.sellItem}
+                        deleteItem={this.deleteItem}
+                        updateHero={props.updateHero}
+                    />
+                    <hr />
+                    <h4>Armors</h4>
+                    <ItemsList
+                        type="armor"
+                        hero={props.hero}
+                        useItem={this.useItem}
+                        sellItem={this.sellItem}
+                        deleteItem={this.deleteItem}
+                        updateHero={props.updateHero}
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={this.close}>Close</Button>
+                </Modal.Footer>
+            </Modal>
+        );
+    }
+
+    useItem = (item) => {
         const hero = props.hero;
         const updateHero = props.updateHero;
 
@@ -30,7 +69,7 @@ export default (props) => {
         }
     };
 
-    const deleteItem = (item) => {
+    deleteItem = (item) => {
         const hero = props.hero;
 
         // check and remove from equipped items
@@ -58,48 +97,19 @@ export default (props) => {
         props.updateHero(hero);
     };
 
-    const sellItem = (item) => {
+    sellItem = (item) => {
+        // first, delete item from inventory
         deleteItem(item);
 
+        // second, add coins to hero
         const hero = props.hero;
         hero.coins += item.price.sell;
 
+        // and now, update hero once again
         props.updateHero(hero);
     };
 
-    const close = () => {
+    close = () => {
         props.toggle();
     };
-
-    return (
-        <Modal show={props.show} onHide={close}>
-            <Modal.Header closeButton>
-                <Modal.Title>Inventory ({props.hero.name})</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <h4>Weapons</h4>
-                <ItemsList
-                    type="weapon"
-                    hero={props.hero}
-                    useItem={useItem}
-                    sellItem={sellItem}
-                    deleteItem={deleteItem}
-                    updateHero={props.updateHero}
-                />
-                <hr />
-                <h4>Armors</h4>
-                <ItemsList
-                    type="armor"
-                    hero={props.hero}
-                    useItem={useItem}
-                    sellItem={sellItem}
-                    deleteItem={deleteItem}
-                    updateHero={props.updateHero}
-                />
-            </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={close}>Close</Button>
-            </Modal.Footer>
-        </Modal>
-    );
 }
