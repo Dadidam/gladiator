@@ -1,4 +1,4 @@
-var path = require("path");
+const path = require("path");
 
 module.exports = {
     entry: './main.js',
@@ -36,5 +36,5 @@ module.exports = {
             path.resolve('./'),
             path.resolve('./components')
         ]
-    }
+    },
 };
