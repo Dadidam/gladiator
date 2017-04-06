@@ -1,4 +1,4 @@
 # gladiator
-Just a game. Based on React.
+Experimental game project based on *React* and *antd*.
 
 Setup all `npm` dependencies, then run: `npm start`

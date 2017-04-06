@@ -3,8 +3,6 @@ import UiMain from './components/UI/Main';
 import MainPanel from './components/Hero/MainPanel';
 import CharacterSelectPanel from './components/Hero/CharacterSelectPanel';
 
-import { Button } from 'antd';
-
 import * as storage from './services/localStorage';
 import * as playerService from './services/player';
 
@@ -37,7 +35,6 @@ export default class App extends React.Component {
                         updateHero={this.updateHero}
                     />
                 </UiMain>
-                <Button type="danger">Danger</Button>
             </div>
         );
     }

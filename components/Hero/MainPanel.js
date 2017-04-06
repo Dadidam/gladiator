@@ -1,7 +1,6 @@
 import React from 'react';
 import Arena from 'Arena';
 import Hero from 'Hero/Main';
-import { Col } from 'react-bootstrap';
 
 import { getHeroById } from 'services/player';
 
@@ -20,15 +19,16 @@ export default class MainPanel extends React.Component {
     _renderMainPanel = () => {
         const hero = getHeroById(this.props.player.heroes, this.props.player.activeHeroId);
 
-        return (
-            <div>
-                <Col md={3}>
-                    <Hero params={hero} changeHero={this.changeHeroHandler} updateHero={this.updateHeroHandler} />
-                </Col>
-                <Col md={6}>
-                    <Arena hero={hero} updateHero={this.updateHeroHandler} />
-                </Col>
-            </div>
-        )
+        return <Hero params={hero} changeHero={this.changeHeroHandler} updateHero={this.updateHeroHandler} />;
+        // return (
+        //     <div>
+        //         <Col md={3}>
+        //             <Hero params={hero} changeHero={this.changeHeroHandler} updateHero={this.updateHeroHandler} />
+        //         </Col>
+        //         <Col md={6}>
+        //             <Arena hero={hero} updateHero={this.updateHeroHandler} />
+        //         </Col>
+        //     </div>
+        // )
     };
 }

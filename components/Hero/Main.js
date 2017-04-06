@@ -1,5 +1,4 @@
 import React from 'react';
-import Character from 'Character';
 import Inventory from 'Inventory';
 import InfoPanel from 'Hero/InfoPanel';
 
@@ -26,7 +25,7 @@ export default class Hero extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{ paddingLeft: '24px' }}>
                 <InfoPanel
                     hero={this.hero}
                     handleInventory={this.toggleInventory}
