@@ -1,5 +1,5 @@
 import React from 'react';
-import Jumbo from 'Jumbo';
+import {Card} from 'antd';
 import HeroList from 'Hero/HeroList';
 import dictionary from 'Player/Dictionary';
 import * as storage from 'services/localStorage';
@@ -9,7 +9,7 @@ export default class HeroSelector extends React.Component {
     _renderHeroList(heroes, updatePlayer, button) {
         return (
             <div>
-                <HeroList heroes={heroes} updatePlayer={updatePlayer} />
+                <HeroList heroes={heroes} updatePlayer={updatePlayer}/>
                 {button}
             </div>
         )
@@ -21,13 +21,12 @@ export default class HeroSelector extends React.Component {
         }
 
         const heroes = storage.get('player').heroes;
-        const heroesList = this._renderHeroList(heroes, this.props.updatePlayerHandler, this.props.createButton);
+        const HeroesList = this._renderHeroList(heroes, this.props.updatePlayerHandler, this.props.createButton);
 
         return (
-            <Jumbo
-                title={dictionary.heroesListTitle}
-                controls={heroesList}
-            />
+            <Card title={dictionary.heroesListTitle} style={{ width: 500 }}>
+                <HeroList heroes={heroes} updatePlayer={this.props.updatePlayerHandler}/>
+            </Card>
         );
     }
 }

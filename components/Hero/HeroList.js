@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Grid, Row } from 'react-bootstrap';
+import { Button, Table } from 'antd';
 
 import * as storage from 'services/localStorage';
 import { getHeroLevel } from 'services/player';
@@ -10,6 +10,16 @@ export default class HeroList extends React.Component {
         super();
 
         this.player = storage.get('player');
+        this.columns = [{
+            title: 'Name',
+            dataIndex: 'name',
+        }, {
+            title: 'Level',
+            dataIndex: 'level',
+        }, {
+            title: 'Actions',
+            dataIndex: 'actions',
+        }];
     }
 
     selectHero(id, updatePlayer) {
@@ -23,25 +33,12 @@ export default class HeroList extends React.Component {
     _createHeroesList(heroes) {
         const result = heroes.map(hero => {
             const heroLvl = getHeroLevel(hero);
-
-            return (
-                <div
-                    key={hero.id}
-                    style={{ marginBottom: 10 }}
-                >
-                    <b>{hero.name}</b>{' '}
-                    ({heroLvl} lvl)
-                    <Button
-                        bsSize="xsmall"
-                        bsStyle="primary"
-                        style={{ marginLeft: 5 }}
-                        value={hero}
-                        onClick={this.selectHero.bind(this, hero.id, this.props.updatePlayer)}
-                    >
-                        select
-                    </Button>
-                </div>
-            )
+            return {
+                key: hero.id,
+                name: hero.name,
+                level: heroLvl,
+                actions: <Button type="primary" size="small" onClick={this.selectHero.bind(this, hero.id, this.props.updatePlayer)}>select</Button>
+            };
         });
 
         return result;
@@ -50,14 +47,6 @@ export default class HeroList extends React.Component {
     render() {
         const heroes = this._createHeroesList(this.props.heroes);
 
-        return (
-            <div>
-                <Grid>
-                    <Row className="show-grid">
-                        <div>{heroes}</div>
-                    </Row>
-                </Grid>
-            </div>
-        );
+        return <Table columns={this.columns} dataSource={heroes} size="middle" pagination={false} />
     }
 }
