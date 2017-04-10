@@ -1,27 +1,14 @@
 import React from 'react';
-import { ProgressBar, Badge, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import {Badge, Progress, Tooltip} from 'antd';
 
 export default class InfoPanel extends React.Component {
-
-    _setHealthBarType(healthValue) {
-        if (healthValue > 69) {
-            return 'success';
-        } else if (healthValue > 29) {
-            return 'warning';
-        }
-
-        return 'danger';
-    }
-
     _createHpTooltip(hero, hp) {
-        return <Tooltip id="tooltip">{`${hero.health}/${hero.maxHealth} (${hp}%)`}</Tooltip>
+        return `${hero.health}/${hero.maxHealth} (${hp}%)`;
     }
 
     render() {
         const hero = this.props.hero;
         const hp = Math.round((hero.health / hero.maxHealth) * 100);
-
-        const healthBar = this._setHealthBarType(hp);
         const healthTooltip = this._createHpTooltip(hero, hp);
 
         return (
@@ -30,40 +17,38 @@ export default class InfoPanel extends React.Component {
                 <div>
                     {hero.level} level, {hero.exp} exp
                 </div>
-                <div style={{ width: 150 }}>HP (+1/sec):</div>
-                <div style={{ width: 150 }}>
+                <div style={{width: 150}}>HP (+1/sec):</div>
+                <div style={{width: 150}}>
                     <div>
-                        <OverlayTrigger
-                            placement="right"
-                            overlay={healthTooltip}
-                        >
-                            <ProgressBar
-                                bsStyle={healthBar}
-                                now={hp}
-                                style={{ backgroundColor: '#eee'}}
+                        <Tooltip placement="right" title={healthTooltip}>
+
+                            <Progress
+                                percent={hp}
+                                strokeWidth={5}
+                                showInfo={false}
+                                status="exception"
                             />
-                        </OverlayTrigger>
+                        </Tooltip>
                     </div>
                 </div>
                 <div>Damage{' '}
-                    <Badge>
-                        {hero.minDamage}-{hero.maxDamage}
-                    </Badge>
+                    <Badge count={`${hero.minDamage}-${hero.maxDamage}`}/>
                 </div>
                 <div>Coins{' '}
-                    <Badge>
-                        {hero.coins}
-                    </Badge>
+                    <Badge
+                        showZero={true}
+                        count={hero.coins}
+                        style={{backgroundColor: '#ffbf00'}}
+                    />
                 </div>
                 <div>
                     <a href="#" onClick={this.props.handleInventory}>Inventory</a>
                     {' '}
-                    <Badge>
-                        {hero.inventory.length}
-                    </Badge>
-                </div>
-                <div>
-                    <a href="#" onClick={this.props.handleChangeHero}>Exit</a>
+                    <Badge
+                        showZero={true}
+                        count={hero.inventory.length}
+                        style={{backgroundColor: '#d9d9d9'}}
+                    />
                 </div>
             </div>
         );
