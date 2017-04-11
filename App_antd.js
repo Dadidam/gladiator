@@ -1,22 +1,26 @@
 import React from 'react';
+import {Layout} from 'antd';
 import Hero from 'Hero/Main';
-import { getHeroById } from 'services/player';
-import { Layout, Menu, Icon, Badge } from 'antd';
-import CharacterSelectPanel from './components/Hero/CharacterSelectPanel';
+import AppBody from './components/UI/Body';
+import {getHeroById} from 'services/player';
+import AppHeader from './components/UI/Header';
+import AppFooter from './components/UI/Footer';
+import tabs from './components/mainMenuTabs';
 
 import * as storage from './services/localStorage';
 import * as playerService from './services/player';
 
 import './index.less';
 
-const { Header, Content, Footer, Sider } = Layout;
+const {Content, Header, Sider} = Layout;
 
 export default class App extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            player: storage.get('player')
+            player: storage.get('player'),
+            currentTab: 1
         };
 
         this.updatePlayer = this.updatePlayer.bind(this);
@@ -29,61 +33,37 @@ export default class App extends React.Component {
         const hasActiveHero = player && player.activeHeroId;
         const hero = player ? getHeroById(player.heroes, player.activeHeroId) : undefined;
 
-        return(
+        return (
             <Layout>
                 <Header className="header">
-                    <div className="logo">
-                        <h5>Gladiator Game</h5>
-                    </div>
-                    {hasActiveHero ?
-                        <Menu
-                            theme="dark"
-                            mode="horizontal"
-                            defaultSelectedKeys={['1']}
-                            className="appMenu"
-                            onClick={this.mainMenuClickHandler}
-                        >
-                            <Menu.Item key="1">
-                                <Icon type="flag" />Arena
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon type="key" />Quests
-                            </Menu.Item>
-                            <Menu.Item key="3">
-                                <Icon type="shop" />Shop
-                            </Menu.Item>
-                            <Menu.Item key="4">
-                                <Icon type="logout" />Change hero
-                            </Menu.Item>
-                        </Menu>
-                        : null
-                    }
+                    <AppHeader
+                        showMainMenu={hasActiveHero}
+                        mainMenuHandler={this.mainMenuClickHandler}
+                    />
                 </Header>
                 <Content className="appContent">
                     <Layout className="appLayout whiteBg">
-                        {hasActiveHero ?
-                            <Sider width={200} className="whiteBg">
-                                <Hero params={hero} changeHero={this.changeHero} updateHero={this.updateHero} />
-                            </Sider>
-                            : null
-                        }
-                        <Content className="contentSelectPanel">
-                            <CharacterSelectPanel
-                                player={player}
-                                updateHandler={this.updatePlayer}
-                            />
-                        </Content>
+                        <Sider width={200} className="whiteBg">
+                            <Hero params={hero} changeHero={this.changeHero} updateHero={this.updateHero}/>
+                        </Sider>
+                        <AppBody
+                            player={player}
+                            currentTab={this.state.currentTab}
+                            playerUpdateHandler={this.updatePlayer}
+                        />
                     </Layout>
                 </Content>
-                <Footer className="center">
-                    Gladiator Game ©2016-2017 Created by <a href="https://github.com/Dadidam/gladiator" target="_blank">Ilya Vorontsov</a>
-                </Footer>
+                <AppFooter />
             </Layout>
         )
     }
 
     updatePlayer = (player) => {
         this.setState({player: player});
+    };
+
+    updateCurrentTab = (tab) => {
+        this.setState({currentTab: tab});
     };
 
     updateHero = (hero) => {
@@ -106,13 +86,18 @@ export default class App extends React.Component {
     mainMenuClickHandler = (item) => {
         switch (item.key) {
             case '1':
+                this.updateCurrentTab(tabs.arena);
                 break;
             case '2':
+                this.updateCurrentTab(tabs.quests);
                 break;
             case '3':
+                this.updateCurrentTab(tabs.shop);
                 break;
             case '4':
                 this.changeHero();
+                this.updateCurrentTab(tabs.changeHero);
+                break;
         }
     };
 }
