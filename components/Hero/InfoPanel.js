@@ -1,5 +1,5 @@
 import React from 'react';
-import {Badge, Progress, Tooltip} from 'antd';
+import {Badge, Progress, Tooltip, Icon} from 'antd';
 
 export default class InfoPanel extends React.Component {
     _createHpTooltip(hero, hp) {
@@ -12,29 +12,28 @@ export default class InfoPanel extends React.Component {
         const healthTooltip = this._createHpTooltip(hero, hp);
 
         return (
-            <div>
-                <h3>{hero.name}</h3>
-                <div>
+            <div className="infoPanel">
+                <h3><Icon type="user" className="heroIcon" />{hero.name}</h3>
+                <div className="heroLevel">
                     {hero.level} level, {hero.exp} exp
                 </div>
-                <div style={{width: 150}}>HP (+1/sec):</div>
-                <div style={{width: 150}}>
-                    <div>
-                        <Tooltip placement="right" title={healthTooltip}>
-
-                            <Progress
-                                percent={hp}
-                                strokeWidth={5}
-                                showInfo={false}
-                                status="exception"
-                            />
-                        </Tooltip>
-                    </div>
+                <div>
+                    <Icon type="heart" className="heroIcon" />HP (+1/sec):
+                    <Tooltip placement="right" title={healthTooltip}>
+                        <Progress
+                            percent={hp}
+                            strokeWidth={5}
+                            showInfo={false}
+                            status="exception"
+                        />
+                    </Tooltip>
                 </div>
-                <div>Damage{' '}
+                <div>
+                    <Icon type="shrink" className="heroIcon" />Damage{' '}
                     <Badge count={`${hero.minDamage}-${hero.maxDamage}`}/>
                 </div>
-                <div>Coins{' '}
+                <div>
+                    <Icon type="copyright" className="heroIcon" />Coins{' '}
                     <Badge
                         showZero={true}
                         count={hero.coins}
@@ -42,6 +41,7 @@ export default class InfoPanel extends React.Component {
                     />
                 </div>
                 <div>
+                    <Icon type="skin" className="heroIcon" />
                     <a href="#" onClick={this.props.handleInventory}>Inventory</a>
                     {' '}
                     <Badge

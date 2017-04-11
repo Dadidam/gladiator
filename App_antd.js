@@ -9,7 +9,6 @@ import * as playerService from './services/player';
 
 import './index.less';
 
-const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
 export default class App extends React.Component {
@@ -41,7 +40,7 @@ export default class App extends React.Component {
                             theme="dark"
                             mode="horizontal"
                             defaultSelectedKeys={['1']}
-                            style={{ lineHeight: '64px' }}
+                            className="appMenu"
                             onClick={this.mainMenuClickHandler}
                         >
                             <Menu.Item key="1">
@@ -60,42 +59,15 @@ export default class App extends React.Component {
                         : null
                     }
                 </Header>
-                <Content style={{ padding: '20px 50px 0 50px' }}>
-                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                <Content className="appContent">
+                    <Layout className="appLayout whiteBg">
                         {hasActiveHero ?
-                            <Sider width={200} style={{ background: '#fff' }}>
+                            <Sider width={200} className="whiteBg">
                                 <Hero params={hero} changeHero={this.changeHero} updateHero={this.updateHero} />
-                                <Menu
-                                    mode="inline"
-                                    defaultSelectedKeys={['1']}
-                                    defaultOpenKeys={['sub1']}
-                                    style={{ height: '100%' }}
-                                >
-                                    <SubMenu key="sub1" title={<span><Icon type="user" />Hero</span>}>
-                                        <Menu.Item key="1">
-                                            <Icon type="skin" />inventory
-                                        </Menu.Item>
-                                        <Menu.Item key="2">option2</Menu.Item>
-                                        <Menu.Item key="3">option3</Menu.Item>
-                                        <Menu.Item key="4">option4</Menu.Item>
-                                    </SubMenu>
-                                    <SubMenu key="sub2" title={<span><Icon type="laptop" />subnav 2</span>}>
-                                        <Menu.Item key="5">option5</Menu.Item>
-                                        <Menu.Item key="6">option6</Menu.Item>
-                                        <Menu.Item key="7">option7</Menu.Item>
-                                        <Menu.Item key="8">option8</Menu.Item>
-                                    </SubMenu>
-                                    <SubMenu key="sub3" title={<span><Icon type="notification" />subnav 3</span>}>
-                                        <Menu.Item key="9">option9</Menu.Item>
-                                        <Menu.Item key="10">option10</Menu.Item>
-                                        <Menu.Item key="11">option11</Menu.Item>
-                                        <Menu.Item key="12">option12</Menu.Item>
-                                    </SubMenu>
-                                </Menu>
                             </Sider>
                             : null
                         }
-                        <Content style={{ padding: '0 24px', minHeight: 280 }}>
+                        <Content className="contentSelectPanel">
                             <CharacterSelectPanel
                                 player={player}
                                 updateHandler={this.updatePlayer}
@@ -103,7 +75,7 @@ export default class App extends React.Component {
                         </Content>
                     </Layout>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>
+                <Footer className="center">
                     Gladiator Game ©2016-2017 Created by <a href="https://github.com/Dadidam/gladiator" target="_blank">Ilya Vorontsov</a>
                 </Footer>
             </Layout>
