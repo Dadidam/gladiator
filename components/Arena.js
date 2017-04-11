@@ -7,7 +7,7 @@ export default class Arena extends React.Component {
     constructor(props) {
         super(props);
         this.hero = this.props.hero;
-        this.updateHero = this.props.updateHero;
+        this.updateHero = this.props.heroUpdateHandler;
     }
 
     render() {

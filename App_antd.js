@@ -47,8 +47,10 @@ export default class App extends React.Component {
                             <Hero params={hero} changeHero={this.changeHero} updateHero={this.updateHero}/>
                         </Sider>
                         <AppBody
+                            hero={hero}
                             player={player}
                             currentTab={this.state.currentTab}
+                            heroUpdateHandler={this.updateHero}
                             playerUpdateHandler={this.updatePlayer}
                         />
                     </Layout>
