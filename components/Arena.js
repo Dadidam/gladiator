@@ -1,6 +1,6 @@
 import React from 'react';
 import InventoryItems from 'Items';
-import { Button } from 'react-bootstrap';
+import { Table, Button } from 'antd';
 import { getHeroLevel } from 'services/player';
 
 export default class Arena extends React.Component {
@@ -11,23 +11,10 @@ export default class Arena extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <h3>Quests</h3>
-                <div className="well" style={{ maxWidth: 500, margin: '0 auto 10px' }}>
-                    <Button block onClick={this.collectCoins.bind(this, 1)}>Kill the rat (+1 coin)</Button>
-                    <Button bsStyle="success" block onClick={this.collectCoins.bind(this, 2)}>Beat wolf (+2 coins)</Button>
-                    <Button bsStyle="warning" block onClick={this.collectCoins.bind(this, 3)}>Punish the thief (+3 coins)</Button>
-                    <Button bsStyle="danger" block onClick={this.collectCoins.bind(this, 5)}>Find treasure (+5 coins)</Button>
-                    <Button block onClick={this.getItem.bind(this, InventoryItems.rustySword)}>Get the Rusty Sword (2-3 attack)</Button>
-                    <Button block onClick={this.getItem.bind(this, InventoryItems.sharpSword)}>Get the Sharp Sword (3-5 attack)</Button>
-                    <Button bsStyle="success" block onClick={this.getItem.bind(this, InventoryItems.rustyArmor)}>Get the Rusty Armor (+10 maxHealth)</Button>
-                    <Button bsStyle="success" block onClick={this.getItem.bind(this, InventoryItems.shinyArmor)}>Get the Shiny Armor (+15 maxHealth)</Button>
-                    <Button block onClick={this.getExp.bind(this, 25)}>Cut the grass (+25 exp)</Button>
-                    <Button block onClick={this.getExp.bind(this, 3)}>Tell funny stories (+3 exp)</Button>
-                </div>
-            </div>
-        )
+        const data = this.getTableData();
+        const cols = this.getTableColumns();
+
+        return <Table columns={cols} dataSource={data} />
     }
 
     collectCoins = (count) => {
@@ -56,4 +43,40 @@ export default class Arena extends React.Component {
 
         this.updateHero(this.hero);
     };
+
+    getTableColumns = () => {
+        return [{
+            title: 'Quest title',
+            dataIndex: 'title',
+            key: 'title',
+            render: text => <Button type="primary" onClick={this.collectCoins.bind(this, 1)}>{text}</Button>,
+        }, {
+            title: 'Reward',
+            dataIndex: 'reward',
+            key: 'reward',
+        }, {
+            title: 'Cost',
+            dataIndex: 'cost',
+            key: 'cost',
+        }];
+    };
+
+    getTableData = () => {
+        return [{
+            key: '1',
+            title: 'Kill a rat',
+            reward: '+1 coin',
+            cost: '-2 HP'
+        }, {
+            key: '2',
+            title: 'Tell funny stories',
+            reward: '+3 exp',
+            cost: '-1 coin'
+        }, {
+            key: '3',
+            title: 'Punish a thief',
+            reward: '+3 coins, +5 exp',
+            cost: '-5 HP'
+        }];
+    }
 }
