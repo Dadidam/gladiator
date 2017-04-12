@@ -1,6 +1,6 @@
 import React from 'react';
+import {Modal, Button} from 'antd';
 import ItemsList from 'Inventory/ItemsList';
-import { Modal, Button } from 'react-bootstrap';
 
 export default class Inventory extends React.Component {
     constructor(props) {
@@ -9,34 +9,35 @@ export default class Inventory extends React.Component {
 
     render() {
         return (
-            <Modal show={this.props.show} onHide={this.close}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Inventory ({this.props.hero.name})</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <h4>Weapons</h4>
-                    <ItemsList
-                        type="weapon"
-                        hero={this.props.hero}
-                        useItem={this.useItem}
-                        sellItem={this.sellItem}
-                        deleteItem={this.deleteItem}
-                        updateHero={this.props.updateHero}
-                    />
-                    <hr />
-                    <h4>Armors</h4>
-                    <ItemsList
-                        type="armor"
-                        hero={this.props.hero}
-                        useItem={this.useItem}
-                        sellItem={this.sellItem}
-                        deleteItem={this.deleteItem}
-                        updateHero={this.props.updateHero}
-                    />
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.close}>Close</Button>
-                </Modal.Footer>
+            <Modal
+                title={`Inventory Items (${this.props.hero.inventory.length} pcs.)`}
+                wrapClassName="vertical-center-modal"
+                visible={this.props.show}
+                footer={[
+                    <Button key="submit" type="primary" onClick={this.close}>
+                        Close
+                    </Button>,
+                ]}
+            >
+                <h4>Weapons</h4>
+                <ItemsList
+                    type="weapon"
+                    hero={this.props.hero}
+                    useItem={this.useItem}
+                    sellItem={this.sellItem}
+                    deleteItem={this.deleteItem}
+                    updateHero={this.props.updateHero}
+                />
+                <hr />
+                <h4>Armors</h4>
+                <ItemsList
+                    type="armor"
+                    hero={this.props.hero}
+                    useItem={this.useItem}
+                    sellItem={this.sellItem}
+                    deleteItem={this.deleteItem}
+                    updateHero={this.props.updateHero}
+                />
             </Modal>
         );
     }
