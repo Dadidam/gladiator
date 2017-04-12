@@ -46,7 +46,7 @@ export default class Hero extends React.Component {
             setTimeout(() => {
                 this.hero.health++;
                 this.updateHero(this.hero);
-            }, 5000);
+            }, 3000);
         }
 
         if (this.hero.health > this.hero.maxHealth) {
