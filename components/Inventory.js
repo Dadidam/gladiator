@@ -8,6 +8,10 @@ export default class Inventory extends React.Component {
     }
 
     render() {
+        if (!this.props.hero) {
+            return null;
+        }
+
         return (
             <Modal
                 title={`Inventory Items (${this.props.hero.inventory.length} pcs.)`}

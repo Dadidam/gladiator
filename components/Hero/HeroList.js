@@ -47,6 +47,6 @@ export default class HeroList extends React.Component {
     render() {
         const heroes = this._createHeroesList(this.props.heroes);
 
-        return <Table columns={this.columns} dataSource={heroes} size="middle" pagination={false} />
+        return <Table columns={this.columns} dataSource={heroes} size="middle" pagination={false} />;
     }
 }

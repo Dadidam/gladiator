@@ -43,9 +43,12 @@ export default class App extends React.Component {
                 </Header>
                 <Content className="appContent">
                     <Layout className="appLayout whiteBg">
-                        <Sider width={200} className="whiteBg leftPanel">
-                            <Hero params={hero} changeHero={this.changeHero} updateHero={this.updateHero}/>
-                        </Sider>
+                        {hasActiveHero ?
+                            <Sider width={200} className="whiteBg leftPanel">
+                                <Hero params={hero} changeHero={this.changeHero} updateHero={this.updateHero}/>
+                            </Sider>
+                            : null
+                        }
                         <AppBody
                             hero={hero}
                             player={player}

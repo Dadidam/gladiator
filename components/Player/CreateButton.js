@@ -1,13 +1,14 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import {Button} from 'antd';
 import dictionary from 'Player/Dictionary';
 
 export default class CreateButton extends React.Component {
     render() {
         return (
             <Button
-                bsSize="large"
+                type="primary"
                 onClick={this.props.renderFormHandler}
+                style={{marginTop: 15}}
             >
                 {dictionary.createNewHero}
             </Button>

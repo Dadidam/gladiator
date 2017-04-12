@@ -11,6 +11,10 @@ export default class Arena extends React.Component {
     }
 
     render() {
+        if (!this.hero) {
+            return null;
+        }
+
         const data = this.getTableData();
         const cols = this.getTableColumns();
 
@@ -60,6 +64,7 @@ export default class Arena extends React.Component {
         let canExecute = true;
 
         for (let i = 0; i < costs.length; i++) {
+            debugger;
             if (params.cost[costs[i]] > this.hero[costs[i]]) {
                 canExecute = false;
                 break;

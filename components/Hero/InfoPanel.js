@@ -8,6 +8,11 @@ export default class InfoPanel extends React.Component {
 
     render() {
         const hero = this.props.hero;
+
+        if (!hero) {
+            return null;
+        }
+
         const hp = Math.round((hero.health / hero.maxHealth) * 100);
         const healthTooltip = this._createHpTooltip(hero, hp);
 
