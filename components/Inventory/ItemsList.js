@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import {Tooltip, Button, Card, Row, Col, Icon} from 'antd';
 
 export default class ItemsList extends React.Component {
     constructor(props) {
@@ -12,36 +12,43 @@ export default class ItemsList extends React.Component {
 
         const result = filteredList.map((item, i) => {
             const params = Object.keys(item.params);
-            const tooltip = (
-                <Tooltip id="tooltip">
+            const tooltipContent = (
+                <div>
                     {params.map((param, i) => {
                             return <div key={i}>{param}: {item.params[param]}</div>
                         }
                     )}
-                </Tooltip>
+                </div>
             );
 
             return (
-                <div key={i}>
-                    <OverlayTrigger placement="top" overlay={tooltip}>
-                        <span style={{ borderBottom: '1px dotted #333', cursor: 'pointer' }}>{item.name}</span>
-                    </OverlayTrigger>
-                    &nbsp;
-                    {hero.equipment[this.props.type] !== item.id ?
-                        <span>
-                            <a href="#" onClick={this.props.useItem.bind(this, item)}>Use It!</a>
-                            {' '}
-                            <a href="#" style={{ color: 'red' }} onClick={this.props.deleteItem.bind(this, item)}>Delete</a>
-                            {' '}
-                            <a href="#" style={{ color: 'green' }} onClick={this.props.sellItem.bind(this, item)}>Sell (+{item.price.sell} coins)</a>
-                        </span>
-                        : <b>Equipped</b>
-                    }
-                </div>
+                <Row key={i}>
+                    <Col span={12}>
+                        <Tooltip placement="top" title={tooltipContent}>
+                            <span className="inventoryItem">{item.name}</span>
+                        </Tooltip>
+                    </Col>
+                    <Col span={12}>
+                        {hero.equipment[this.props.type] !== item.id ?
+                            <Button.Group>
+                                <Button type="dashed" onClick={this.props.useItem.bind(this, item)}>
+                                    <Icon type="skin" /> Use It!
+                                </Button>
+                                <Button type="dashed" onClick={this.props.sellItem.bind(this, item)}>
+                                    <Icon type="wallet" /> Sell: +{item.price.sell} coin(s)
+                                </Button>
+                                <Button type="dashed" onClick={this.props.deleteItem.bind(this, item)}>
+                                    <Icon type="delete" /> Remove
+                                </Button>
+                            </Button.Group>
+                            : <b>The item equipped by your hero!</b>
+                        }
+                    </Col>
+                </Row>
             )
         });
 
-        return <div>{result}</div>;
+        return <Card title={this.props.type}>{result}</Card>;
     }
 
     filterHeroInventory = (hero, type) => {

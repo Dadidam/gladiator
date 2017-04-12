@@ -13,13 +13,13 @@ export default class Inventory extends React.Component {
                 title={`Inventory Items (${this.props.hero.inventory.length} pcs.)`}
                 wrapClassName="vertical-center-modal"
                 visible={this.props.show}
+                width={800}
                 footer={[
                     <Button key="submit" type="primary" onClick={this.close}>
                         Close
                     </Button>,
                 ]}
             >
-                <h4>Weapons</h4>
                 <ItemsList
                     type="weapon"
                     hero={this.props.hero}
@@ -28,8 +28,7 @@ export default class Inventory extends React.Component {
                     deleteItem={this.deleteItem}
                     updateHero={this.props.updateHero}
                 />
-                <hr />
-                <h4>Armors</h4>
+                <div className="divider"></div>
                 <ItemsList
                     type="armor"
                     hero={this.props.hero}
