@@ -13,8 +13,15 @@ export default class HeroSelector extends React.Component {
         const heroes = storage.get('player').heroes;
 
         return (
-            <Card title={dictionary.heroesListTitle} style={{ width: 500 }}>
-                <HeroList heroes={heroes} updatePlayer={this.props.updatePlayerHandler}/>
+            <Card
+                title={dictionary.heroesListTitle}
+                style={{ width: 500 }}
+            >
+                <HeroList
+                    heroes={heroes}
+                    updatePlayer={this.props.updatePlayerHandler}
+                    tabUpdateHandler={this.props.tabUpdateHandler}
+                />
                 {this.props.createButton}
             </Card>
         );

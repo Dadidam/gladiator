@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Table } from 'antd';
+import tabs from 'components/mainMenuTabs';
 
 import * as storage from 'services/localStorage';
 import { getHeroLevel } from 'services/player';
@@ -22,10 +23,12 @@ export default class HeroList extends React.Component {
         }];
     }
 
-    selectHero(id, updatePlayer) {
+    selectHero(id, updatePlayer, updateMenuTab) {
         this.player.activeHeroId = id;
 
         storage.set('player', this.player);
+
+        updateMenuTab(tabs.arena);
 
         updatePlayer(this.player);
     }
@@ -37,7 +40,13 @@ export default class HeroList extends React.Component {
                 key: hero.id,
                 name: hero.name,
                 level: heroLvl,
-                actions: <Button type="primary" size="small" onClick={this.selectHero.bind(this, hero.id, this.props.updatePlayer)}>select</Button>
+                actions: <Button type="primary" size="small" onClick={this.selectHero.bind(
+                    this, hero.id,
+                    this.props.updatePlayer,
+                    this.props.tabUpdateHandler
+                )}>
+                    select
+                </Button>
             };
         });
 

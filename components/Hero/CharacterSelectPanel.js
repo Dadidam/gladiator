@@ -8,7 +8,8 @@ export default (props) => {
         return <Player
             isNewPlayer={isNew}
             heroes={isNew ? undefined : props.player.heroes}
-            updatePlayer={props.updateHandler}
+            updatePlayer={props.playerUpdateHandler}
+            tabUpdateHandler={props.tabUpdateHandler}
         />
     };
 

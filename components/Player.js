@@ -37,6 +37,7 @@ export default class Player extends React.Component {
                     player={player}
                     show={!editMode}
                     updatePlayerHandler={this.updatePlayer}
+                    tabUpdateHandler={this.props.tabUpdateHandler}
                     createButton={
                         <CreateButton renderFormHandler={this.renderNewHeroForm} />
                     }

@@ -20,12 +20,13 @@ export default class App extends React.Component {
 
         this.state = {
             player: storage.get('player'),
-            currentTab: 1
+            currentTab: 4
         };
 
         this.updatePlayer = this.updatePlayer.bind(this);
         this.changeHero = this.changeHero.bind(this);
         this.updateHero = this.updateHero.bind(this);
+        this.updateCurrentTab = this.updateCurrentTab.bind(this);
     }
 
     render() {
@@ -55,6 +56,7 @@ export default class App extends React.Component {
                             currentTab={this.state.currentTab}
                             heroUpdateHandler={this.updateHero}
                             playerUpdateHandler={this.updatePlayer}
+                            tabUpdateHandler={this.updateCurrentTab}
                         />
                     </Layout>
                 </Content>

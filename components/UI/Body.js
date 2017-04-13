@@ -6,7 +6,8 @@ import CharacterSelectPanel from 'components/Hero/CharacterSelectPanel';
 const {Content} = Layout;
 
 const tabs = {
-    1: Arena
+    1: Arena,
+    4: CharacterSelectPanel
 };
 
 const getTabContent = id => {
@@ -24,10 +25,6 @@ export default (props) => {
 
     return (
         <Content className="contentSelectPanel">
-            <CharacterSelectPanel
-                player={props.player}
-                updateHandler={props.playerUpdateHandler}
-            />
             <TabContent {...props} />
         </Content>
     )
