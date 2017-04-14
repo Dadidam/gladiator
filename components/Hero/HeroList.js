@@ -28,7 +28,7 @@ export default class HeroList extends React.Component {
 
         storage.set('player', this.player);
 
-        updateMenuTab(tabs.arena);
+        updateMenuTab(tabs.quests);
 
         updatePlayer(this.player);
     }

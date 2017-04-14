@@ -93,10 +93,10 @@ export default class App extends React.Component {
     mainMenuClickHandler = (item) => {
         switch (item.key) {
             case '1':
-                this.updateCurrentTab(tabs.arena);
+                this.updateCurrentTab(tabs.quests);
                 break;
             case '2':
-                this.updateCurrentTab(tabs.quests);
+                this.updateCurrentTab(tabs.arena);
                 break;
             case '3':
                 this.updateCurrentTab(tabs.shop);

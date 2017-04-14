@@ -1,6 +1,6 @@
 export default {
-    arena: 1,
-    quests: 2,
+    quests: 1,
+    arena: 2,
     shop: 3,
     changeHero: 4
 };
