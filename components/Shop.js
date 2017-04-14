@@ -43,14 +43,14 @@ export default class Shop extends React.Component {
             canPurchase = false;
         }
 
-        const itemTitle = `${item.params.name} (${item.params.level} level)`;
+        const buttonTitle = `Buy for ${item.params.price.buy} coins`;
 
         if (canPurchase) {
-            return <Button type="primary" onClick={this.makePurchase.bind(this, item)}>{itemTitle}</Button>;
+            return <Button type="primary" onClick={this.makePurchase.bind(this, item)}>{buttonTitle}</Button>;
         }
 
         return <Tooltip placement="top" title="You can't buy this item now (low level or not enough coins)">
-            <Button disabled>{itemTitle}</Button>
+            <Button disabled>{buttonTitle}</Button>
         </Tooltip>;
     };
 
@@ -65,17 +65,39 @@ export default class Shop extends React.Component {
         message.success(`You\'ve bought item: ${item.params.name} `, 3);
     };
 
+    getItemDescription = item => {
+        const params = [];
+
+        for (const key of Object.keys(item.params)) {
+            params.push({
+                key,
+                value: item.params[key]
+            })
+        }
+
+        const paramList = params.map(param => {
+            return <div key={param.key}>{param.key}: {param.value}</div>
+        });
+
+        return <div>
+            <div className="inventoryItem">
+                {item.name}
+            </div>
+            <div>{paramList}</div>
+        </div>
+    };
+
     getTableColumns = () => {
         return [{
             title: 'Item',
             dataIndex: 'item',
             key: 'item',
-            render: item => this.checkPurchase(item)
+            render: item => this.getItemDescription(item)
         }, {
-            title: 'Price',
-            dataIndex: 'price',
-            key: 'price',
-            render: val => `${val} coins`
+            title: 'Purchase',
+            dataIndex: 'purchase',
+            key: 'purchase',
+            render: item => this.checkPurchase(item)
         }];
     };
 
@@ -88,11 +110,11 @@ export default class Shop extends React.Component {
 
             data.push({
                 key: tableKey,
-                item: {
+                purchase: {
                     params: item,
                     key
                 },
-                price: item.price.buy
+                item
             });
 
             tableKey++;
