@@ -20,7 +20,7 @@ export default class App extends React.Component {
 
         this.state = {
             player: storage.get('player'),
-            currentTab: 4
+            currentTab: storage.get('player') ? 1 : 4
         };
 
         this.updatePlayer = this.updatePlayer.bind(this);
