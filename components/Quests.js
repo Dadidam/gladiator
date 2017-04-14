@@ -3,7 +3,7 @@ import InventoryItems from 'Items';
 import { Table, Button, Tooltip, message } from 'antd';
 import { getHeroLevel } from 'services/player';
 
-export default class Arena extends React.Component {
+export default class Quests extends React.Component {
     constructor(props) {
         super(props);
         this.hero = this.props.hero;

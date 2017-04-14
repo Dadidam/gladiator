@@ -12,7 +12,8 @@ export default {
         price: {
             buy: 10,
             sell: 1
-        }
+        },
+        level: 1
     },
     sharpSword: {
         name: 'Sharp sword',
@@ -24,7 +25,8 @@ export default {
         price: {
             buy: 25,
             sell: 3
-        }
+        },
+        level: 2
     },
 
     // ARMORS
@@ -38,7 +40,8 @@ export default {
         price: {
             buy: 15,
             sell: 2
-        }
+        },
+        level: 1
     },
     shinyArmor: {
         name: 'Shiny armor',
@@ -49,6 +52,7 @@ export default {
         price: {
             buy: 30,
             sell: 3
-        }
+        },
+        level: 3
     }
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Layout} from 'antd';
+import Shop from 'components/Shop';
 import Arena from 'components/Arena';
 import Quests from 'components/Quests';
 import CharacterSelectPanel from 'components/Hero/CharacterSelectPanel';
@@ -9,6 +10,7 @@ const {Content} = Layout;
 const tabs = {
     1: Quests,
     2: Arena,
+    3: Shop,
     4: CharacterSelectPanel
 };
 
