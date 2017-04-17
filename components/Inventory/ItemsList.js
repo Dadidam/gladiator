@@ -10,6 +10,10 @@ export default class ItemsList extends React.Component {
         const hero = this.props.hero;
         const filteredList = this.filterHeroInventory(hero, this.props.type);
 
+        if (!filteredList.length) {
+            return null;
+        }
+
         const result = filteredList.map((item, i) => {
             const params = Object.keys(item.params);
             const tooltipContent = (

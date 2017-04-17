@@ -47,7 +47,9 @@ export default class InfoPanel extends React.Component {
                 </div>
                 <div>
                     <Icon type="skin" className="heroIcon" />
-                    <a href="#" onClick={this.props.handleInventory}>Inventory</a>
+                    {hero.inventory.length ?
+                        <a href="#" onClick={this.props.handleInventory}>Inventory</a> : 'Inventory'
+                    }
                     {' '}
                     <Badge
                         showZero={true}
