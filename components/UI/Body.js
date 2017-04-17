@@ -25,7 +25,9 @@ const getTabContent = id => {
 };
 
 export default (props) => {
-    const TabContent = getTabContent(props.currentTab);
+    let currentTab = props.hero ? props.currentTab : 4;
+
+    const TabContent = getTabContent(currentTab);
 
     return (
         <Content className="contentSelectPanel">

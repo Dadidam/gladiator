@@ -21,7 +21,7 @@ export default class Player extends React.Component {
 
     render() {
         const player = storage.get('player');
-        const editMode = this.state.editMode;
+        const showSelector = player ? !this.state.editMode && !player.activeHeroId : !this.state.editMode;
 
         return (
             <div>
@@ -30,12 +30,12 @@ export default class Player extends React.Component {
                     updateHeroNameHandler={this.updateHeroName}
                     createNewHeroHandler={this.createNewHero}
                     formDisabled={this.state.formDisabled}
-                    editMode={editMode}
+                    editMode={this.state.editMode}
                     player={player}
                 />
                 <HeroSelector
                     player={player}
-                    show={!editMode}
+                    show={showSelector}
                     updatePlayerHandler={this.updatePlayer}
                     tabUpdateHandler={this.props.tabUpdateHandler}
                     createButton={
@@ -60,7 +60,10 @@ export default class Player extends React.Component {
     createNewHero = () => {
         if (this.state.heroName !== '') {
             let player = storage.get('player');
-            let newHero = new Character(this.state.heroName);
+
+            const startHealth = 5;
+
+            let newHero = new Character(this.state.heroName, startHealth, startHealth);
 
             if (player) {
                 newHero.id = player.heroes.length + 1;
