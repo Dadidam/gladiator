@@ -2,30 +2,33 @@ import React from 'react';
 import Inventory from 'Inventory';
 import InfoPanel from 'Hero/InfoPanel';
 
+const refillInterval = 3000;
+
 export default class Hero extends React.Component {
     constructor(props) {
         super(props);
 
+        this.hero = props.params;
+
         this.state = {
-            showInventory: false
+            showInventory: false,
+            refill: this.hero.health < this.hero.maxHealth
         };
 
-        this.hero = props.params;
         this.updateHero = props.updateHero;
         this.changeHero = props.changeHero;
     }
 
     componentDidMount() {
-        this.restoreHealth();
-    }
-
-    componentWillUpdate() {
-        this.restoreHealth();
+        setInterval(
+            () => this.restoreHealth(),
+            refillInterval
+        );
     }
 
     render() {
         return (
-            <div style={{ paddingLeft: '24px' }}>
+            <div className="heroMainPanel">
                 <InfoPanel
                     hero={this.hero}
                     handleInventory={this.toggleInventory}
@@ -43,10 +46,8 @@ export default class Hero extends React.Component {
 
     restoreHealth = () => {
         if (this.hero.health < this.hero.maxHealth) {
-            setTimeout(() => {
-                this.hero.health++;
-                this.updateHero(this.hero);
-            }, 3000);
+            this.hero.health++;
+            this.updateHero(this.hero);
         }
 
         if (this.hero.health > this.hero.maxHealth) {
