@@ -15,6 +15,7 @@ const itemTypes = [{
 export default class Shop extends React.Component {
     constructor(props) {
         super(props);
+
         this.hero = this.props.hero;
         this.updateHero = this.props.heroUpdateHandler;
     }
@@ -32,7 +33,7 @@ export default class Shop extends React.Component {
                     const data = this.getTableData(type.id);
 
                     return <TabPane tab={<span><Icon type={type.icon} />{type.id}</span>} key={type.id}>
-                        <Table columns={cols} dataSource={data} />
+                        <Table columns={cols} dataSource={data} locale={{emptyText: 'No items to purchase'}} />
                     </TabPane>
                 })}
             </Tabs>
