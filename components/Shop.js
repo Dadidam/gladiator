@@ -1,7 +1,16 @@
 import React from 'react';
 import ShopItems from 'Items';
-import { Table, Button, Tooltip, message } from 'antd';
+import { Table, Button, Tooltip, message, Tabs, Icon } from 'antd';
 import { getHeroLevel } from 'services/player';
+
+const TabPane = Tabs.TabPane;
+const itemTypes = [{
+    id: 'weapon',
+    icon: 'shrink'
+},{
+    id: 'armor',
+    icon: 'skin'
+}];
 
 export default class Shop extends React.Component {
     constructor(props) {
@@ -15,10 +24,19 @@ export default class Shop extends React.Component {
             return null;
         }
 
-        const data = this.getTableData();
         const cols = this.getTableColumns();
 
-        return <Table columns={cols} dataSource={data} />
+        return (
+            <Tabs>
+                {itemTypes.map(type => {
+                    const data = this.getTableData(type.id);
+
+                    return <TabPane tab={<span><Icon type={type.icon} />{type.id}</span>} key={type.id}>
+                        <Table columns={cols} dataSource={data} />
+                    </TabPane>
+                })}
+            </Tabs>
+        );
     }
 
     collectCoins = (count) => {
@@ -101,23 +119,25 @@ export default class Shop extends React.Component {
         }];
     };
 
-    getTableData = () => {
+    getTableData = (type) => {
         let data = [];
         let tableKey = 1;
 
         for (const key of Object.keys(ShopItems)) {
             const item = ShopItems[key];
 
-            data.push({
-                key: tableKey,
-                purchase: {
-                    params: item,
-                    key
-                },
-                item
-            });
+            if (item.type == type) {
+                data.push({
+                    key: tableKey,
+                    purchase: {
+                        params: item,
+                        key
+                    },
+                    item
+                });
 
-            tableKey++;
+                tableKey++;
+            }
         }
 
         return data;
