@@ -1,5 +1,7 @@
 import React from 'react';
-import {Layout} from 'antd';
+import { Layout } from 'antd';
+import { observer } from 'mobx-react';
+
 import Hero from 'Hero/Main';
 import AppBody from './components/UI/Body';
 import {getHeroById} from 'services/player';
@@ -14,6 +16,7 @@ import './index.less';
 
 const {Content, Header, Sider} = Layout;
 
+@observer
 export default class App extends React.Component {
     constructor() {
         super();
@@ -28,6 +31,10 @@ export default class App extends React.Component {
         this.updateHero = this.updateHero.bind(this);
         this.updateCurrentTab = this.updateCurrentTab.bind(this);
     }
+	
+	onReset = () => {
+		this.props.appState.resetTimer();
+	}
 
     render() {
         const player = this.state.player;
@@ -59,6 +66,9 @@ export default class App extends React.Component {
                             tabUpdateHandler={this.updateCurrentTab}
                         />
                     </Layout>
+					<button onClick={this.onReset}>
+						Seconds passed: {this.props.appState.timer}
+					</button>
                 </Content>
                 <AppFooter />
             </Layout>
