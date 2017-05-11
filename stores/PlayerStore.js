@@ -2,11 +2,18 @@ import {observable, computed, reaction} from 'mobx';
 
 
 export default class PlayerStore {
-	@observable player = {};
+	@observable player = {
+	    name: 'Willy'
+    };
+	@observable level = 1;
 
 	@computed get completedCount() {
 		return this.todos.length - this.activeTodoCount;
 	}
+
+	@computed get levelCount() {
+	    return this.level;
+    }
 
 	subscribeServerToStore() {
 		reaction(
@@ -29,4 +36,12 @@ export default class PlayerStore {
 	addTodo (title) {
 		this.todos.push(new TodoModel(this, Utils.uuid(), title, false));
 	}
+
+	changeName(name) {
+	    player.name = name;
+    }
+
+    changeLevel(level) {
+	    this.level = level;
+    }
 }

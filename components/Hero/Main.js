@@ -40,6 +40,9 @@ export default class Hero extends React.Component {
                     toggle={this.toggleInventory}
                     updateHero={this.updateHero}
                 />
+                <div>Hero name: {this.props.appState.player.name}</div>
+                <button onClick={() => this.props.appState.changeName('adasdasd')}>Change player name</button>
+                <div>Player Level: {this.props.playerStore.level}</div>
             </div>
         );
     }

@@ -34,7 +34,11 @@ export default class App extends React.Component {
 	
 	onReset = () => {
 		this.props.appState.resetTimer();
-	}
+	};
+
+    appTest = () => {
+        this.props.playerStore.changeLevel(999);
+    };
 
     render() {
         const player = this.state.player;
@@ -53,7 +57,13 @@ export default class App extends React.Component {
                     <Layout className="appLayout whiteBg">
                         {hasActiveHero ?
                             <Sider width={200} className="whiteBg leftPanel">
-                                <Hero params={hero} changeHero={this.changeHero} updateHero={this.updateHero}/>
+                                <Hero
+                                    params={hero}
+                                    changeHero={this.changeHero}
+                                    updateHero={this.updateHero}
+                                    appState={this.props.appState}
+                                    playerStore={this.props.playerStore}
+                                />
                             </Sider>
                             : null
                         }
@@ -69,6 +79,9 @@ export default class App extends React.Component {
 					<button onClick={this.onReset}>
 						Seconds passed: {this.props.appState.timer}
 					</button>
+                    <button onClick={this.appTest}>
+                        Change level {this.props.playerStore.level}
+                    </button>
                 </Content>
                 <AppFooter />
             </Layout>
