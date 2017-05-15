@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import App from './App';
+
 import App from './App_antd';
-import AppState from './AppState';
+import UiStore from './stores/UiStore';
 import PlayerStore from './stores/PlayerStore';
 
-const appState = new AppState();
+const uiStore = new UiStore();
 const playerStore = new PlayerStore();
 
 ReactDOM.render(
-	<App appState={appState} playerStore={playerStore} />
+	<App playerStore={playerStore} uiStore={uiStore} />
 	, document.getElementById('app')
 );

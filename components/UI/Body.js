@@ -27,14 +27,13 @@ const getTabContent = id => {
 };
 
 @observer
-//export default (props) => {
 export default class AppBody extends React.Component {
 	constructor(props) {
         super(props);
     }
 	
 	render() {
-		let currentTab = this.props.hero ? this.props.currentTab : 4;
+		let currentTab = this.props.hero ? this.props.uiStore.currentTab : 4;
 
 		const TabContent = getTabContent(currentTab);
 

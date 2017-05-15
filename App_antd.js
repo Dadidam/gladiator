@@ -7,7 +7,6 @@ import AppBody from './components/UI/Body';
 import {getHeroById} from 'services/player';
 import AppHeader from './components/UI/Header';
 import AppFooter from './components/UI/Footer';
-import tabs from './components/mainMenuTabs';
 
 import * as storage from './services/localStorage';
 import * as playerService from './services/player';
@@ -23,22 +22,12 @@ export default class App extends React.Component {
 
         this.state = {
             player: storage.get('player'),
-            currentTab: storage.get('player') ? 1 : 4
         };
 
         this.updatePlayer = this.updatePlayer.bind(this);
         this.changeHero = this.changeHero.bind(this);
         this.updateHero = this.updateHero.bind(this);
-        this.updateCurrentTab = this.updateCurrentTab.bind(this);
     }
-	
-	onReset = () => {
-		this.props.appState.resetTimer();
-	};
-
-    appTest = () => {
-        this.props.playerStore.changeLevel(999);
-    };
 
     render() {
         const player = this.state.player;
@@ -49,8 +38,8 @@ export default class App extends React.Component {
             <Layout>
                 <Header className="header">
                     <AppHeader
+                        uiStore={this.props.uiStore}
                         showMainMenu={hasActiveHero}
-                        mainMenuHandler={this.mainMenuClickHandler}
                     />
                 </Header>
                 <Content className="appContent">
@@ -70,18 +59,11 @@ export default class App extends React.Component {
                         <AppBody
                             hero={hero}
                             player={player}
-                            currentTab={this.state.currentTab}
+                            uiStore={this.props.uiStore}
                             heroUpdateHandler={this.updateHero}
                             playerUpdateHandler={this.updatePlayer}
-                            tabUpdateHandler={this.updateCurrentTab}
                         />
                     </Layout>
-					<button onClick={this.onReset}>
-						Seconds passed: {this.props.appState.timer}
-					</button>
-                    <button onClick={this.appTest}>
-                        Change level {this.props.playerStore.level}
-                    </button>
                 </Content>
                 <AppFooter />
             </Layout>
@@ -90,10 +72,6 @@ export default class App extends React.Component {
 
     updatePlayer = (player) => {
         this.setState({player: player});
-    };
-
-    updateCurrentTab = (tab) => {
-        this.setState({currentTab: tab});
     };
 
     updateHero = (hero) => {
@@ -111,23 +89,5 @@ export default class App extends React.Component {
         storage.set('player', player);
 
         this.setState({player: player});
-    };
-
-    mainMenuClickHandler = (item) => {
-        switch (item.key) {
-            case '1':
-                this.updateCurrentTab(tabs.quests);
-                break;
-            case '2':
-                this.updateCurrentTab(tabs.arena);
-                break;
-            case '3':
-                this.updateCurrentTab(tabs.shop);
-                break;
-            case '4':
-                this.changeHero();
-                this.updateCurrentTab(tabs.changeHero);
-                break;
-        }
     };
 }

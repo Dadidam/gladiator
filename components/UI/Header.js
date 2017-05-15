@@ -7,8 +7,8 @@ export default (props) => {
         <div>
             <Logo />
             <MainMenu
+                uiStore={props.uiStore}
                 show={props.showMainMenu}
-                mainMenuHandler={props.mainMenuHandler}
             />
         </div>
     )

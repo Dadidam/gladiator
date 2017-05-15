@@ -34,7 +34,7 @@ export default (props) => {
                 mode="horizontal"
                 defaultSelectedKeys={['1']}
                 className="appMenu"
-                onClick={props.mainMenuHandler}
+                onClick={props.uiStore.changeTab}
             >
                 {menuItems}
             </Menu>
