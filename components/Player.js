@@ -4,7 +4,6 @@ import HeroSelector from 'Player/HeroSelector';
 import CreateButton from 'Player/CreateButton';
 import CreateHeroForm from 'Player/CreateHeroForm';
 
-import * as storage from 'services/localStorage';
 
 class Player extends React.Component {
     constructor(props) {

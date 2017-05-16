@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App_antd';
+import App from './App';
 import UiStore from './stores/UiStore';
 import PlayerStore from './stores/PlayerStore';
 
