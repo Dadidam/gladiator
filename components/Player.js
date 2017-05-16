@@ -6,7 +6,7 @@ import CreateHeroForm from 'Player/CreateHeroForm';
 
 import * as storage from 'services/localStorage';
 
-export default class Player extends React.Component {
+class Player extends React.Component {
     constructor(props) {
         super(props);
 
@@ -16,11 +16,11 @@ export default class Player extends React.Component {
             formDisabled: true
         };
 
-        this.updatePlayer = this.props.updatePlayer;
+        this.updatePlayer = props.playerStore.updatePlayer;
     }
 
     render() {
-        const player = storage.get('player');
+        const player = this.props.playerStore.player;
         const showSelector = player ? !this.state.editMode && !player.activeHeroId : !this.state.editMode;
 
         return (
@@ -36,8 +36,8 @@ export default class Player extends React.Component {
                 <HeroSelector
                     player={player}
                     show={showSelector}
-                    updatePlayerHandler={this.updatePlayer}
-                    tabUpdateHandler={this.props.tabUpdateHandler}
+                    uiStore={this.props.uiStore}
+                    playerStore={this.props.playerStore}
                     createButton={
                         <CreateButton renderFormHandler={this.renderNewHeroForm} />
                     }
@@ -59,7 +59,7 @@ export default class Player extends React.Component {
 
     createNewHero = () => {
         if (this.state.heroName !== '') {
-            let player = storage.get('player');
+            let player = this.props.playerStore.player;
 
             const startHealth = 5;
 
@@ -77,11 +77,11 @@ export default class Player extends React.Component {
                 };
             }
 
-            storage.set('player', player);
-
             this.updatePlayer(player);
 
             this.setState({editMode: false});
         }
     };
 }
+
+export default Player;

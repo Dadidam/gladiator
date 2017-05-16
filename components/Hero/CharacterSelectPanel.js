@@ -10,6 +10,8 @@ export default (props) => {
             heroes={isNew ? undefined : props.player.heroes}
             updatePlayer={props.playerUpdateHandler}
             tabUpdateHandler={props.tabUpdateHandler}
+            uiStore={props.uiStore}
+            playerStore={props.playerStore}
         />
     };
 

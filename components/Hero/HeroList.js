@@ -2,12 +2,10 @@ import React from 'react';
 import { Button, Table } from 'antd';
 import tabs from 'components/mainMenuTabs';
 
-import UiStore from 'stores/UiStore';
-
 import * as storage from 'services/localStorage';
-import { getHeroLevel } from 'services/player';
 
-export default class HeroList extends React.Component {
+
+class HeroList extends React.Component {
 
     constructor() {
         super();
@@ -30,15 +28,14 @@ export default class HeroList extends React.Component {
 
         storage.set('player', this.player);
 
-        // updateMenuTab(tabs.quests);
-        UiStore.changeTab(tabs.quests);
-
+        updateMenuTab(tabs.quests);
         updatePlayer(this.player);
     }
 
     _createHeroesList(heroes) {
         return heroes.map(hero => {
-            const heroLvl = getHeroLevel(hero);
+            const heroLvl = this.props.playerStore.getHeroLevel(hero);
+
             return {
                 key: hero.id,
                 name: hero.name,
@@ -60,3 +57,5 @@ export default class HeroList extends React.Component {
         return <Table columns={this.columns} dataSource={heroes} size="middle" pagination={false} />;
     }
 }
+
+export default HeroList;

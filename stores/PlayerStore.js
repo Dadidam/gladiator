@@ -1,7 +1,6 @@
 import {observable} from 'mobx';
-
 import * as storage from 'services/localStorage';
-import * as playerService from 'services/player';
+
 
 class PlayerStore {
     @observable player = {};
@@ -10,13 +9,50 @@ class PlayerStore {
         this.player = storage.get('player');
     }
 
-    resetTimer() {
-        this.timer = 0;
-    }
+    updatePlayer = (player) => {
+        storage.set('player', player);
+    };
 
-    changeName(name) {
-        this.player.name = name;
-    }
+    getHeroById = (id) => {
+        const result = this.player.heroes.filter(hero => {
+            return hero.id === id;
+        });
+
+        return result[0];
+    };
+
+    updateHero = (hero) => {
+        let heroes = [];
+
+        this.player.heroes.forEach((char, i) => {
+            if (char.id === hero.id) {
+                char = hero;
+            }
+
+            heroes.push(char);
+        });
+
+        this.player.heroes = heroes;
+
+        this.updatePlayer(this.player);
+    };
+
+    getHeroLevel = (hero) => {
+        const exp = 50;
+        const lvl = Math.floor(hero.exp / exp);
+
+        return lvl > 0 ? (lvl + 1) : 1;
+    };
+
+    changeHero = () => {
+        this.player.activeHeroId = null;
+
+        this.updatePlayer(this.player);
+    };
+
+    getActiveHero = () => {
+        return this.player ? this.getHeroById(this.player.activeHeroId) : undefined;
+    };
 }
 
 export default PlayerStore;

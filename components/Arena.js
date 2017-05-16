@@ -1,13 +1,13 @@
 import React from 'react';
-import InventoryItems from 'Items';
 import { Table, Button, Tooltip, message } from 'antd';
-import { getHeroLevel } from 'services/player';
 
-export default class Arena extends React.Component {
+
+class Arena extends React.Component {
     constructor(props) {
         super(props);
-        this.hero = this.props.hero;
-        this.updateHero = this.props.heroUpdateHandler;
+
+        this.hero = props.hero;
+        this.updateHero = props.heroUpdateHandler;
     }
 
     render() {
@@ -39,7 +39,7 @@ export default class Arena extends React.Component {
     getExp = (value) => {
         this.hero.exp += value;
 
-        const heroLevel = getHeroLevel(this.hero);
+        const heroLevel = this.props.playerStore.getHeroLevel(this.hero);
 
         if (heroLevel > this.hero.level) {
             this.hero.level = heroLevel;
@@ -180,3 +180,5 @@ export default class Arena extends React.Component {
         }];
     }
 }
+
+export default Arena;

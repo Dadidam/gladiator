@@ -1,7 +1,6 @@
 import React from 'react';
 import ShopItems from 'Items';
 import { Table, Button, Tooltip, message, Tabs, Icon } from 'antd';
-import { getHeroLevel } from 'services/player';
 
 const TabPane = Tabs.TabPane;
 const itemTypes = [{
@@ -12,7 +11,7 @@ const itemTypes = [{
     icon: 'skin'
 }];
 
-export default class Shop extends React.Component {
+class Shop extends React.Component {
     constructor(props) {
         super(props);
 
@@ -144,3 +143,5 @@ export default class Shop extends React.Component {
         return data;
     }
 }
+
+export default Shop;

@@ -4,7 +4,9 @@ import InfoPanel from 'Hero/InfoPanel';
 
 const refillInterval = 3000;
 
-export default class Hero extends React.Component {
+
+class Hero extends React.Component {
+
     constructor(props) {
         super(props);
 
@@ -15,8 +17,7 @@ export default class Hero extends React.Component {
             refill: this.hero.health < this.hero.maxHealth
         };
 
-        this.updateHero = props.updateHero;
-        this.changeHero = props.changeHero;
+        this.updateHero = props.playerStore.updateHero;
     }
 
     componentDidMount() {
@@ -32,7 +33,6 @@ export default class Hero extends React.Component {
                 <InfoPanel
                     hero={this.hero}
                     handleInventory={this.toggleInventory}
-                    handleChangeHero={this.changeHero}
                 />
                 <Inventory
                     hero={this.hero}
@@ -62,3 +62,5 @@ export default class Hero extends React.Component {
         });
     };
 }
+
+export default Hero;

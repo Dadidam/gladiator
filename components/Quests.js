@@ -1,13 +1,12 @@
 import React from 'react';
-import InventoryItems from 'Items';
 import { Table, Button, Tooltip, message } from 'antd';
-import { getHeroLevel } from 'services/player';
 
-export default class Quests extends React.Component {
+class Quests extends React.Component {
     constructor(props) {
         super(props);
-        this.hero = this.props.hero;
-        this.updateHero = this.props.heroUpdateHandler;
+
+        this.hero = props.playerStore.getActiveHero();
+        this.updateHero = props.playerStore.updateHero;
     }
 
     render() {
@@ -39,7 +38,7 @@ export default class Quests extends React.Component {
     getExp = (value) => {
         this.hero.exp += value;
 
-        const heroLevel = getHeroLevel(this.hero);
+        const heroLevel = this.props.playerStore.getHeroLevel(this.hero);
 
         if (heroLevel > this.hero.level) {
             this.hero.level = heroLevel;
@@ -138,7 +137,7 @@ export default class Quests extends React.Component {
             quest: {
                 title: 'Kill a rat',
                 cost: {
-                    health: 1
+                    health: 3
                 },
                 reward: {
                     exp: 1,
@@ -147,7 +146,7 @@ export default class Quests extends React.Component {
                 textReward: '+1 exp, +1 coin',
             },
             reward: '+1 exp, +1 coin',
-            cost: '-2 HP'
+            cost: '-3 HP'
         }, {
             key: '2',
             quest: {
@@ -167,7 +166,7 @@ export default class Quests extends React.Component {
             quest: {
                 title: 'Punish a thief',
                 cost: {
-                    health: 5
+                    health: 10
                 },
                 reward: {
                     exp: 5,
@@ -176,7 +175,9 @@ export default class Quests extends React.Component {
                 textReward: '+3 coins, +5 exp',
             },
             reward: '+3 coins, +5 exp',
-            cost: '-5 HP'
+            cost: '-10 HP'
         }];
     }
 }
+
+export default Quests;

@@ -26,8 +26,9 @@ const getTabContent = id => {
     return () => <div>No content for viewing</div>
 };
 
+
 @observer
-export default class AppBody extends React.Component {
+class AppBody extends React.Component {
 	constructor(props) {
         super(props);
     }
@@ -44,3 +45,5 @@ export default class AppBody extends React.Component {
 		)
 	}
 }
+
+export default AppBody;
