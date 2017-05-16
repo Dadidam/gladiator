@@ -31,8 +31,18 @@ const getTabContent = id => {
 class AppBody extends React.Component {
 	constructor(props) {
         super(props);
+
+        this.state = {
+            hero: props.hero
+        }
     }
-	
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            hero: nextProps.hero
+        })
+    };
+
 	render() {
 		let currentTab = this.props.hero ? this.props.uiStore.currentTab : 4;
 

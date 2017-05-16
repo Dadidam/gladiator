@@ -1,13 +1,18 @@
 import React from 'react';
 import { Table, Button, Tooltip, message } from 'antd';
 
+
 class Quests extends React.Component {
     constructor(props) {
         super(props);
 
-        this.hero = props.playerStore.getActiveHero();
+        this.hero = props.hero;
         this.updateHero = props.playerStore.updateHero;
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.hero = nextProps.hero;
+    };
 
     render() {
         if (!this.hero) {
