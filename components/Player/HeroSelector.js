@@ -11,17 +11,14 @@ class HeroSelector extends React.Component {
             return null;
         }
 
-        const heroes = storage.get('player').heroes;
-
         return (
             <Card
                 title={dictionary.heroesListTitle}
                 style={{ width: 500 }}
             >
                 <HeroList
-                    heroes={heroes}
-                    updatePlayer={this.props.playerStore.updatePlayer}
-                    tabUpdateHandler={this.props.uiStore.updateCurrentTab}
+                    playerStore={this.props.playerStore}
+                    updateTab={this.props.uiStore.updateCurrentTab}
                 />
                 {this.props.createButton}
             </Card>

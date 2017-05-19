@@ -1,38 +1,25 @@
 import React from 'react';
 import { Button, Table } from 'antd';
 import tabs from 'components/mainMenuTabs';
-
-import * as storage from 'services/localStorage';
+import { columns } from './heroListTableColumns';
 
 
 class HeroList extends React.Component {
+    constructor(props) {
+        super(props);
 
-    constructor() {
-        super();
-
-        this.player = storage.get('player');
-        this.columns = [{
-            title: 'Name',
-            dataIndex: 'name',
-        }, {
-            title: 'Level',
-            dataIndex: 'level',
-        }, {
-            title: 'Actions',
-            dataIndex: 'actions',
-        }];
+        this.player = props.playerStore.player;
+        this.updatePlayer = props.playerStore.updatePlayer;
+        this.updateTab = props.updateTab;
     }
 
-    selectHero(id, updatePlayer, updateMenuTab) {
+    selectHero = id => {
         this.player.activeHeroId = id;
+        this.updatePlayer(this.player);
+        this.updateTab(tabs.quests);
+    };
 
-        storage.set('player', this.player);
-
-        updateMenuTab(tabs.quests);
-        updatePlayer(this.player);
-    }
-
-    _createHeroesList(heroes) {
+    createHeroesList = heroes => {
         return heroes.map(hero => {
             const heroLvl = this.props.playerStore.getHeroLevel(hero);
 
@@ -41,20 +28,18 @@ class HeroList extends React.Component {
                 name: hero.name,
                 level: heroLvl,
                 actions: <Button type="primary" size="small" onClick={this.selectHero.bind(
-                    this, hero.id,
-                    this.props.updatePlayer,
-                    this.props.tabUpdateHandler
+                    this, hero.id
                 )}>
                     select
                 </Button>
             };
         });
-    }
+    };
 
     render() {
-        const heroes = this._createHeroesList(this.props.heroes);
+        const heroes = this.createHeroesList(this.player.heroes);
 
-        return <Table columns={this.columns} dataSource={heroes} size="middle" pagination={false} />;
+        return <Table columns={columns} dataSource={heroes} size="middle" pagination={false} />;
     }
 }
 

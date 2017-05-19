@@ -3,11 +3,13 @@ import tabs from 'components/mainMenuTabs';
 
 import * as storage from 'services/localStorage';
 
+
 class UiStore {
     @observable currentTab = null;
 
     constructor() {
-        this.currentTab = storage.get('player') ? 1 : 4;
+        this.player = storage.get('player');
+        this.currentTab = this.player && this.player.activeHeroId ? 1 : 4;
     }
 
     updateCurrentTab = tab => {
@@ -26,8 +28,6 @@ class UiStore {
                 this.updateCurrentTab(tabs.shop);
                 break;
             case '4':
-                // TODO: fix changeHero, include playerStore and execute changeHero() method
-                // this.changeHero();
                 this.updateCurrentTab(tabs.changeHero);
                 break;
         }

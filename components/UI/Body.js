@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import Shop from 'components/Shop';
 import Arena from 'components/Arena';
 import Quests from 'components/Quests';
-import CharacterSelectPanel from 'components/Hero/CharacterSelectPanel';
+import ChangeHero from 'components/Hero/ChangeHero';
 
 const {Content} = Layout;
 
@@ -13,7 +13,7 @@ const tabs = {
     1: Quests,
     2: Arena,
     3: Shop,
-    4: CharacterSelectPanel
+    4: ChangeHero
 };
 
 const getTabContent = id => {
