@@ -91,7 +91,7 @@ class Quests extends React.Component {
             this.doActionByType(costs[i], params.cost[costs[i]], false);
         }
 
-        // Apply get rewards action
+        // Apply reward action
         const rewards = Object.keys(params.reward);
 
         for (let i = 0; i < rewards.length; i++) {

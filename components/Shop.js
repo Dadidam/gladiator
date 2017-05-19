@@ -1,22 +1,17 @@
 import React from 'react';
 import ShopItems from 'Items';
+import { itemTypes } from './Inventory/itemTypes';
 import { Table, Button, Tooltip, message, Tabs, Icon } from 'antd';
 
 const TabPane = Tabs.TabPane;
-const itemTypes = [{
-    id: 'weapon',
-    icon: 'shrink'
-},{
-    id: 'armor',
-    icon: 'skin'
-}];
+
 
 class Shop extends React.Component {
     constructor(props) {
         super(props);
 
-        this.hero = this.props.hero;
-        this.updateHero = this.props.heroUpdateHandler;
+        this.hero = props.hero;
+        this.updateHero = props.playerStore.updateHero;
     }
 
     render() {
