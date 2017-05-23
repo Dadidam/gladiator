@@ -23,7 +23,7 @@ class Quests extends React.Component {
         const cols = this.getTableColumns();
         const data = this.getQuestsByHeroLevel();
 
-        return <Table columns={cols} dataSource={data} />
+        return <Table columns={cols} dataSource={data} pagination={false} />
     }
 
     collectCoins = (count) => {

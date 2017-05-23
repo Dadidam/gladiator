@@ -54,4 +54,42 @@ export const quests = [{
         min: 2,
         max: 5
     }
+}, {
+    key: '4',
+    quest: {
+        title: 'Help on a farm',
+        cost: {
+            health: 6
+        },
+        reward: {
+            exp: 4,
+            coins: 3
+        },
+        textReward: '+3 coins, +4 exp',
+    },
+    reward: '+3 coins, +4 exp',
+    cost: '-6 HP',
+    level: {
+        min: 3,
+        max: 6
+    }
+}, {
+    key: '5',
+    quest: {
+        title: 'Attack wolves nest',
+        cost: {
+            health: 12
+        },
+        reward: {
+            exp: 5,
+            coins: 10
+        },
+        textReward: '+10 coins, +5 exp',
+    },
+    reward: '+10 coins, +5 exp',
+    cost: '-12 HP',
+    level: {
+        min: 3,
+        max: 7
+    }
 }];
