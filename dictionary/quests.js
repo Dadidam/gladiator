@@ -12,7 +12,11 @@ export const quests = [{
         textReward: '+1 exp, +1 coin',
     },
     reward: '+1 exp, +1 coin',
-    cost: '-3 HP'
+    cost: '-3 HP',
+    level: {
+        min: 1,
+        max: 5
+    }
 }, {
     key: '2',
     quest: {
@@ -26,7 +30,11 @@ export const quests = [{
         textReward: '+3 exp',
     },
     reward: '+3 exp',
-    cost: '-1 coin'
+    cost: '-1 coin',
+    level: {
+        min: 1,
+        max: 3
+    },
 }, {
     key: '3',
     quest: {
@@ -35,11 +43,15 @@ export const quests = [{
             health: 10
         },
         reward: {
-            exp: 5,
-            coins: 3
+            exp: 3,
+            coins: 5
         },
-        textReward: '+3 coins, +5 exp',
+        textReward: '+5 coins, +3 exp',
     },
-    reward: '+3 coins, +5 exp',
-    cost: '-10 HP'
+    reward: '+5 coins, +3 exp',
+    cost: '-10 HP',
+    level: {
+        min: 2,
+        max: 5
+    }
 }];

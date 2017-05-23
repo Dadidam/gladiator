@@ -21,8 +21,9 @@ class Quests extends React.Component {
         }
 
         const cols = this.getTableColumns();
+        const data = this.getQuestsByHeroLevel();
 
-        return <Table columns={cols} dataSource={quests} />
+        return <Table columns={cols} dataSource={data} />
     }
 
     collectCoins = (count) => {
@@ -134,6 +135,14 @@ class Quests extends React.Component {
             dataIndex: 'cost',
             key: 'cost',
         }];
+    };
+
+    getQuestsByHeroLevel = () => {
+        const level = this.hero.level;
+
+        return quests.filter((quest) => {
+            return level >= quest.level.min && level <= quest.level.max;
+        })
     };
 }
 
