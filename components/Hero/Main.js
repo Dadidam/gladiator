@@ -11,6 +11,7 @@ class Hero extends React.Component {
         super(props);
 
         this.hero = props.params;
+        this.restore = null;
 
         this.state = {
             showInventory: false,
@@ -21,10 +22,14 @@ class Hero extends React.Component {
     }
 
     componentDidMount() {
-        setInterval(
+        this.restore = setInterval(
             () => this.restoreHealth(),
             refillInterval
         );
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.restore);
     }
 
     render() {
@@ -45,6 +50,7 @@ class Hero extends React.Component {
     }
 
     restoreHealth = () => {
+        console.log('this.hero.name - ', this.hero.name);
         if (this.hero.health < this.hero.maxHealth) {
             this.hero.health++;
             this.updateHero(this.hero);

@@ -25,11 +25,8 @@ class PlayerStore {
         let heroes = [];
 
         this.player.heroes.forEach((char, i) => {
-            if (char.id === hero.id) {
-                char = hero;
-            }
-
-            heroes.push(char);
+            const character = char.id === hero.id ? hero : char;
+            heroes.push(character);
         });
 
         this.player.heroes = heroes;
