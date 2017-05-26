@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from 'Icon/Icon';
 import {quests} from 'dictionary/quests';
 import { Table, Button, Tooltip, message } from 'antd';
 
@@ -76,11 +77,13 @@ class Quests extends React.Component {
         }
 
         if (canExecute) {
-            return <Button type="primary" onClick={this.executeQuest.bind(this, params)}>{params.title}</Button>;
+            return <span>
+                <Button type="primary" size="large" onClick={this.executeQuest.bind(this, params)}><Icon type="mouse" size={20} />{' '}{params.title}</Button>
+            </span>
         }
 
         return <Tooltip placement="top" title="Quest conditions not met">
-            <Button disabled>{params.title}</Button>
+            <Button disabled size="large"><Icon type="mouse" size={20} />{' '}{params.title}</Button>
         </Tooltip>;
     };
 

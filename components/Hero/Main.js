@@ -50,7 +50,6 @@ class Hero extends React.Component {
     }
 
     restoreHealth = () => {
-        console.log('this.hero.name - ', this.hero.name);
         if (this.hero.health < this.hero.maxHealth) {
             this.hero.health++;
             this.updateHero(this.hero);
