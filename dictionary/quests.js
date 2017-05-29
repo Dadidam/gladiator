@@ -9,9 +9,10 @@ export const quests = [{
             exp: 1,
             coins: 1
         },
-        textReward: '+1 exp, +1 coin',
+        textReward: '+1 coin, +1 exp',
+        icon: 'mouse'
     },
-    reward: '+1 exp, +1 coin',
+    reward: '+1 coin, +1 exp',
     cost: '-3 HP',
     level: {
         min: 1,
@@ -28,6 +29,7 @@ export const quests = [{
             exp: 3
         },
         textReward: '+3 exp',
+        icon: 'book-cover'
     },
     reward: '+3 exp',
     cost: '-1 coin',
@@ -47,6 +49,7 @@ export const quests = [{
             coins: 5
         },
         textReward: '+5 coins, +3 exp',
+        icon: 'thief'
     },
     reward: '+5 coins, +3 exp',
     cost: '-10 HP',
@@ -66,6 +69,7 @@ export const quests = [{
             coins: 3
         },
         textReward: '+3 coins, +4 exp',
+        icon: 'farmer'
     },
     reward: '+3 coins, +4 exp',
     cost: '-6 HP',
@@ -85,6 +89,7 @@ export const quests = [{
             coins: 10
         },
         textReward: '+10 coins, +5 exp',
+        icon: 'wolf-head'
     },
     reward: '+10 coins, +5 exp',
     cost: '-12 HP',

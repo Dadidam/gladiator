@@ -78,12 +78,12 @@ class Quests extends React.Component {
 
         if (canExecute) {
             return <span>
-                <Button type="primary" size="large" onClick={this.executeQuest.bind(this, params)}><Icon type="mouse" size={20} />{' '}{params.title}</Button>
+                <Button type="primary" size="large" onClick={this.executeQuest.bind(this, params)}><Icon type={params.icon} size={20} />{' '}{params.title}</Button>
             </span>
         }
 
         return <Tooltip placement="top" title="Quest conditions not met">
-            <Button disabled size="large"><Icon type="mouse" size={20} />{' '}{params.title}</Button>
+            <Button disabled size="large"><Icon type={params.icon} size={20} />{' '}{params.title}</Button>
         </Tooltip>;
     };
 
