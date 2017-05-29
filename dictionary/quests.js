@@ -16,7 +16,7 @@ export const quests = [{
     cost: '-3 HP',
     level: {
         min: 1,
-        max: 5
+        max: 4
     }
 }, {
     key: '2',
