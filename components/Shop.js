@@ -121,7 +121,7 @@ class Shop extends React.Component {
         for (const key of Object.keys(ShopItems)) {
             const item = ShopItems[key];
 
-            if (item.type == type) {
+            if (item.type == type && item.canBuy !== 0) {
                 data.push({
                     key: tableKey,
                     purchase: {

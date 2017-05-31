@@ -2,6 +2,20 @@ export default {
 
     // WEAPONS
 
+    toySword: {
+        name: 'Toy sword',
+        type: 'weapon',
+        params: {
+            minDamage: 1,
+            maxDamage: 2
+        },
+        price: {
+            buy: 1,
+            sell: 1
+        },
+        canBuy: 0,
+        level: 1
+    },
     rustySword: {
         name: 'Rusty sword',
         type: 'weapon',
