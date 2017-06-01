@@ -1,4 +1,6 @@
 import React from 'react';
+import Fight from './Fight';
+import { fighters } from 'dictionary/arena';
 import { Table, Button, Tooltip, message } from 'antd';
 
 
@@ -7,19 +9,37 @@ class Arena extends React.Component {
         super(props);
 
         this.hero = props.hero;
-        this.updateHero = props.heroUpdateHandler;
+        this.updateHero = props.playerStore.updateHero;
+
+        this.state = {
+            fight: false
+        };
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.hero = nextProps.hero;
+    };
 
     render() {
         if (!this.hero) {
             return null;
         }
 
-        const data = this.getTableData();
-        const cols = this.getTableColumns();
+        if (this.state.fight) {
+            return <Fight leaveArena={this.leaveArena}/>
+        }
 
-        return <Table columns={cols} dataSource={data} />
+        const cols = this.getTableColumns();
+        const data = this.getFightersByHeroRank();
+
+        return <Table columns={cols} dataSource={data} pagination={false} />
     }
+
+    leaveArena = () => {
+        this.setState({
+            fight: false
+        })
+    };
 
     collectCoins = (count) => {
         this.hero.coins += count;
@@ -58,25 +78,30 @@ class Arena extends React.Component {
         this.updateHero(this.hero);
     };
 
-    checkQuest = params => {
-        const costs = Object.keys(params.cost);
-
-        let canExecute = true;
-
-        for (let i = 0; i < costs.length; i++) {
-            if (params.cost[costs[i]] > this.hero[costs[i]]) {
-                canExecute = false;
-                break;
-            }
-        }
-
-        if (canExecute) {
-            return <Button type="primary" onClick={this.executeQuest.bind(this, params)}>{params.title}</Button>;
-        }
-
-        return <Tooltip placement="top" title="Quest conditions not met">
-            <Button disabled>{params.title}</Button>
-        </Tooltip>;
+    fight = params => {
+        return <span>
+            <Button type="primary" size="large" onClick={() => this.setState({fight: true})}>Fight!</Button>
+        </span>;
+        // const costs = Object.keys(params.cost);
+        //
+        // let canExecute = true;
+        //
+        // for (let i = 0; i < costs.length; i++) {
+        //     if (params.cost[costs[i]] > this.hero[costs[i]]) {
+        //         canExecute = false;
+        //         break;
+        //     }
+        // }
+        //
+        // if (canExecute) {
+        //     return <span>
+        //         <Button type="primary" size="large" onClick={this.executeQuest.bind(this, params)}><Icon type={params.icon} size={20} />{' '}{params.title}</Button>
+        //     </span>
+        // }
+        //
+        // return <Tooltip placement="top" title="Quest conditions not met">
+        //     <Button disabled size="large"><Icon type={params.icon} size={20} />{' '}{params.title}</Button>
+        // </Tooltip>;
     };
 
     executeQuest = params => {
@@ -87,7 +112,7 @@ class Arena extends React.Component {
             this.doActionByType(costs[i], params.cost[costs[i]], false);
         }
 
-        // Apply get rewards action
+        // Apply reward action
         const rewards = Object.keys(params.reward);
 
         for (let i = 0; i < rewards.length; i++) {
@@ -117,68 +142,24 @@ class Arena extends React.Component {
 
     getTableColumns = () => {
         return [{
-            title: 'Quest title',
-            dataIndex: 'quest',
-            key: 'quest',
-            render: params => this.checkQuest(params)
-        }, {
+            title: 'Fighter name',
+            dataIndex: 'name',
+            key: 'name',
+            render: params => this.fight(params)
+        },{
             title: 'Reward',
-            dataIndex: 'reward',
-            key: 'reward',
-        }, {
-            title: 'Cost',
-            dataIndex: 'cost',
-            key: 'cost',
+            dataIndex: 'textReward',
+            key: 'textReward',
         }];
     };
 
-    getTableData = () => {
-        return [{
-            key: '1',
-            quest: {
-                title: 'Kill a rat',
-                cost: {
-                    health: 1
-                },
-                reward: {
-                    exp: 1,
-                    coins: 1
-                },
-                textReward: '+1 exp, +1 coin',
-            },
-            reward: '+1 exp, +1 coin',
-            cost: '-2 HP'
-        }, {
-            key: '2',
-            quest: {
-                title: 'Tell funny stories',
-                cost: {
-                    coins: 1
-                },
-                reward: {
-                    exp: 3
-                },
-                textReward: '+3 exp',
-            },
-            reward: '+3 exp',
-            cost: '-1 coin'
-        }, {
-            key: '3',
-            quest: {
-                title: 'Punish a thief',
-                cost: {
-                    health: 5
-                },
-                reward: {
-                    exp: 5,
-                    coins: 3
-                },
-                textReward: '+3 coins, +5 exp',
-            },
-            reward: '+3 coins, +5 exp',
-            cost: '-5 HP'
-        }];
-    }
+    getFightersByHeroRank = () => {
+        const rank = this.hero.rank;
+
+        return fighters.filter((fighter) => {
+            return rank >= fighter.minRank;
+        })
+    };
 }
 
 export default Arena;

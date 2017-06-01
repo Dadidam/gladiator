@@ -10,6 +10,7 @@ export default class Character {
         this.minDamage = 1;
         this.maxDamage = 1;
         this.dodge = 0;
+        this.rank = 0;
         this.inventory = [];
         this.equipment = { // items used by character (doll)
             weapon: null,
