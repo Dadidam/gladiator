@@ -1,6 +1,7 @@
 import React from 'react';
-import Fight from './Fight';
+import Fight from './Fight/Fight';
 import { fighters } from 'dictionary/arena';
+import Character from './Character';
 import { Table, Button, Tooltip, message } from 'antd';
 
 
@@ -85,8 +86,11 @@ class Arena extends React.Component {
     };
 
     fight = params => {
+        // TODO: fix immutable fighter data
+        const opponent = new Character(...params);
+
         return <span>
-            <Button type="primary" size="large" onClick={() => this.setState({fight: true, opponent: params})}>Fight!</Button>
+            <Button type="primary" size="large" onClick={() => this.setState({fight: true, opponent})}>Fight!</Button>
         </span>;
     };
 

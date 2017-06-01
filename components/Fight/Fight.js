@@ -1,6 +1,8 @@
 import React from 'react';
 import { Table, Button, Tooltip, message } from 'antd';
 
+import './fight.less';
+
 const fightDelay = 1000;
 const resultEnum = {
     playerWin: 1,
@@ -14,6 +16,7 @@ const fightLogPhrases = [
     'What was it?..',
     'Gosh, that\'s power!'
 ];
+
 
 class Fight extends React.Component {
     constructor(props) {
@@ -44,14 +47,55 @@ class Fight extends React.Component {
 
     render() {
         // TODO: draw healthBars for opponents
+        const result = this.getResultObject();
+
         return <div>
             <h3>Battle's Chronicle</h3>
-            {this.state.fightResult ? <div><a onClick={this.props.leaveArena}>Leave arena</a></div> : null}
+            {this.state.fightResult ? <div>
+                    <div><span className={result.style}>{result.description}</span></div>
+                    <a onClick={this.props.leaveArena}>Leave arena</a>
+                </div> : null}
             {this.state.fightLog.map((item, i) => {
                 return <h5 key={i}>{item}</h5>
             })}
         </div>
     }
+
+    getResultObject = () => {
+        if (!this.state.fightResult) {
+            return {
+                description: '',
+                style: ''
+            };
+        }
+
+        switch (this.state.fightResult) {
+            case resultEnum.playerWin:
+                return {
+                    description: 'You won!',
+                    style: 'fightGreenLabel'
+                };
+                break;
+            case resultEnum.playerLoose:
+                return {
+                    description: 'You loose :(',
+                    style: 'fightRedLabel'
+                };
+                break;
+            case resultEnum.draw:
+                return {
+                    description: 'DRAW!',
+                    style: ''
+                };
+                break;
+            default:
+                return {
+                    description: '',
+                    style: ''
+                };
+                break;
+        }
+    };
 
     nextTurn = () => {
         if (this.state.fightResult) {
