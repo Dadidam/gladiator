@@ -12,7 +12,8 @@ class Arena extends React.Component {
         this.updateHero = props.playerStore.updateHero;
 
         this.state = {
-            fight: false
+            fight: false,
+            opponent: null
         };
     }
 
@@ -26,7 +27,11 @@ class Arena extends React.Component {
         }
 
         if (this.state.fight) {
-            return <Fight leaveArena={this.leaveArena}/>
+            return <Fight
+                        leaveArena={this.leaveArena}
+                        playerHero={this.hero}
+                        playerOpponent={this.state.opponent}
+            />
         }
 
         const cols = this.getTableColumns();
@@ -37,7 +42,8 @@ class Arena extends React.Component {
 
     leaveArena = () => {
         this.setState({
-            fight: false
+            fight: false,
+            opponent: null
         })
     };
 
@@ -80,28 +86,8 @@ class Arena extends React.Component {
 
     fight = params => {
         return <span>
-            <Button type="primary" size="large" onClick={() => this.setState({fight: true})}>Fight!</Button>
+            <Button type="primary" size="large" onClick={() => this.setState({fight: true, opponent: params})}>Fight!</Button>
         </span>;
-        // const costs = Object.keys(params.cost);
-        //
-        // let canExecute = true;
-        //
-        // for (let i = 0; i < costs.length; i++) {
-        //     if (params.cost[costs[i]] > this.hero[costs[i]]) {
-        //         canExecute = false;
-        //         break;
-        //     }
-        // }
-        //
-        // if (canExecute) {
-        //     return <span>
-        //         <Button type="primary" size="large" onClick={this.executeQuest.bind(this, params)}><Icon type={params.icon} size={20} />{' '}{params.title}</Button>
-        //     </span>
-        // }
-        //
-        // return <Tooltip placement="top" title="Quest conditions not met">
-        //     <Button disabled size="large"><Icon type={params.icon} size={20} />{' '}{params.title}</Button>
-        // </Tooltip>;
     };
 
     executeQuest = params => {
@@ -143,8 +129,8 @@ class Arena extends React.Component {
     getTableColumns = () => {
         return [{
             title: 'Fighter name',
-            dataIndex: 'name',
-            key: 'name',
+            dataIndex: 'character',
+            key: 'character',
             render: params => this.fight(params)
         },{
             title: 'Reward',

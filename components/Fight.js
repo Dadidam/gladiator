@@ -7,13 +7,21 @@ const resultEnum = {
     playerLoose: 2,
     draw: 3
 };
+const fightLogPhrases = [
+    'Oh... It was so painful!',
+    'You are beating like a girl',
+    'And you call this a blow?',
+    'What was it?..',
+    'Gosh, that\'s power!'
+];
 
 class Fight extends React.Component {
     constructor(props) {
         super(props);
 
         this.fight = null;
-        // this.hero = props.hero;
+        this.playerHero = props.playerHero;
+        this.playerOpponent = props.playerOpponent;
         // this.updateHero = props.playerStore.updateHero;
 
         this.state = {
@@ -22,10 +30,6 @@ class Fight extends React.Component {
             fightResult: null
         };
     }
-
-    // componentWillReceiveProps(nextProps) {
-    //     this.hero = nextProps.hero;
-    // };
 
     componentDidMount() {
         this.fight = setInterval(
@@ -39,6 +43,7 @@ class Fight extends React.Component {
     }
 
     render() {
+        // TODO: draw healthBars for opponents
         return <div>
             <h3>Battle's Chronicle</h3>
             {this.state.fightResult ? <div><a onClick={this.props.leaveArena}>Leave arena</a></div> : null}
@@ -49,28 +54,45 @@ class Fight extends React.Component {
     }
 
     nextTurn = () => {
-        let fightLog = this.state.fightLog;
-        let turn = this.state.turn;
-
-        switch (this.state.turn) {
-            case 1:
-                fightLog.push('Oh... It was so painful!');
-                turn++;
-                break;
-            case 2:
-                fightLog.push('You are beating like a girl');
-                turn++;
-                break;
-            default:
-                this.setState({
-                    fightResult: resultEnum.playerWin
-                });
-                break;
+        if (this.state.fightResult) {
+            return;
         }
 
-        this.setState({
-            fightLog, turn
-        });
+        let fightResult = null;
+
+        this.playerHero.health -= this.getRandomValue(this.playerOpponent.minDamage, this.playerOpponent.maxDamage);
+        this.playerOpponent.health -= this.getRandomValue(this.playerHero.minDamage, this.playerHero.maxDamage);
+
+        if (this.playerHero.health <= 0 && this.playerOpponent.health <= 0) {
+            fightResult = resultEnum.draw;
+        } else if (this.playerOpponent.health <= 0) {
+            fightResult = resultEnum.playerWin;
+        } else if (this.playerHero.health <= 0) {
+            fightResult = resultEnum.playerLoose;
+        }
+
+        // FINISH HIM!
+        if (fightResult) {
+            this.setState({
+                fightResult
+            });
+        } else {
+            let fightLog = this.state.fightLog;
+            let turn = this.state.turn;
+
+            fightLog.push(fightLogPhrases[this.getRandomValue(0,4)]);
+            turn++;
+
+            this.setState({
+                fightLog, turn
+            });
+        }
+    };
+
+    getRandomValue = (min, max) => {
+        let rand = min + Math.random() * (max + 1 - min);
+        rand = Math.floor(rand);
+        return rand;
     }
 }
 
