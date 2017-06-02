@@ -3,7 +3,7 @@ import Fight from './Fight/Fight';
 import { resultEnum } from './Fight/resultEnum';
 import { fighters } from 'dictionary/arena';
 import Character from './Character';
-import { Table, Button, Tooltip, message } from 'antd';
+import { Table, Button, message } from 'antd';
 
 
 class Arena extends React.Component {
@@ -49,18 +49,24 @@ class Arena extends React.Component {
     };
 
     leaveArena = (arenaHero, fightResult) => {
-        // TODO: show notify about results (reward, rank changes)
+        const duration = 3;
 
         if (fightResult === resultEnum.playerWin) {
             this.hero.coins += this.state.reward.coins;
             this.hero.rank += this.state.reward.rank;
             this.hero.exp += this.state.reward.exp;
+
+            message.success('You won at the arena battle and get some reward', duration);
         } else if (fightResult === resultEnum.playerLoose) {
             this.hero.rank -= this.state.reward.rank;
 
             if (this.hero.rank < 0) {
                 this.hero.rank = 0;
             }
+
+            message.error('You couldn\'t win at the arena and lost some rank points :(', duration);
+        } else if (fightResult === resultEnum.draw) {
+            message.warning('You and your opponent finished this battle with the draw result', duration);
         }
 
         this.hero.health = arenaHero.health;
