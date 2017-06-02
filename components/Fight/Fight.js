@@ -1,14 +1,17 @@
 import React from 'react';
-import { Timeline } from 'antd';
+import { Timeline, Progress, Card, Col, Row } from 'antd';
 
 import './fight.less';
 
-const fightDelay = 1000;
+const circleWidth = 80;
+const fightDelay = 2500;
+
 const resultEnum = {
     playerWin: 1,
     playerLoose: 2,
     draw: 3
 };
+
 const fightLogPhrases = [
     'Oh... It was so painful!',
     'You are beating like a girl',
@@ -25,7 +28,6 @@ class Fight extends React.Component {
         this.fight = null;
         this.playerHero = props.playerHero;
         this.playerOpponent = props.playerOpponent;
-        // this.updateHero = props.playerStore.updateHero;
 
         this.state = {
             turn: 1,
@@ -46,23 +48,58 @@ class Fight extends React.Component {
     }
 
     render() {
-        // TODO: draw healthBars for opponents
         const result = this.getResultObject();
 
-        return <div>
+        const plHero = this.playerHero;
+        const opHero = this.playerOpponent;
+        const playerHP = this.getPercentValue(plHero.health, plHero.maxHealth);
+        const opponentHP = this.getPercentValue(opHero.health, opHero.maxHealth);
+
+        return <div style={{ background: '#ECECEC', padding: '30px' }}>
             {this.state.fightResult ? <div className="fightResult">
                     <div><span className={result.style}>{result.description}</span></div>
                     <a onClick={this.props.leaveArena}>Leave arena</a>
                 </div> : null
             }
-            <h4 className="chronicleTitle">Battle's Chronicle</h4>
-            <Timeline>
-                {this.state.fightLog.map((item, i) => {
-                    return <Timeline.Item key={i}>{item}</Timeline.Item>
-                })}
-            </Timeline>
+            <Row className="fightRow">
+                <Col span="8" className="fightCol">
+                    <Card title={this.playerHero.name} bordered={false}>
+                        <Progress
+                            type="circle"
+                            percent={playerHP}
+                            width={circleWidth}
+                            status="exception"
+                            format={val => val > 0 ? `${val}%` : 'Died'}
+                        />
+                    </Card>
+                </Col>
+                <Col span="8" className="fightCol">
+                    <Card title="Battle's Chronicle" bordered={false}>
+                        <Timeline>
+                            {this.state.fightLog.map((item, i) => {
+                                return <Timeline.Item key={i}>{item}</Timeline.Item>
+                            })}
+                        </Timeline>
+                    </Card>
+                </Col>
+                <Col span="8" className="fightCol">
+                    <Card title={this.playerOpponent.name} bordered={false}>
+                        <Progress
+                            type="circle"
+                            percent={opponentHP}
+                            width={circleWidth}
+                            status="exception"
+                            format={val => val > 0 ? `${val}%` : 'Died'}
+                        />
+                    </Card>
+                </Col>
+            </Row>
         </div>
     }
+
+    getPercentValue = (val, maxVal) => {
+        return (val * 100) / maxVal;
+    };
 
     getResultObject = () => {
         if (!this.state.fightResult) {
@@ -104,7 +141,7 @@ class Fight extends React.Component {
         if (this.state.fightResult) {
             return;
         }
-
+        // TODO: hero restore HP in a battle
         let fightResult = null;
 
         this.playerHero.health -= this.getRandomValue(this.playerOpponent.minDamage, this.playerOpponent.maxDamage);
@@ -124,6 +161,7 @@ class Fight extends React.Component {
                 fightResult
             });
         } else {
+            // TODO: improve log entries
             let fightLog = this.state.fightLog;
             let turn = this.state.turn;
 
