@@ -23,6 +23,9 @@ export default class InfoPanel extends React.Component {
                     {hero.level} level, {hero.exp} exp
                 </div>
                 <div>
+                    Arena rank: <b>{hero.rank}</b>
+                </div>
+                <div>
                     <Icon type="heart" className="heroIcon" />HP (+1/3sec):
                     <Tooltip placement="right" title={healthTooltip}>
                         <Progress

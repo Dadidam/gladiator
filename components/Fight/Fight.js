@@ -1,16 +1,11 @@
 import React from 'react';
+import { resultEnum } from './resultEnum';
 import { Timeline, Progress, Card, Col, Row } from 'antd';
 
 import './fight.less';
 
 const circleWidth = 80;
-const fightDelay = 2500;
-
-const resultEnum = {
-    playerWin: 1,
-    playerLoose: 2,
-    draw: 3
-};
+const fightDelay = 1500;
 
 const fightLogPhrases = [
     'Oh... It was so painful!',
@@ -58,7 +53,7 @@ class Fight extends React.Component {
         return <div style={{ background: '#ECECEC', padding: '30px' }}>
             {this.state.fightResult ? <div className="fightResult">
                     <div><span className={result.style}>{result.description}</span></div>
-                    <a onClick={this.props.leaveArena.bind(this, this.playerHero)}>Leave arena</a>
+                    <a onClick={this.props.leaveArena.bind(this, this.playerHero, this.state.fightResult)}>Leave arena</a>
                 </div> : null
             }
             <Row className="fightRow">

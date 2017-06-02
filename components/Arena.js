@@ -1,5 +1,6 @@
 import React from 'react';
 import Fight from './Fight/Fight';
+import { resultEnum } from './Fight/resultEnum';
 import { fighters } from 'dictionary/arena';
 import Character from './Character';
 import { Table, Button, Tooltip, message } from 'antd';
@@ -12,11 +13,7 @@ class Arena extends React.Component {
         this.hero = props.hero;
         this.updateHero = props.playerStore.updateHero;
 
-        this.state = {
-            fight: false,
-            playerHero: null,
-            opponent: null
-        };
+        this.setInitialState();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -42,17 +39,34 @@ class Arena extends React.Component {
         return <Table columns={cols} dataSource={data} pagination={false} />
     }
 
-    leaveArena = (arenaHero) => {
-        // TODO: get reward via playerStore
-        
+    setInitialState = () => {
+        this.state = {
+            fight: false,
+            playerHero: null,
+            opponent: null,
+            reward: null
+        };
+    };
+
+    leaveArena = (arenaHero, fightResult) => {
+        // TODO: show notify about results (reward, rank changes)
+
+        if (fightResult === resultEnum.playerWin) {
+            this.hero.coins += this.state.reward.coins;
+            this.hero.rank += this.state.reward.rank;
+            this.hero.exp += this.state.reward.exp;
+        } else if (fightResult === resultEnum.playerLoose) {
+            this.hero.rank -= this.state.reward.rank;
+
+            if (this.hero.rank < 0) {
+                this.hero.rank = 0;
+            }
+        }
+
         this.hero.health = arenaHero.health;
         this.updateHero(this.hero);
 
-        this.setState({
-            fight: false,
-            playerHero: null,
-            opponent: null
-        })
+        this.setInitialState();
     };
 
     fight = params => {
@@ -60,7 +74,7 @@ class Arena extends React.Component {
         const opponent = this.cloneCharacter(params);
 
         return <span>
-            <Button type="primary" size="large" onClick={() => this.setState({fight: true, opponent, playerHero})}>Fight!</Button>
+            <Button type="primary" size="large" onClick={() => this.setState({fight: true, opponent, playerHero, reward: params.reward})}>Fight!</Button>
         </span>;
     };
 
