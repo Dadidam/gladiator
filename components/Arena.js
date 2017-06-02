@@ -42,8 +42,12 @@ class Arena extends React.Component {
         return <Table columns={cols} dataSource={data} pagination={false} />
     }
 
-    leaveArena = () => {
+    leaveArena = (arenaHero) => {
         // TODO: get reward via playerStore
+        
+        this.hero.health = arenaHero.health;
+        this.updateHero(this.hero);
+
         this.setState({
             fight: false,
             playerHero: null,

@@ -58,7 +58,7 @@ class Fight extends React.Component {
         return <div style={{ background: '#ECECEC', padding: '30px' }}>
             {this.state.fightResult ? <div className="fightResult">
                     <div><span className={result.style}>{result.description}</span></div>
-                    <a onClick={this.props.leaveArena}>Leave arena</a>
+                    <a onClick={this.props.leaveArena.bind(this, this.playerHero)}>Leave arena</a>
                 </div> : null
             }
             <Row className="fightRow">
