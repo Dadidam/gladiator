@@ -50,6 +50,8 @@ class Fight extends React.Component {
         const playerHP = this.getPercentValue(plHero.health, plHero.maxHealth);
         const opponentHP = this.getPercentValue(opHero.health, opHero.maxHealth);
 
+        // TODO: round percent values to integer (no float)
+
         return <div style={{ background: '#ECECEC', padding: '30px' }}>
             {this.state.fightResult ? <div className="fightResult">
                     <div><span className={result.style}>{result.description}</span></div>
@@ -139,8 +141,11 @@ class Fight extends React.Component {
          
         let fightResult = null;
 
-        this.playerHero.health -= this.getRandomValue(this.playerOpponent.minDamage, this.playerOpponent.maxDamage);
-        this.playerOpponent.health -= this.getRandomValue(this.playerHero.minDamage, this.playerHero.maxDamage);
+        const heroDamage = this.getRandomValue(this.playerOpponent.minDamage, this.playerOpponent.maxDamage);
+        const oppDamage = this.getRandomValue(this.playerHero.minDamage, this.playerHero.maxDamage);
+
+        this.playerHero.health -= heroDamage;
+        this.playerOpponent.health -= oppDamage;
 
         if (this.playerHero.health <= 0 && this.playerOpponent.health <= 0) {
             fightResult = resultEnum.draw;
@@ -150,30 +155,38 @@ class Fight extends React.Component {
             fightResult = resultEnum.playerLoose;
         }
 
-        // FINISH HIM!
-        if (fightResult) {
-            this.setState({
-                fightResult
-            });
-        } else {
-            // TODO: improve log entries
-            let fightLog = this.state.fightLog;
-            let turn = this.state.turn;
+        let turn = this.state.turn;
+        let fightLog = this.state.fightLog;
+        const logMsg = this.generateLogMessage(this.playerHero.name, heroDamage, this.playerOpponent.name, oppDamage);
 
-            fightLog.push(fightLogPhrases[this.getRandomValue(0,4)]);
-            turn++;
+        fightLog.push(logMsg);
+        turn++;
 
-            this.setState({
-                fightLog, turn
-            });
-        }
+        this.setState({
+            fightLog, turn, fightResult
+        });
     };
 
     getRandomValue = (min, max) => {
         let rand = min + Math.random() * (max + 1 - min);
         rand = Math.floor(rand);
         return rand;
-    }
+    };
+
+    generateLogMessage = (p1Name, p1Damage, p2Name, p2Damage) => {
+        return <div>
+            <p>
+                <span className="fightLogHeroName">{p1Name}</span> take <span className="fightLogDamage">{p1Damage}</span> damage from <span className="fightLogHeroName">{p2Name}</span>
+            </p>
+            <p className="fightLogMessage">
+                {fightLogPhrases[this.getRandomValue(0,4)]}
+            </p>
+            <p>
+                <span className="fightLogHeroName">{p2Name}</span> take <span className="fightLogDamage">{p2Damage}</span> damage from <span className="fightLogHeroName">{p1Name}</span>
+            </p>
+        </div>;
+
+    };
 }
 
 export default Fight;
