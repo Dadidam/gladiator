@@ -47,10 +47,8 @@ class Fight extends React.Component {
 
         const plHero = this.playerHero;
         const opHero = this.playerOpponent;
-        const playerHP = this.getPercentValue(plHero.health, plHero.maxHealth);
-        const opponentHP = this.getPercentValue(opHero.health, opHero.maxHealth);
-
-        // TODO: round percent values to integer (no float)
+        const playerHP = Math.round(this.getPercentValue(plHero.health, plHero.maxHealth));
+        const opponentHP = Math.round(this.getPercentValue(opHero.health, opHero.maxHealth));
 
         return <div style={{ background: '#ECECEC', padding: '30px' }}>
             {this.state.fightResult ? <div className="fightResult">
