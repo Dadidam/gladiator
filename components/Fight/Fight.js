@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button, Tooltip, message } from 'antd';
+import { Timeline } from 'antd';
 
 import './fight.less';
 
@@ -50,14 +50,17 @@ class Fight extends React.Component {
         const result = this.getResultObject();
 
         return <div>
-            <h3>Battle's Chronicle</h3>
-            {this.state.fightResult ? <div>
+            {this.state.fightResult ? <div className="fightResult">
                     <div><span className={result.style}>{result.description}</span></div>
                     <a onClick={this.props.leaveArena}>Leave arena</a>
-                </div> : null}
-            {this.state.fightLog.map((item, i) => {
-                return <h5 key={i}>{item}</h5>
-            })}
+                </div> : null
+            }
+            <h4 className="chronicleTitle">Battle's Chronicle</h4>
+            <Timeline>
+                {this.state.fightLog.map((item, i) => {
+                    return <Timeline.Item key={i}>{item}</Timeline.Item>
+                })}
+            </Timeline>
         </div>
     }
 
