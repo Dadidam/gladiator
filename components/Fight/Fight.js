@@ -141,7 +141,7 @@ class Fight extends React.Component {
         if (this.state.fightResult) {
             return;
         }
-        // TODO: hero restore HP in a battle
+         
         let fightResult = null;
 
         this.playerHero.health -= this.getRandomValue(this.playerOpponent.minDamage, this.playerOpponent.maxDamage);

@@ -14,6 +14,7 @@ class Arena extends React.Component {
 
         this.state = {
             fight: false,
+            playerHero: null,
             opponent: null
         };
     }
@@ -30,7 +31,7 @@ class Arena extends React.Component {
         if (this.state.fight) {
             return <Fight
                         leaveArena={this.leaveArena}
-                        playerHero={this.hero}
+                        playerHero={this.state.playerHero}
                         playerOpponent={this.state.opponent}
             />
         }
@@ -42,92 +43,27 @@ class Arena extends React.Component {
     }
 
     leaveArena = () => {
+        // TODO: get reward via playerStore
         this.setState({
             fight: false,
+            playerHero: null,
             opponent: null
         })
     };
 
-    collectCoins = (count) => {
-        this.hero.coins += count;
-
-        this.updateHero(this.hero);
-    };
-
-    getItem = (item) => {
-        let newItem = Object.assign({}, item); // clone item
-        newItem.id = this.hero.inventory.length + 1; // set unique item ID
-
-        this.hero.inventory.push(newItem); // add new item to inventory
-
-        this.updateHero(this.hero); // update changes
-    };
-
-    getExp = (value) => {
-        this.hero.exp += value;
-
-        const heroLevel = this.props.playerStore.getHeroLevel(this.hero);
-
-        if (heroLevel > this.hero.level) {
-            this.hero.level = heroLevel;
-        }
-
-        this.updateHero(this.hero);
-    };
-
-    addHp = (value) => {
-        this.hero.health += value;
-
-        if (this.hero.health <= 0) {
-            this.hero.health = 0;
-        }
-
-        this.updateHero(this.hero);
-    };
-
     fight = params => {
-        const {name, health, maxHealth, minDamage, maxDamage} = params;
-        const opponent = new Character(name, health, maxHealth, minDamage, maxDamage);
+        const playerHero = this.cloneCharacter(this.hero);
+        const opponent = this.cloneCharacter(params);
 
         return <span>
-            <Button type="primary" size="large" onClick={() => this.setState({fight: true, opponent})}>Fight!</Button>
+            <Button type="primary" size="large" onClick={() => this.setState({fight: true, opponent, playerHero})}>Fight!</Button>
         </span>;
     };
 
-    executeQuest = params => {
-        // Apply costs subtraction action
-        const costs = Object.keys(params.cost);
+    cloneCharacter = params => {
+        const {name, health, maxHealth, minDamage, maxDamage} = params;
 
-        for (let i = 0; i < costs.length; i++) {
-            this.doActionByType(costs[i], params.cost[costs[i]], false);
-        }
-
-        // Apply reward action
-        const rewards = Object.keys(params.reward);
-
-        for (let i = 0; i < rewards.length; i++) {
-            this.doActionByType(rewards[i], params.reward[rewards[i]]);
-        }
-
-        message.success(`You\'ve finished the quest and received: ${params.textReward} `, 3);
-    };
-
-    doActionByType = (type, value, addition = true) => {
-        if (!addition) {
-            value = -value;
-        }
-
-        switch (type) {
-            case 'exp':
-                this.getExp(value);
-                break;
-            case 'health':
-                this.addHp(value);
-                break;
-            case 'coins':
-                this.collectCoins(value);
-                break;
-        }
+        return new Character(name, health, maxHealth, minDamage, maxDamage);
     };
 
     getTableColumns = () => {
