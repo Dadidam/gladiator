@@ -2,16 +2,16 @@ export const fighters = [{
     key: '1',
     minRank: 0,
     reward: {
-        exp: 1,
-        coins: 3
+        exp: 2,
+        coins: 5
     },
-    textReward: '+1 exp, +3 coins',
+    textReward: '+2 exp, +5 coins',
     character: {
         name: 'Unnamed fighter',
         minDamage: 1,
         maxDamage: 2,
-        maxHealth: 10,
-        health: 10
+        maxHealth: 8,
+        health: 8
     }
 },{
     key: '2',

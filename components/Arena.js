@@ -86,8 +86,8 @@ class Arena extends React.Component {
     };
 
     fight = params => {
-        // TODO: fix immutable fighter data
-        const opponent = new Character(...params);
+        const {name, health, maxHealth, minDamage, maxDamage} = params;
+        const opponent = new Character(name, health, maxHealth, minDamage, maxDamage);
 
         return <span>
             <Button type="primary" size="large" onClick={() => this.setState({fight: true, opponent})}>Fight!</Button>
