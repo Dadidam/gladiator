@@ -93,6 +93,10 @@ class Arena extends React.Component {
     getTableColumns = () => {
         return [{
             title: 'Fighter name',
+            dataIndex: 'character.name',
+            key: 'character.name'
+        },{
+            title: 'Action',
             dataIndex: 'character',
             key: 'character',
             render: params => this.fight(params)
