@@ -50,6 +50,54 @@ class PlayerStore {
     getActiveHero = () => {
         return this.player ? this.getHeroById(this.player.activeHeroId) : undefined;
     };
+
+    addExp = (exp, hero) => {
+        hero.exp += exp;
+
+        const heroLevel = this.getHeroLevel(hero);
+
+        if (heroLevel > hero.level) {
+            hero.level = heroLevel;
+        }
+
+        this.updateHero(hero);
+    };
+
+    addCoins = (coins, hero) => {
+        hero.coins += coins;
+
+        this.updateHero(hero);
+    };
+
+    addArenaRank = (rank, hero) => {
+        hero.rank += rank;
+
+        if (hero.rank < 0) {
+            hero.rank = 0;
+        }
+
+        this.updateHero(hero);
+    };
+
+    addHp = (hp, hero) => {
+        hero.health += hp;
+
+        if (hero.health <= 0) {
+            hero.health = 0;
+        }
+
+        this.updateHero(hero);
+    };
+
+    setHp = (hp, hero) => {
+        hero.health = hp;
+
+        if (hero.health <= 0) {
+            hero.health = 0;
+        }
+
+        this.updateHero(hero);
+    }
 }
 
 export default PlayerStore;

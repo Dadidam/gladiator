@@ -11,7 +11,7 @@ class Arena extends React.Component {
         super(props);
 
         this.hero = props.hero;
-        this.updateHero = props.playerStore.updateHero;
+        this.playerStore = props.playerStore;
 
         this.setInitialState();
     }
@@ -52,26 +52,22 @@ class Arena extends React.Component {
         const duration = 3;
 
         if (fightResult === resultEnum.playerWin) {
-            this.hero.coins += this.state.reward.coins;
-            this.hero.rank += this.state.reward.rank;
-            this.hero.exp += this.state.reward.exp;
+            this.playerStore.addExp(this.state.reward.exp, this.hero);
+            this.playerStore.addCoins(this.state.reward.coins, this.hero);
+            this.playerStore.addArenaRank(this.state.reward.rank, this.hero);
 
             message.success('You won at the arena battle and get some reward', duration);
         } else if (fightResult === resultEnum.playerLoose) {
-            this.hero.rank -= this.state.reward.rank;
+            const negativeRank = -this.state.reward.rank;
 
-            if (this.hero.rank < 0) {
-                this.hero.rank = 0;
-            }
+            this.playerStore.addArenaRank(negativeRank, this.hero);
 
             message.error('You couldn\'t win at the arena and lost some rank points :(', duration);
         } else if (fightResult === resultEnum.draw) {
             message.warning('You and your opponent finished this battle with the draw result', duration);
         }
 
-        this.hero.health = arenaHero.health;
-        this.updateHero(this.hero);
-
+        this.playerStore.setHp(arenaHero.health, this.hero);
         this.setInitialState();
     };
 
