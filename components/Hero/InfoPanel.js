@@ -45,6 +45,7 @@ export default class InfoPanel extends React.Component {
                     <Badge
                         showZero={true}
                         count={hero.coins}
+                        overflowCount={9999}
                         style={{backgroundColor: '#ffbf00'}}
                     />
                 </div>
