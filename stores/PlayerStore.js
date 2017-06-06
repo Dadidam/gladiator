@@ -97,7 +97,16 @@ class PlayerStore {
         }
 
         this.updateHero(hero);
-    }
+    };
+
+    addItem = (item, hero) => {
+        let newItem = Object.assign({}, item); // clone item
+        newItem.id = hero.inventory.length + 1; // set unique item ID
+
+        hero.inventory.push(newItem); // add new item to inventory
+
+        this.updateHero(hero); // update changes
+    };
 }
 
 export default PlayerStore;

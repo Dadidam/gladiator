@@ -9,7 +9,7 @@ class Quests extends React.Component {
         super(props);
 
         this.hero = props.hero;
-        this.updateHero = props.playerStore.updateHero;
+        this.playerStore = props.playerStore;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -26,43 +26,6 @@ class Quests extends React.Component {
 
         return <Table columns={cols} dataSource={data} pagination={false} />
     }
-
-    collectCoins = (count) => {
-        this.hero.coins += count;
-
-        this.updateHero(this.hero);
-    };
-
-    getItem = (item) => {
-        let newItem = Object.assign({}, item); // clone item
-        newItem.id = this.hero.inventory.length + 1; // set unique item ID
-
-        this.hero.inventory.push(newItem); // add new item to inventory
-
-        this.updateHero(this.hero); // update changes
-    };
-
-    getExp = (value) => {
-        this.hero.exp += value;
-
-        const heroLevel = this.props.playerStore.getHeroLevel(this.hero);
-
-        if (heroLevel > this.hero.level) {
-            this.hero.level = heroLevel;
-        }
-
-        this.updateHero(this.hero);
-    };
-
-    addHp = (value) => {
-        this.hero.health += value;
-
-        if (this.hero.health <= 0) {
-            this.hero.health = 0;
-        }
-
-        this.updateHero(this.hero);
-    };
 
     checkQuest = params => {
         const costs = Object.keys(params.cost);
@@ -112,13 +75,13 @@ class Quests extends React.Component {
 
         switch (type) {
             case 'exp':
-                this.getExp(value);
+                this.playerStore.addExp(value, this.hero);
                 break;
             case 'health':
-                this.addHp(value);
+                this.playerStore.addHp(value, this.hero);
                 break;
             case 'coins':
-                this.collectCoins(value);
+                this.playerStore.addCoins(value, this.hero);
                 break;
         }
     };
