@@ -18,10 +18,7 @@ export default class ItemsList extends React.Component {
             const params = Object.keys(item.params);
             const tooltipContent = (
                 <div>
-                    {params.map((param, i) => {
-                            return <div key={i}>{param}: {item.params[param]}</div>
-                        }
-                    )}
+                    {params.map((param, i) => <div key={i}>{param}: {item.params[param]}</div>)}
                 </div>
             );
 

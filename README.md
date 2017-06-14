@@ -5,7 +5,7 @@ Setup all `npm` dependencies, then run: `npm start`
 
 ## Milestones and future plans
 
-* Arena-battle mechanic
+* ~~Arena-battle mechanic~~
 * Improve reward system:
     * items as a reward
     * probability based on %-values

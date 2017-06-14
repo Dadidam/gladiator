@@ -1,9 +1,7 @@
 import React from 'react';
 
 export default () => {
-    return (
-        <div className="logo">
-            <h5>Gladiator Game</h5>
-        </div>
-    )
+    return <div className="logo">
+        <div className="logoTitle">Gladiator Game</div>
+    </div>
 }
