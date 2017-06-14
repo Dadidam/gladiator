@@ -18,6 +18,7 @@ class Hero extends React.Component {
             refill: this.hero.health < this.hero.maxHealth
         };
 
+        this.playerStore = props.playerStore;
         this.updateHero = props.playerStore.updateHero;
     }
 
@@ -44,6 +45,7 @@ class Hero extends React.Component {
                     show={this.state.showInventory}
                     toggle={this.toggleInventory}
                     updateHero={this.updateHero}
+                    playerStore={this.playerStore}
                 />
             </div>
         );

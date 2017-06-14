@@ -107,6 +107,67 @@ class PlayerStore {
 
         this.updateHero(hero); // update changes
     };
+
+    useItem = (item, hero) => {
+        switch (item.type) {
+            case 'weapon':
+                hero.equipment.weapon = item.id;
+                hero.minDamage = item.params.minDamage;
+                hero.maxDamage = item.params.maxDamage;
+
+                this.updateHero(hero);
+                break;
+            case 'armor':
+                hero.equipment.armor = item.id;
+                hero.maxHealth = item.params.maxHealth;
+
+                if (hero.health > item.params.maxHealth) {
+                    hero.health = item.params.maxHealth;
+                }
+
+                this.updateHero(hero);
+                break;
+            default:
+                throw new Error('Not supported type of item');
+        }
+    };
+
+    deleteItem = (item, hero) => {
+        // check and remove from equipped items
+        if (item.id == hero.equipment.weapon) {
+            hero.equipment.weapon = null;
+        }
+
+        if (item.id == hero.equipment.armor) {
+            hero.equipment.armor = null;
+        }
+
+        let index;
+
+        // find current index (itemId) in hero inventory
+        hero.inventory.forEach(function(invItem, i) {
+            if (invItem.id == item.id) {
+                index = i;
+            }
+        });
+
+        // delete current item from hero inventory
+        hero.inventory.splice(index, 1);
+
+        // update hero data
+        this.updateHero(hero);
+    };
+
+    sellItem = (item, hero) => {
+        // first, delete item from inventory
+        this.deleteItem(item, hero);
+
+        // second, add coins to hero
+        hero.coins += item.price.sell;
+
+        // and now, update hero once again
+        this.updateHero(hero);
+    };
 }
 
 export default PlayerStore;
