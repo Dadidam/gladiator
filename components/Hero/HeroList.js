@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Table } from 'antd';
-import tabs from 'components/mainMenuTabs';
+import tabs from '../mainMenuTabs';
 import { columns } from './heroListTableColumns';
 
 

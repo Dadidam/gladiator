@@ -1,6 +1,6 @@
 import React from 'react';
-import Inventory from 'Inventory';
-import InfoPanel from 'Hero/InfoPanel';
+import Inventory from '../Inventory';
+import InfoPanel from './InfoPanel';
 
 const refillInterval = 3000;
 

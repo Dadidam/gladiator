@@ -1,7 +1,7 @@
 import React from 'react';
 import Fight from './Fight/Fight';
 import { resultEnum } from './Fight/resultEnum';
-import { fighters } from 'dictionary/arena';
+import { fighters } from '../dictionary/arena';
 import Character from './Character';
 import { Table, Button, message } from 'antd';
 

@@ -2,10 +2,10 @@ import React from 'react';
 import {Layout} from 'antd';
 import { observer } from 'mobx-react';
 
-import Shop from 'components/Shop';
-import Arena from 'components/Arena';
-import Quests from 'components/Quests';
-import ChangeHero from 'components/Hero/ChangeHero';
+import Shop from '../Shop';
+import Arena from '../Arena';
+import Quests from '../Quests';
+import ChangeHero from '../Hero/ChangeHero';
 
 const {Content} = Layout;
 

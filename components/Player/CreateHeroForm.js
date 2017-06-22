@@ -1,5 +1,5 @@
 import React from 'react';
-import NewHero from 'Forms/NewHero';
+import NewHero from '../Forms/NewHero';
 
 export default class CreateHeroForm extends React.Component {
     constructor(props) {

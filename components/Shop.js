@@ -1,5 +1,5 @@
 import React from 'react';
-import ShopItems from 'Items';
+import ShopItems from './Items';
 import { itemTypes } from './Inventory/itemTypes';
 import { Table, Button, Tooltip, message, Tabs, Icon } from 'antd';
 

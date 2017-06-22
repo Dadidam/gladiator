@@ -1,6 +1,6 @@
 import React from 'react';
-import Icon from 'Icon/Icon';
-import {quests} from 'dictionary/quests';
+import Icon from './Icon/Icon';
+import {quests} from '../dictionary/quests';
 import { Table, Button, Tooltip, message } from 'antd';
 
 

@@ -1,5 +1,5 @@
 import {observable} from 'mobx';
-import * as storage from 'services/localStorage';
+import * as storage from '../services/localStorage';
 
 
 class PlayerStore {

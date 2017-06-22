@@ -1,8 +1,7 @@
 import React from 'react';
 import {Card} from 'antd';
-import HeroList from 'Hero/HeroList';
-import dictionary from 'Player/Dictionary';
-import * as storage from 'services/localStorage';
+import HeroList from '../Hero/HeroList';
+import dictionary from './Dictionary';
 
 
 class HeroSelector extends React.Component {

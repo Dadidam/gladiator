@@ -1,7 +1,7 @@
 import {observable} from 'mobx';
-import tabs from 'components/mainMenuTabs';
+import tabs from '../components/mainMenuTabs';
 
-import * as storage from 'services/localStorage';
+import * as storage from '../services/localStorage';
 
 
 class UiStore {

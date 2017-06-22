@@ -1,8 +1,8 @@
 import React from 'react';
-import Character from 'Character';
-import HeroSelector from 'Player/HeroSelector';
-import CreateButton from 'Player/CreateButton';
-import CreateHeroForm from 'Player/CreateHeroForm';
+import Character from './Character';
+import HeroSelector from './Player/HeroSelector';
+import CreateButton from './Player/CreateButton';
+import CreateHeroForm from './Player/CreateHeroForm';
 
 
 class Player extends React.Component {

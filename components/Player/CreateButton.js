@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button} from 'antd';
-import dictionary from 'Player/Dictionary';
+import dictionary from './Dictionary';
 
 export default class CreateButton extends React.Component {
     render() {

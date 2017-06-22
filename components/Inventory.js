@@ -1,6 +1,6 @@
 import React from 'react';
 import {Modal, Button} from 'antd';
-import ItemsList from 'Inventory/ItemsList';
+import ItemsList from './Inventory/ItemsList';
 
 const itemTypes = ['weapon', 'armor'];
 

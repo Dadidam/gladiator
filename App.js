@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import { observer } from 'mobx-react';
 
-import Hero from 'Hero/Main';
+import Hero from './components/Hero/Main';
 import AppBody from './components/UI/Body';
 import AppHeader from './components/UI/Header';
 import AppFooter from './components/UI/Footer';

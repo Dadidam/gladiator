@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form, Icon, Input, Button, Card} from 'antd';
-import dictionary from 'Player/Dictionary';
+import dictionary from '../Player/Dictionary';
 
 const FormItem = Form.Item;
 
