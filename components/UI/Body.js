@@ -1,6 +1,7 @@
 import React from 'react';
 import {Layout} from 'antd';
 import { observer } from 'mobx-react';
+import { connect } from 'react-redux';
 
 import Shop from 'components/Shop';
 import Arena from 'components/Arena';
@@ -51,9 +52,26 @@ class AppBody extends React.Component {
 		return (
 			<Content className="contentSelectPanel">
 				<TabContent {...this.props} />
+                <p>+{this.props.likes} - {this.props.dislikes}</p>
+                <div>
+                    <button onClick={this.props.like}>Like</button>
+                    <button onClick={this.props.dislike}>Dislike</button>
+                </div>
 			</Content>
 		)
 	}
 }
 
-export default AppBody;
+const mapStateToProps = (state) => {
+    return {
+        likes: state.get('likes'),
+        dislikes: state.get('dislikes'),
+    }
+};
+
+const mapDispatchToProps = dispatch => ({
+    like: () => dispatch({type: 'ADD_LIKE'}),
+    dislike: () => dispatch({type: 'ADD_DISLIKE'}),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppBody);
