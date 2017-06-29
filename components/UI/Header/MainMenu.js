@@ -50,14 +50,8 @@ class MainMenu extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        // currentTab: state.get('currentTab'),
-    }
-};
-
 const mapDispatchToProps = dispatch => ({
     changeTab: (tab) => dispatch({type: 'CHANGE_TAB', tab: Number(tab.key)}),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainMenu);
+export default connect(null, mapDispatchToProps)(MainMenu);

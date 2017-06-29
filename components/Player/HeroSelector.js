@@ -1,8 +1,7 @@
 import React from 'react';
-import {Card} from 'antd';
+import { Card } from 'antd';
 import HeroList from 'Hero/HeroList';
 import dictionary from 'Player/Dictionary';
-import * as storage from 'services/localStorage';
 
 
 class HeroSelector extends React.Component {
@@ -18,7 +17,6 @@ class HeroSelector extends React.Component {
             >
                 <HeroList
                     playerStore={this.props.playerStore}
-                    updateTab={this.props.uiStore.updateCurrentTab}
                 />
                 {this.props.createButton}
             </Card>

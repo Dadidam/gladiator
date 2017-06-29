@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Table } from 'antd';
+import { connect } from 'react-redux';
 import tabs from 'components/mainMenuTabs';
 import { columns } from './heroListTableColumns';
 
@@ -10,13 +11,12 @@ class HeroList extends React.Component {
 
         this.player = props.playerStore.player;
         this.updatePlayer = props.playerStore.updatePlayer;
-        this.updateTab = props.updateTab;
     }
 
     selectHero = id => {
         this.player.activeHeroId = id;
         this.updatePlayer(this.player);
-        this.updateTab(tabs.quests);
+        this.props.updateCurrentTab();
     };
 
     createHeroesList = heroes => {
@@ -43,4 +43,8 @@ class HeroList extends React.Component {
     }
 }
 
-export default HeroList;
+const mapDispatchToProps = dispatch => ({
+    updateCurrentTab: (tab) => dispatch({type: 'CHANGE_TAB', tab: 1}),
+});
+
+export default connect(null, mapDispatchToProps)(HeroList);
