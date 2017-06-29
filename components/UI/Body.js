@@ -45,18 +45,13 @@ class AppBody extends React.Component {
     };
 
 	render() {
-		let currentTab = this.props.hero ? this.props.uiStore.currentTab : 4;
+		let currentTab = this.props.hero ? this.props.currentTab : 4;
 
 		const TabContent = getTabContent(currentTab);
 
 		return (
 			<Content className="contentSelectPanel">
 				<TabContent {...this.props} />
-                <p>+{this.props.likes} - {this.props.dislikes}</p>
-                <div>
-                    <button onClick={this.props.like}>Like</button>
-                    <button onClick={this.props.dislike}>Dislike</button>
-                </div>
 			</Content>
 		)
 	}
@@ -64,14 +59,8 @@ class AppBody extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        likes: state.get('likes'),
-        dislikes: state.get('dislikes'),
+        currentTab: state.get('currentTab'),
     }
 };
 
-const mapDispatchToProps = dispatch => ({
-    like: () => dispatch({type: 'ADD_LIKE'}),
-    dislike: () => dispatch({type: 'ADD_DISLIKE'}),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppBody);
+export default connect(mapStateToProps)(AppBody);
