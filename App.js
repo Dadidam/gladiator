@@ -22,10 +22,7 @@ class App extends React.Component {
         return (
             <Layout>
                 <Header className="header">
-                    <AppHeader
-                        uiStore={this.props.uiStore}
-                        showMainMenu={hasActiveHero}
-                    />
+                    <AppHeader showMainMenu={hasActiveHero} />
                 </Header>
                 <Content className="appContent">
                     <Layout className="appLayout whiteBg">
@@ -41,7 +38,6 @@ class App extends React.Component {
                         <AppBody
                             hero={hero}
                             player={player}
-                            uiStore={this.props.uiStore}
                             playerStore={this.props.playerStore}
                         />
                     </Layout>

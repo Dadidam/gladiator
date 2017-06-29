@@ -6,10 +6,7 @@ export default (props) => {
     return (
         <div>
             <Logo />
-            <MainMenu
-                uiStore={props.uiStore}
-                show={props.showMainMenu}
-            />
+            <MainMenu show={props.showMainMenu} />
         </div>
     )
 }

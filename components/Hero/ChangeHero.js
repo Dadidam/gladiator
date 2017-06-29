@@ -17,7 +17,6 @@ class ChangeHero extends React.Component {
         return <Player
             isNewPlayer={isNew}
             heroes={isNew ? undefined : this.props.player.heroes}
-            uiStore={this.props.uiStore}
             playerStore={this.props.playerStore}
         />
     };

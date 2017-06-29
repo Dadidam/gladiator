@@ -29,10 +29,6 @@ const reducer = (state, action) => {
                         return tabs.quests;
                 }
             });
-        case 'TAB_QUESTS':
-            return state.update('currentTab', tab => tabs.quests);
-        case 'TAB_ARENA':
-            return state.update('currentTab', tab => tabs.arena);
         default:
             return state;
     }

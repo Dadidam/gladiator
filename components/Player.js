@@ -35,7 +35,6 @@ class Player extends React.Component {
                 <HeroSelector
                     player={player}
                     show={showSelector}
-                    uiStore={this.props.uiStore}
                     playerStore={this.props.playerStore}
                     createButton={
                         <CreateButton renderFormHandler={this.renderNewHeroForm} />
@@ -78,7 +77,7 @@ class Player extends React.Component {
 
             this.updatePlayer(player);
 
-            this.setState({editMode: false});
+            this.setState({ editMode: false });
         }
     };
 }
