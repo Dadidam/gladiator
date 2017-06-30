@@ -29,15 +29,36 @@ const reducer = (state, action) => {
                         return tabs.quests;
                 }
             });
+        case 'UPDATE_PLAYER':
+            return state.update('player', () => {
+                storage.set('player', action.player);
+                return action.player;
+            });
+        case 'CHANGE_HERO':
+            return state.update('hero', () => {
+                if (!action.heroId) {
+                    return null;
+                }
+
+                return getHeroById(action.heroId) || null;
+            });
         default:
             return state;
     }
 };
 
 const player = storage.get('player');
+const getHeroById = (id) => {
+    const result = player.heroes.filter(hero => {
+        return hero.id === id;
+    });
+
+    return result[0];
+};
 
 const initialState = Map({
     player,
+    hero: getHeroById(player.activeHeroId),
     currentTab: player && player.activeHeroId ? 1 : 4,
 });
 

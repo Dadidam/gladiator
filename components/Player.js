@@ -1,5 +1,6 @@
 import React from 'react';
 import Character from 'Character';
+import { connect } from 'react-redux';
 import HeroSelector from 'Player/HeroSelector';
 import CreateButton from 'Player/CreateButton';
 import CreateHeroForm from 'Player/CreateHeroForm';
@@ -15,11 +16,19 @@ class Player extends React.Component {
             formDisabled: true
         };
 
-        this.updatePlayer = props.playerStore.updatePlayer;
+        // this.updatePlayer = props.playerStore.updatePlayer;
     }
 
+    componentWillReceiveProps(nextProps) {
+        // console.log('nextProps - ', nextProps);
+        // this.setState({
+        //     hero: nextProps.hero
+        // })
+    };
+
     render() {
-        const player = this.props.playerStore.player;
+        // const player = this.props.playerStore.player;
+        const player = this.props.player;
         const showSelector = player ? !this.state.editMode && !player.activeHeroId : !this.state.editMode;
 
         return (
@@ -45,7 +54,7 @@ class Player extends React.Component {
     }
 
     renderNewHeroForm = () => {
-        this.setState({editMode: true});
+        this.setState({ editMode: true });
     };
 
     updateHeroName = (e) => {
@@ -57,7 +66,8 @@ class Player extends React.Component {
 
     createNewHero = () => {
         if (this.state.heroName !== '') {
-            let player = this.props.playerStore.player;
+            // let player = this.props.playerStore.player;
+            let player = this.props.player;
 
             const startHealth = 5;
 
@@ -75,11 +85,21 @@ class Player extends React.Component {
                 };
             }
 
-            this.updatePlayer(player);
+            this.props.updatePlayer(player);
 
             this.setState({ editMode: false });
         }
     };
 }
 
-export default Player;
+const mapStateToProps = (state) => {
+    return {
+        player: state.get('player'),
+    }
+};
+
+const mapDispatchToProps = dispatch => ({
+    updatePlayer: (player) => dispatch({type: 'UPDATE_PLAYER', player}),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Player);

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Layout} from 'antd';
+import { Layout } from 'antd';
 import { observer } from 'mobx-react';
 import { connect } from 'react-redux';
 
@@ -8,7 +8,7 @@ import Arena from 'components/Arena';
 import Quests from 'components/Quests';
 import ChangeHero from 'components/Hero/ChangeHero';
 
-const {Content} = Layout;
+const { Content } = Layout;
 
 const tabs = {
     1: Quests,
@@ -39,6 +39,7 @@ class AppBody extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+	    console.log('nextProps - ', nextProps);
         this.setState({
             hero: nextProps.hero
         })
@@ -60,6 +61,8 @@ class AppBody extends React.Component {
 const mapStateToProps = (state) => {
     return {
         currentTab: state.get('currentTab'),
+        player: state.get('player'),
+        hero: state.get('hero')
     }
 };
 

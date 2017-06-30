@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Table } from 'antd';
 import { connect } from 'react-redux';
-import tabs from 'components/mainMenuTabs';
 import { columns } from './heroListTableColumns';
 
 
@@ -9,13 +8,14 @@ class HeroList extends React.Component {
     constructor(props) {
         super(props);
 
-        this.player = props.playerStore.player;
-        this.updatePlayer = props.playerStore.updatePlayer;
+        this.player = this.props.player;
+        this.updatePlayer = this.props.updatePlayer;
     }
 
     selectHero = id => {
         this.player.activeHeroId = id;
         this.updatePlayer(this.player);
+        this.props.changeHero(id);
         this.props.updateCurrentTab();
     };
 
@@ -43,8 +43,16 @@ class HeroList extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        player: state.get('player'),
+    }
+};
+
 const mapDispatchToProps = dispatch => ({
-    updateCurrentTab: (tab) => dispatch({type: 'CHANGE_TAB', tab: 1}),
+    changeHero: (heroId) => dispatch({type: 'CHANGE_HERO', heroId}),
+    updateCurrentTab: () => dispatch({type: 'CHANGE_TAB', tab: 1}),
+    updatePlayer: (player) => dispatch({type: 'UPDATE_PLAYER', player}),
 });
 
-export default connect(null, mapDispatchToProps)(HeroList);
+export default connect(mapStateToProps, mapDispatchToProps)(HeroList);

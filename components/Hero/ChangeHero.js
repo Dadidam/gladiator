@@ -1,5 +1,6 @@
 import React from 'react';
 import Player from 'Player';
+import { connect } from 'react-redux';
 
 
 class ChangeHero extends React.Component {
@@ -8,7 +9,8 @@ class ChangeHero extends React.Component {
     }
 
     componentDidMount() {
-        this.props.playerStore.changeHero();
+        this.props.changeHero();
+        this.props.updatePlayer(this.props.player);
     }
 
     renderPanel = () => {
@@ -26,4 +28,18 @@ class ChangeHero extends React.Component {
     }
 }
 
-export default ChangeHero;
+const mapStateToProps = (state) => {
+    return {
+        player: state.get('player'),
+    }
+};
+
+const mapDispatchToProps = dispatch => ({
+    updatePlayer: (player) => {
+        player.activeHeroId = null;
+        dispatch({type: 'UPDATE_PLAYER', player})
+    },
+    changeHero: () => dispatch({type: 'CHANGE_HERO'}),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChangeHero);
