@@ -37,7 +37,6 @@ class AppBody extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-	    console.log('nextProps - ', nextProps);
         this.setState({
             hero: nextProps.hero
         })
@@ -57,6 +56,8 @@ class AppBody extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+    hero: state.hero,
+    player: state.player,
     currentTab: state.tab
 });
 

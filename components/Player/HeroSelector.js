@@ -25,10 +25,8 @@ class HeroSelector extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        player: state.get('player'),
-    }
-};
+const mapStateToProps = (state) => ({
+    player: state.player
+});
 
 export default connect(mapStateToProps)(HeroSelector);

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { observer } from 'mobx-react';
 import { connect } from 'react-redux';
 
 import Hero from 'Hero/Main';
@@ -13,14 +12,11 @@ import './index.less';
 const {Content, Header, Sider} = Layout;
 
 
-// @observer
 class App extends React.Component {
     render() {
-        // const player = this.props.player;
-        const player = this.props.playerStore.player;
+        const player = this.props.player;
         const hasActiveHero = player && player.activeHeroId;
-        const hero = this.props.playerStore.getActiveHero();
-        // const hero = this.props.hero;
+        const hero = this.props.hero;
 
         return (
             <Layout>
@@ -50,12 +46,9 @@ class App extends React.Component {
         )
     }
 }
-// const mapStateToProps = (state) => {
-//     return {
-//         player: state.get('player'),
-//         hero: state.get('hero')
-//     }
-// };
+const mapStateToProps = (state) => ({
+    hero: state.hero,
+    player: state.player
+});
 
-// export default connect(mapStateToProps)(App);
-export default App;
+export default connect(mapStateToProps)(App);

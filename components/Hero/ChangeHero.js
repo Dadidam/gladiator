@@ -1,6 +1,7 @@
 import React from 'react';
 import Player from 'Player';
 import { connect } from 'react-redux';
+import { updatePlayer, changeHero } from '../../actions';
 
 
 class ChangeHero extends React.Component {
@@ -24,22 +25,21 @@ class ChangeHero extends React.Component {
     };
 
     render() {
-        return !this.props.player || !this.props.player.activeHeroId ? this.renderPanel() : null;
+        return !this.props.player || !this.props.player.activeHeroId ? this.renderPanel() : <div>111</div>;
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        player: state.get('player'),
-    }
-};
+const mapStateToProps = (state) => ({
+    hero: state.hero,
+    player: state.player
+});
 
 const mapDispatchToProps = dispatch => ({
     updatePlayer: (player) => {
         player.activeHeroId = null;
-        dispatch({type: 'UPDATE_PLAYER', player})
+        dispatch(updatePlayer(player));
     },
-    changeHero: () => dispatch({type: 'CHANGE_HERO'}),
+    changeHero: () => dispatch(changeHero()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangeHero);

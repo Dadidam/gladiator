@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import HeroSelector from 'Player/HeroSelector';
 import CreateButton from 'Player/CreateButton';
 import CreateHeroForm from 'Player/CreateHeroForm';
+import { updatePlayer } from '../actions';
 
 
 class Player extends React.Component {
@@ -92,14 +93,12 @@ class Player extends React.Component {
     };
 }
 
-const mapStateToProps = (state) => {
-    return {
-        player: state.get('player'),
-    }
-};
+const mapStateToProps = (state) => ({
+    player: state.player
+});
 
 const mapDispatchToProps = dispatch => ({
-    updatePlayer: (player) => dispatch({type: 'UPDATE_PLAYER', player}),
+    updatePlayer: (player) => dispatch(updatePlayer(player)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player);

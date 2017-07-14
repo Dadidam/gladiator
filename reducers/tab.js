@@ -1,7 +1,4 @@
-import tabs from 'components/mainMenuTabs';
-
-const activeTab = (state = tabs.quests, action) => {
-    debugger;
+const activeTab = (state = 1, action) => {
     switch (action.type) {
         case 'CHANGE_ACTIVE_TAB':
             return action.tab;
