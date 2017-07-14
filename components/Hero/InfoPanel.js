@@ -1,7 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {Badge, Progress, Tooltip, Icon} from 'antd';
 
-export default class InfoPanel extends React.Component {
+class InfoPanel extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     _createHpTooltip(hero, hp) {
         return `${hero.health}/${hero.maxHealth} (${hp}%)`;
     }
@@ -65,3 +70,9 @@ export default class InfoPanel extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    hero: state.hero
+});
+
+export default connect(mapStateToProps)(InfoPanel);

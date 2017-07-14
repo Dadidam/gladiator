@@ -1,6 +1,8 @@
 import React from 'react';
 import Inventory from 'Inventory';
 import InfoPanel from 'Hero/InfoPanel';
+import { connect } from 'react-redux';
+import { updateHero } from '../../actions';
 
 const refillInterval = 3000;
 
@@ -19,7 +21,8 @@ class Hero extends React.Component {
         };
 
         this.playerStore = props.playerStore;
-        this.updateHero = props.playerStore.updateHero;
+        // this.updateHero = props.playerStore.updateHero;
+        this.updateHero = props.updateHero;
     }
 
     componentDidMount() {
@@ -70,4 +73,13 @@ class Hero extends React.Component {
     };
 }
 
-export default Hero;
+const mapStateToProps = (state) => ({
+    hero: state.hero
+});
+
+const mapDispatchToProps = dispatch => ({
+    updateHero: (hero) => dispatch(updateHero(hero)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Hero);
+// export default Hero;

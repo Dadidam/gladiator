@@ -1,6 +1,9 @@
 import React from 'react';
 import Icon from 'Icon/Icon';
-import {quests} from 'dictionary/quests';
+import { connect } from 'react-redux';
+import { updateHero } from '../actions';
+import { quests } from 'dictionary/quests';
+import { getHeroLevel } from '../utils/heroUtils';
 import { Table, Button, Tooltip, message } from 'antd';
 
 
@@ -112,4 +115,36 @@ class Quests extends React.Component {
     };
 }
 
-export default Quests;
+const mapStateToProps = (state) => ({
+    hero: state.hero
+});
+
+const mapDispatchToProps = dispatch => ({
+    addExp: (exp, hero) => {
+        hero.exp += exp;
+
+        const heroLevel = getHeroLevel(hero);
+
+        if (heroLevel > hero.level) {
+            hero.level = heroLevel;
+        }
+
+        dispatch(updateHero(hero));
+    },
+    addCoins: (coins, hero) => {
+        hero.coins += coins;
+        dispatch(updateHero(hero));
+    },
+    addArenaRank: (rank, hero) => {
+        hero.rank += rank;
+
+        if (hero.rank < 0) {
+            hero.rank = 0;
+        }
+
+        dispatch(updateHero(hero));
+    },
+    updateHero: (hero) => dispatch(updateHero(hero)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quests);

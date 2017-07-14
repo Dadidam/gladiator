@@ -1,18 +1,7 @@
 import * as storage from 'services/localStorage';
+import { getHeroById, getHeroLevel } from '../utils/heroUtils';
 
 const player = storage.get('player');
-
-const getHeroById = (id) => {
-    if (!id) {
-        return null;
-    }
-
-    const result = player.heroes.filter(hero => {
-        return hero.id === id;
-    });
-
-    return result[0];
-};
 
 const hero = (state = getHeroById(player.activeHeroId), action) => {
     switch (action.type) {
@@ -21,6 +10,19 @@ const hero = (state = getHeroById(player.activeHeroId), action) => {
                 return null;
             }
             return getHeroById(action.heroId);
+        case 'UPDATE_HERO':
+            return Object.assign({}, action.hero);
+        case 'ADD_EXP':
+            const hero = action.hero;
+            hero.exp += action.exp;
+
+            const heroLevel = getHeroLevel(hero);
+
+            if (heroLevel > hero.level) {
+                hero.level = heroLevel;
+            }
+
+            return Object.assign({}, hero);
         default:
             return state;
     }
