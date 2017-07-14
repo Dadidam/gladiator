@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Icon } from 'antd';
 import { connect } from 'react-redux';
+import { setActiveTab } from '../../../actions';
 
 const menu = [{
     key: 1,
@@ -50,8 +51,9 @@ class MainMenu extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    changeTab: (tab) => dispatch({type: 'CHANGE_TAB', tab: Number(tab.key)}),
+const mapDispatchToProps = (dispatch) => ({
+    // changeTab: (tab) => dispatch({type: 'CHANGE_TAB', tab: Number(tab.key)}),
+    changeTab: (tab) => dispatch(setActiveTab(Number(tab.key)))
 });
 
 export default connect(null, mapDispatchToProps)(MainMenu);

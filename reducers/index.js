@@ -1,8 +1,6 @@
-import { combineReducers } from 'redux-immutable';
-import likes from './likes';
-import dislikes from './dislikes';
+import { combineReducers } from 'redux';
+import tab from './tab';
 
 export default combineReducers({
-    likes,
-    dislikes
+    tab,
 })

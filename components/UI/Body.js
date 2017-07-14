@@ -1,6 +1,5 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { observer } from 'mobx-react';
 import { connect } from 'react-redux';
 
 import Shop from 'components/Shop';
@@ -28,7 +27,6 @@ const getTabContent = id => {
 };
 
 
-@observer
 class AppBody extends React.Component {
 	constructor(props) {
         super(props);
@@ -58,12 +56,8 @@ class AppBody extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-    return {
-        currentTab: state.get('currentTab'),
-        player: state.get('player'),
-        hero: state.get('hero')
-    }
-};
+const mapStateToProps = (state) => ({
+    currentTab: state.tab
+});
 
 export default connect(mapStateToProps)(AppBody);
