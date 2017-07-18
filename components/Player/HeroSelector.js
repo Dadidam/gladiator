@@ -1,8 +1,8 @@
 import React from 'react';
-import {Card} from 'antd';
+import { Card } from 'antd';
 import HeroList from 'Hero/HeroList';
+import { connect } from 'react-redux';
 import dictionary from 'Player/Dictionary';
-import * as storage from 'services/localStorage';
 
 
 class HeroSelector extends React.Component {
@@ -16,14 +16,15 @@ class HeroSelector extends React.Component {
                 title={dictionary.heroesListTitle}
                 style={{ width: 500 }}
             >
-                <HeroList
-                    playerStore={this.props.playerStore}
-                    updateTab={this.props.uiStore.updateCurrentTab}
-                />
+                <HeroList />
                 {this.props.createButton}
             </Card>
         );
     }
 }
 
-export default HeroSelector;
+const mapStateToProps = (state) => ({
+    player: state.player
+});
+
+export default connect(mapStateToProps)(HeroSelector);

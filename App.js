@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { observer } from 'mobx-react';
+import { connect } from 'react-redux';
+import * as storage from 'services/localStorage';
 
 import Hero from 'Hero/Main';
 import AppBody from './components/UI/Body';
@@ -12,38 +13,40 @@ import './index.less';
 const {Content, Header, Sider} = Layout;
 
 
-@observer
 class App extends React.Component {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.hero) {
+            let heroes = [];
+
+            nextProps.player.heroes.forEach((char) => {
+                const character = char.id === nextProps.hero.id ? nextProps.hero : char;
+                heroes.push(character);
+            });
+
+            nextProps.player.heroes = heroes;
+            storage.set('player', nextProps.player);
+        }
+    }
+
     render() {
-        const player = this.props.playerStore.player;
+        const player = this.props.player;
         const hasActiveHero = player && player.activeHeroId;
-        const hero = this.props.playerStore.getActiveHero();
+        const hero = this.props.hero;
 
         return (
             <Layout>
                 <Header className="header">
-                    <AppHeader
-                        uiStore={this.props.uiStore}
-                        showMainMenu={hasActiveHero}
-                    />
+                    <AppHeader showMainMenu={hasActiveHero} />
                 </Header>
                 <Content className="appContent">
                     <Layout className="appLayout whiteBg">
                         {hasActiveHero ?
                             <Sider width={200} className="whiteBg leftPanel">
-                                <Hero
-                                    params={hero}
-                                    playerStore={this.props.playerStore}
-                                />
+                                <Hero />
                             </Sider>
                             : null
                         }
-                        <AppBody
-                            hero={hero}
-                            player={player}
-                            uiStore={this.props.uiStore}
-                            playerStore={this.props.playerStore}
-                        />
+                        <AppBody hero={hero} player={player} />
                     </Layout>
                 </Content>
                 <AppFooter />
@@ -51,5 +54,9 @@ class App extends React.Component {
         )
     }
 }
+const mapStateToProps = (state) => ({
+    hero: state.hero,
+    player: state.player
+});
 
-export default App;
+export default connect(mapStateToProps)(App);

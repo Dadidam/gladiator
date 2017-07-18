@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducer from './reducers';
 import App from './App';
-import UiStore from './stores/UiStore';
-import PlayerStore from './stores/PlayerStore';
 
-const uiStore = new UiStore();
-const playerStore = new PlayerStore();
+const store = createStore(
+    reducer, /* preloadedState, */
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 ReactDOM.render(
-	<App playerStore={playerStore} uiStore={uiStore} />
-	, document.getElementById('app')
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('app')
 );

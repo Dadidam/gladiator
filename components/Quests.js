@@ -1,6 +1,8 @@
 import React from 'react';
 import Icon from 'Icon/Icon';
-import {quests} from 'dictionary/quests';
+import { connect } from 'react-redux';
+import { quests } from 'dictionary/quests';
+import { addExp, addCoins, addHp } from '../actions';
 import { Table, Button, Tooltip, message } from 'antd';
 
 
@@ -9,7 +11,6 @@ class Quests extends React.Component {
         super(props);
 
         this.hero = props.hero;
-        this.playerStore = props.playerStore;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -41,7 +42,7 @@ class Quests extends React.Component {
 
         if (canExecute) {
             return <span>
-                <Button type="primary" size="large" onClick={this.executeQuest.bind(this, params)}><Icon type={params.icon} size={20} />{' '}{params.title}</Button>
+                <Button type="primary" size="large" onClick={() => this.executeQuest(params)}><Icon type={params.icon} size={20} />{' '}{params.title}</Button>
             </span>
         }
 
@@ -75,13 +76,13 @@ class Quests extends React.Component {
 
         switch (type) {
             case 'exp':
-                this.playerStore.addExp(value, this.hero);
+                this.props.addExp(value, this.hero);
                 break;
             case 'health':
-                this.playerStore.addHp(value, this.hero);
+                this.props.addHp(value, this.hero);
                 break;
             case 'coins':
-                this.playerStore.addCoins(value, this.hero);
+                this.props.addCoins(value, this.hero);
                 break;
         }
     };
@@ -112,4 +113,14 @@ class Quests extends React.Component {
     };
 }
 
-export default Quests;
+const mapStateToProps = (state) => ({
+    hero: state.hero
+});
+
+const mapDispatchToProps = dispatch => ({
+    addExp: (exp, hero) => dispatch(addExp(exp, hero)),
+    addCoins: (coins, hero) => dispatch(addCoins(coins, hero)),
+    addHp: (hp, hero) => dispatch(addHp(hp, hero)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quests);

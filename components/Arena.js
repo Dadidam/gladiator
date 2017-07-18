@@ -4,15 +4,14 @@ import { resultEnum } from './Fight/resultEnum';
 import { fighters } from 'dictionary/arena';
 import Character from './Character';
 import { Table, Button, message } from 'antd';
+import { connect } from 'react-redux';
+import { addExp, addCoins, addArenaPoints, setHp } from '../actions';
 
 
 class Arena extends React.Component {
     constructor(props) {
         super(props);
-
         this.hero = props.hero;
-        this.playerStore = props.playerStore;
-
         this.setInitialState();
     }
 
@@ -52,22 +51,22 @@ class Arena extends React.Component {
         const duration = 3;
 
         if (fightResult === resultEnum.playerWin) {
-            this.playerStore.addExp(this.state.reward.exp, this.hero);
-            this.playerStore.addCoins(this.state.reward.coins, this.hero);
-            this.playerStore.addArenaRank(this.state.reward.rank, this.hero);
+            this.props.addExp(this.state.reward.exp, this.hero);
+            this.props.addCoins(this.state.reward.coins, this.hero);
+            this.props.addArenaPoints(this.state.reward.rank, this.hero);
 
             message.success('You won at the arena battle and get some reward', duration);
         } else if (fightResult === resultEnum.playerLoose) {
             const negativeRank = -this.state.reward.rank;
 
-            this.playerStore.addArenaRank(negativeRank, this.hero);
+            this.props.addArenaPoints(negativeRank, this.hero);
 
             message.error('You couldn\'t win at the arena and lost some rank points :(', duration);
         } else if (fightResult === resultEnum.draw) {
-            message.warning('You and your opponent finished this battle with the draw result', duration);
+            message.warning('This battle was finished with the draw result', duration);
         }
 
-        this.playerStore.setHp(arenaHero.health, this.hero);
+        this.props.setHp(arenaHero.health, this.hero);
         this.setInitialState();
     };
 
@@ -112,4 +111,15 @@ class Arena extends React.Component {
     };
 }
 
-export default Arena;
+const mapStateToProps = (state) => ({
+    hero: state.hero
+});
+
+const mapDispatchToProps = dispatch => ({
+    addExp: (exp, hero) => dispatch(addExp(exp, hero)),
+    addCoins: (coins, hero) => dispatch(addCoins(coins, hero)),
+    addArenaPoints: (points, hero) => dispatch(addArenaPoints(points, hero)),
+    setHp: (hp, hero) => dispatch(setHp(hp, hero)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Arena);

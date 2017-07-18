@@ -2,6 +2,8 @@ import React from 'react';
 import ShopItems from 'Items';
 import { itemTypes } from './Inventory/itemTypes';
 import { Table, Button, Tooltip, message, Tabs, Icon } from 'antd';
+import { connect } from 'react-redux';
+import { addItem, addCoins } from '../actions';
 
 const TabPane = Tabs.TabPane;
 
@@ -11,7 +13,6 @@ class Shop extends React.Component {
         super(props);
 
         this.hero = props.hero;
-        this.updateHero = props.playerStore.updateHero;
     }
 
     render() {
@@ -34,21 +35,6 @@ class Shop extends React.Component {
         );
     }
 
-    collectCoins = (count) => {
-        this.hero.coins += count;
-
-        this.updateHero(this.hero);
-    };
-
-    getItem = (item) => {
-        let newItem = Object.assign({}, item); // clone item
-        newItem.id = this.hero.inventory.length + 1; // set unique item ID
-
-        this.hero.inventory.push(newItem); // add new item to inventory
-
-        this.updateHero(this.hero); // update changes
-    };
-
     checkPurchase = item => {
         let canPurchase = true;
 
@@ -59,23 +45,12 @@ class Shop extends React.Component {
         const buttonTitle = `Buy for ${item.params.price.buy} coins`;
 
         if (canPurchase) {
-            return <Button type="primary" onClick={this.makePurchase.bind(this, item)}>{buttonTitle}</Button>;
+            return <Button type="primary" onClick={() => this.props.makePurchase(item, this.hero)}>{buttonTitle}</Button>;
         }
 
         return <Tooltip placement="top" title="You can't buy this item now (low level or not enough coins)">
             <Button disabled>{buttonTitle}</Button>
         </Tooltip>;
-    };
-
-    makePurchase = item => {
-        // Take coins for the purchase
-        const price = -item.params.price.buy;
-        this.collectCoins(price);
-
-        // Add a new item to the hero inventory
-        this.getItem(ShopItems[item.key]);
-
-        message.success(`You\'ve bought item: ${item.params.name} `, 3);
     };
 
     getItemDescription = item => {
@@ -139,4 +114,19 @@ class Shop extends React.Component {
     }
 }
 
-export default Shop;
+const mapStateToProps = (state) => ({
+    hero: state.hero
+});
+
+const mapDispatchToProps = dispatch => ({
+    makePurchase: (item, hero) => {
+        const price = -item.params.price.buy;
+
+        dispatch(addCoins(price, hero));
+        dispatch(addItem(ShopItems[item.key], hero));
+
+        message.success(`You\'ve bought item: ${item.params.name} `, 3);
+    },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shop);

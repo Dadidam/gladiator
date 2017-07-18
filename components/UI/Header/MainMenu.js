@@ -1,5 +1,7 @@
 import React from 'react';
 import { Menu, Icon } from 'antd';
+import { connect } from 'react-redux';
+import { setActiveTab } from '../../../actions';
 
 const menu = [{
     key: 1,
@@ -19,9 +21,16 @@ const menu = [{
     title: 'Change hero'
 }];
 
-export default (props) => {
+class MainMenu extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-    const _render = () => {
+    render() {
+        if (!this.props.show) {
+            return null;
+        }
+
         const menuItems = menu.map(item => {
             return <Menu.Item key={item.key}>
                 <Icon type={item.icon} />{item.title}
@@ -34,12 +43,17 @@ export default (props) => {
                 mode="horizontal"
                 defaultSelectedKeys={['1']}
                 className="appMenu"
-                onClick={props.uiStore.changeTab}
+                onClick={this.props.changeTab}
             >
                 {menuItems}
             </Menu>
         )
-    };
-
-    return props.show ? _render() : null;
+    }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+    // changeTab: (tab) => dispatch({type: 'CHANGE_TAB', tab: Number(tab.key)}),
+    changeTab: (tab) => dispatch(setActiveTab(Number(tab.key)))
+});
+
+export default connect(null, mapDispatchToProps)(MainMenu);

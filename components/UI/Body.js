@@ -1,13 +1,13 @@
 import React from 'react';
-import {Layout} from 'antd';
-import { observer } from 'mobx-react';
+import { Layout } from 'antd';
+import { connect } from 'react-redux';
 
 import Shop from 'components/Shop';
 import Arena from 'components/Arena';
 import Quests from 'components/Quests';
 import ChangeHero from 'components/Hero/ChangeHero';
 
-const {Content} = Layout;
+const { Content } = Layout;
 
 const tabs = {
     1: Quests,
@@ -27,7 +27,6 @@ const getTabContent = id => {
 };
 
 
-@observer
 class AppBody extends React.Component {
 	constructor(props) {
         super(props);
@@ -44,7 +43,7 @@ class AppBody extends React.Component {
     };
 
 	render() {
-		let currentTab = this.props.hero ? this.props.uiStore.currentTab : 4;
+		let currentTab = this.props.hero ? this.props.currentTab : 4;
 
 		const TabContent = getTabContent(currentTab);
 
@@ -56,4 +55,10 @@ class AppBody extends React.Component {
 	}
 }
 
-export default AppBody;
+const mapStateToProps = (state) => ({
+    hero: state.hero,
+    player: state.player,
+    currentTab: state.tab
+});
+
+export default connect(mapStateToProps)(AppBody);

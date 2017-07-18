@@ -1,29 +1,38 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {Badge, Progress, Tooltip, Icon} from 'antd';
 
-export default class InfoPanel extends React.Component {
+class InfoPanel extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.hero = props.hero;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.hero = nextProps.hero;
+    }
+
     _createHpTooltip(hero, hp) {
         return `${hero.health}/${hero.maxHealth} (${hp}%)`;
     }
 
     render() {
-        const hero = this.props.hero;
-
-        if (!hero) {
+        if (!this.hero) {
             return null;
         }
 
-        const hp = Math.round((hero.health / hero.maxHealth) * 100);
-        const healthTooltip = this._createHpTooltip(hero, hp);
+        const hp = Math.round((this.hero.health / this.hero.maxHealth) * 100);
+        const healthTooltip = this._createHpTooltip(this.hero, hp);
 
         return (
             <div className="infoPanel">
-                <h3><Icon type="user" className="heroIcon" />{hero.name}</h3>
+                <h3><Icon type="user" className="heroIcon" />{this.hero.name}</h3>
                 <div className="heroLevel">
-                    {hero.level} level, {hero.exp} exp
+                    {this.hero.level} level, {this.hero.exp} exp
                 </div>
                 <div>
-                    Arena rank: <b>{hero.rank}</b>
+                    Arena rank: <b>{this.hero.rank}</b>
                 </div>
                 <div>
                     <Icon type="heart" className="heroIcon" />HP (+1/3sec):
@@ -38,26 +47,26 @@ export default class InfoPanel extends React.Component {
                 </div>
                 <div>
                     <Icon type="shrink" className="heroIcon" />Damage{' '}
-                    <Badge count={`${hero.minDamage}-${hero.maxDamage}`}/>
+                    <Badge count={`${this.hero.minDamage}-${this.hero.maxDamage}`}/>
                 </div>
                 <div>
                     <Icon type="copyright" className="heroIcon" />Coins{' '}
                     <Badge
                         showZero={true}
-                        count={hero.coins}
+                        count={this.hero.coins}
                         overflowCount={9999}
                         style={{backgroundColor: '#ffbf00'}}
                     />
                 </div>
                 <div>
                     <Icon type="skin" className="heroIcon" />
-                    {hero.inventory.length ?
+                    {this.hero.inventory.length ?
                         <a href="#" onClick={this.props.handleInventory}>Inventory</a> : 'Inventory'
                     }
                     {' '}
                     <Badge
                         showZero={true}
-                        count={hero.inventory.length}
+                        count={this.hero.inventory.length}
                         style={{backgroundColor: '#d9d9d9'}}
                     />
                 </div>
@@ -65,3 +74,9 @@ export default class InfoPanel extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    hero: state.hero
+});
+
+export default connect(mapStateToProps)(InfoPanel);
