@@ -14,8 +14,16 @@ const {Content, Header, Sider} = Layout;
 
 
 class App extends React.Component {
-    componentWillUnmount() {
-        storage.set('player', this.props.player);
+    componentWillReceiveProps(nextProps) {
+        let heroes = [];
+
+        nextProps.player.heroes.forEach((char) => {
+            const character = char.id === nextProps.hero.id ? nextProps.hero : char;
+            heroes.push(character);
+        });
+
+        nextProps.player.heroes = heroes;
+        storage.set('player', nextProps.player);
     }
 
     render() {
