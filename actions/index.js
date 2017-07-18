@@ -65,9 +65,3 @@ export const deleteItem = (item, hero) => ({
     item,
     hero
 });
-
-export const sellItem = (item, hero) => ({
-    type: 'SELL_ITEM',
-    item,
-    hero
-});

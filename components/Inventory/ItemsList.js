@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useItem, sellItem, deleteItem } from '../../actions';
+import { useItem, addCoins, deleteItem } from '../../actions';
 import {Tooltip, Button, Card, Row, Col, Icon} from 'antd';
 
 class ItemsList extends React.Component {
@@ -68,7 +68,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
     useItem: (item, hero) => dispatch(useItem(item, hero)),
-    sellItem: (item, hero) => dispatch(sellItem(item, hero)),
+    sellItem: (item, hero) => {
+        dispatch(deleteItem(item, hero));
+        dispatch(addCoins(item.price.sell, hero));
+    },
     deleteItem: (item, hero) => dispatch(deleteItem(item, hero)),
 });
 

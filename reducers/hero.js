@@ -68,11 +68,9 @@ const hero = (state = getHeroById(player.activeHeroId), action) => {
                     if (hero.health > item.params.maxHealth) {
                         hero.health = item.params.maxHealth;
                     }
-                    // return Object.assign({}, hero);
                     break;
                 default:
                     throw new Error('Not supported type of item');
-                    ////////////
             }
             return Object.assign({}, hero);
         case 'DELETE_ITEM':
@@ -98,11 +96,6 @@ const hero = (state = getHeroById(player.activeHeroId), action) => {
             hero.inventory.splice(index, 1);
 
             // update hero data
-            return Object.assign({}, hero);
-        case 'SELL_ITEM':
-            // TODO: execute delete action first
-            // this.deleteItem(item, hero);
-            hero.coins += item.price.sell;
             return Object.assign({}, hero);
         default:
             return state;
