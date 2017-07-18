@@ -16,19 +16,9 @@ class Player extends React.Component {
             editMode: false,
             formDisabled: true
         };
-
-        // this.updatePlayer = props.playerStore.updatePlayer;
     }
 
-    componentWillReceiveProps(nextProps) {
-        // console.log('nextProps - ', nextProps);
-        // this.setState({
-        //     hero: nextProps.hero
-        // })
-    };
-
     render() {
-        // const player = this.props.playerStore.player;
         const player = this.props.player;
         const showSelector = player ? !this.state.editMode && !player.activeHeroId : !this.state.editMode;
 
@@ -45,7 +35,6 @@ class Player extends React.Component {
                 <HeroSelector
                     player={player}
                     show={showSelector}
-                    playerStore={this.props.playerStore}
                     createButton={
                         <CreateButton renderFormHandler={this.renderNewHeroForm} />
                     }
@@ -67,7 +56,6 @@ class Player extends React.Component {
 
     createNewHero = () => {
         if (this.state.heroName !== '') {
-            // let player = this.props.playerStore.player;
             let player = this.props.player;
 
             const startHealth = 5;

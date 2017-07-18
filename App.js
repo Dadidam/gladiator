@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
 import { connect } from 'react-redux';
+import * as storage from 'services/localStorage';
 
 import Hero from 'Hero/Main';
 import AppBody from './components/UI/Body';
@@ -13,6 +14,10 @@ const {Content, Header, Sider} = Layout;
 
 
 class App extends React.Component {
+    componentWillUnmount() {
+        storage.set('player', this.props.player);
+    }
+
     render() {
         const player = this.props.player;
         const hasActiveHero = player && player.activeHeroId;

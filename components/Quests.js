@@ -11,7 +11,6 @@ class Quests extends React.Component {
         super(props);
 
         this.hero = props.hero;
-        this.playerStore = props.playerStore;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -43,7 +42,7 @@ class Quests extends React.Component {
 
         if (canExecute) {
             return <span>
-                <Button type="primary" size="large" onClick={this.executeQuest.bind(this, params)}><Icon type={params.icon} size={20} />{' '}{params.title}</Button>
+                <Button type="primary" size="large" onClick={() => this.executeQuest(params)}><Icon type={params.icon} size={20} />{' '}{params.title}</Button>
             </span>
         }
 

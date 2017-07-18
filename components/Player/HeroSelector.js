@@ -16,9 +16,7 @@ class HeroSelector extends React.Component {
                 title={dictionary.heroesListTitle}
                 style={{ width: 500 }}
             >
-                <HeroList
-                    playerStore={this.props.playerStore}
-                />
+                <HeroList />
                 {this.props.createButton}
             </Card>
         );

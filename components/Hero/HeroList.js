@@ -10,28 +10,23 @@ class HeroList extends React.Component {
         super(props);
 
         this.player = this.props.player;
-        this.updatePlayer = this.props.updatePlayer;
     }
 
     selectHero = id => {
         this.player.activeHeroId = id;
-        this.updatePlayer(this.player);
+        this.props.updatePlayer(this.player);
         this.props.changeHero(id);
         this.props.updateCurrentTab(1);
     };
 
     createHeroesList = heroes => {
         return heroes.map(hero => {
-            const heroLvl = this.props.playerStore.getHeroLevel(hero);
-
             return {
                 key: hero.id,
                 name: hero.name,
-                level: heroLvl,
-                actions: <Button type="primary" size="small" onClick={this.selectHero.bind(
-                    this, hero.id
-                )}>
-                    select
+                level: hero.level,
+                actions: <Button type="primary" size="small" onClick={() => this.selectHero(hero.id)}>
+                    {'select'}
                 </Button>
             };
         });
