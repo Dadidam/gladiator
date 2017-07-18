@@ -17,15 +17,11 @@ class ChangeHero extends React.Component {
     renderPanel = () => {
         const isNew = !this.props.player;
 
-        return <Player
-            isNewPlayer={isNew}
-            heroes={isNew ? undefined : this.props.player.heroes}
-            playerStore={this.props.playerStore}
-        />
+        return <Player isNewPlayer={isNew} heroes={isNew ? undefined : this.props.player.heroes} />
     };
 
     render() {
-        return !this.props.player || !this.props.player.activeHeroId ? this.renderPanel() : <div>111</div>;
+        return !this.props.player || !this.props.player.activeHeroId ? this.renderPanel() : null;
     }
 }
 
