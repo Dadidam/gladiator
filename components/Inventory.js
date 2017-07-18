@@ -7,21 +7,17 @@ const itemTypes = ['weapon', 'armor'];
 export default class Inventory extends React.Component {
     constructor(props) {
         super(props);
-    }
 
-    renderEmptyListMessage() {
-        return <div>You haven't any items. You can buy it at shop or get as a quest award.</div>;
+        this.renderEmptyListMessage = () => {
+            return <div>You haven't any items. You can buy it at shop or get as a quest award.</div>;
+        }
     }
 
     renderItemList(items) {
         return items.map((type, i) => {
             return (
                 <div key={type}>
-                    <ItemsList
-                        type={type}
-                        hero={this.props.hero}
-                        playerStore={this.props.playerStore}
-                    />
+                    <ItemsList type={type} />
                     {itemTypes.length !== i + 1 ?
                         <div className="divider"></div> : null
                     }

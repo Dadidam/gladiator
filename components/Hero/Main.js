@@ -20,8 +20,6 @@ class Hero extends React.Component {
             refill: this.hero.health < this.hero.maxHealth
         };
 
-        this.playerStore = props.playerStore;
-        // this.updateHero = props.playerStore.updateHero;
         this.updateHero = props.updateHero;
     }
 
@@ -47,8 +45,6 @@ class Hero extends React.Component {
                     hero={this.hero}
                     show={this.state.showInventory}
                     toggle={this.toggleInventory}
-                    updateHero={this.updateHero}
-                    playerStore={this.playerStore}
                 />
             </div>
         );
@@ -82,4 +78,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Hero);
-// export default Hero;

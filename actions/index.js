@@ -47,3 +47,27 @@ export const setHp = (hp, hero) => ({
     hp,
     hero
 });
+
+export const addItem = (item, hero) => ({
+    type: 'ADD_ITEM',
+    item,
+    hero
+});
+
+export const useItem = (item, hero) => ({
+    type: 'USE_ITEM',
+    item,
+    hero
+});
+
+export const deleteItem = (item, hero) => ({
+    type: 'DELETE_ITEM',
+    item,
+    hero
+});
+
+export const sellItem = (item, hero) => ({
+    type: 'SELL_ITEM',
+    item,
+    hero
+});

@@ -27,10 +27,7 @@ class App extends React.Component {
                     <Layout className="appLayout whiteBg">
                         {hasActiveHero ?
                             <Sider width={200} className="whiteBg leftPanel">
-                                <Hero
-                                    params={hero}
-                                    playerStore={this.props.playerStore}
-                                />
+                                <Hero params={hero} />
                             </Sider>
                             : null
                         }
