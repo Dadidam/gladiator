@@ -14,7 +14,7 @@ const hero = (state = getHeroById(player.activeHeroId), action) => {
             }
             return getHeroById(action.heroId);
         case 'UPDATE_HERO':
-            return Object.assign({}, action.hero);
+            return Object.assign({}, hero);
         case 'ADD_EXP':
             hero.exp += action.exp;
 
@@ -26,8 +26,8 @@ const hero = (state = getHeroById(player.activeHeroId), action) => {
 
             return Object.assign({}, hero);
         case 'ADD_COINS':
-            action.hero.coins += action.coins;
-            return Object.assign({}, action.hero);
+            hero.coins += action.coins;
+            return Object.assign({}, hero);
         case 'ADD_ARENA_RANK_POINTS':
             hero.rank += action.rank;
 

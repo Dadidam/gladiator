@@ -12,7 +12,7 @@ class Hero extends React.Component {
     constructor(props) {
         super(props);
 
-        this.hero = props.params;
+        this.hero = props.hero;
         this.restore = null;
 
         this.state = {
@@ -28,6 +28,10 @@ class Hero extends React.Component {
             () => this.restoreHealth(),
             refillInterval
         );
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.hero = nextProps.hero;
     }
 
     componentWillUnmount() {
