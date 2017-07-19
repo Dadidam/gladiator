@@ -54,6 +54,7 @@ class App extends React.Component {
         )
     }
 }
+
 const mapStateToProps = (state) => ({
     hero: state.hero,
     player: state.player

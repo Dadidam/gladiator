@@ -1,8 +1,9 @@
 import React from 'react';
+import items from './Items';
 import Icon from 'Icon/Icon';
 import { connect } from 'react-redux';
 import { quests } from 'dictionary/quests';
-import { addExp, addCoins, addHp } from '../actions';
+import { addExp, addCoins, addHp, addItem } from '../actions';
 import { Table, Button, Tooltip, message } from 'antd';
 
 
@@ -84,6 +85,9 @@ class Quests extends React.Component {
             case 'coins':
                 this.props.addCoins(value, this.hero);
                 break;
+            case 'items':
+                this.props.addItems(value, this.hero);
+                break;
         }
     };
 
@@ -121,6 +125,14 @@ const mapDispatchToProps = dispatch => ({
     addExp: (exp, hero) => dispatch(addExp(exp, hero)),
     addCoins: (coins, hero) => dispatch(addCoins(coins, hero)),
     addHp: (hp, hero) => dispatch(addHp(hp, hero)),
+    addItems: (itemList, hero) => {
+        const probability = Math.floor((Math.random() * 100) + 1);
+        itemList.map((item) => {
+            if (probability <= item.probability) {
+                dispatch(addItem(items[item.name], hero));
+            }
+        });
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quests);

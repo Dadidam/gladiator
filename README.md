@@ -5,13 +5,17 @@ Setup all `npm` dependencies, then run: `npm start`
 
 ## Milestones and future plans
 
-* Improve reward system:
-    * items as a reward
-    * probability based on %-values
 * Quest chains and narrative design
 * Craft and loot
 
 ## Changelog
+
+#### v.0.2.2 (19.07.2017)
+
+Improve reward system:
+
+ * items as a reward
+ * probability based on %-values
 
 #### v.0.2.1 (18.07.2017)
  

@@ -7,7 +7,14 @@ export const quests = [{
         },
         reward: {
             exp: 1,
-            coins: 1
+            coins: 1,
+            items: [{
+                name: 'toySword',
+                probability: 50
+            },{
+                name: 'shinyArmor',
+                probability: 30
+            }]
         },
         textReward: '+1 coin, +1 exp',
         icon: 'mouse'
