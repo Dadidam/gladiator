@@ -11,4 +11,4 @@ Setup all `npm` dependencies, then run: `npm start`
     * probability based on %-values
 * Quest chains and narrative design
 * ~~`mobx`~~
-* `Redux` (instead of `mobx`)
+* ~~`Redux` (instead of `mobx`)~~
