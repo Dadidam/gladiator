@@ -6,7 +6,8 @@ Setup all `npm` dependencies, then run: `npm start`
 ## Milestones and future plans
 
 * Quest chains and narrative design
-* Craft and loot
+* Craft and loot system
+* Special weapon and armor available for arena rank points
 
 ## Changelog
 

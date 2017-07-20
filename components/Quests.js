@@ -3,8 +3,11 @@ import items from './Items';
 import Icon from 'Icon/Icon';
 import { connect } from 'react-redux';
 import { quests } from 'dictionary/quests';
+import narrative from 'dictionary/narrative';
 import { addExp, addCoins, addHp, addItem } from '../actions';
-import { Table, Button, Tooltip, message } from 'antd';
+import { Table, Button, Tooltip, Collapse, message } from 'antd';
+
+const Panel = Collapse.Panel;
 
 
 class Quests extends React.Component {
@@ -18,6 +21,27 @@ class Quests extends React.Component {
         this.hero = nextProps.hero;
     };
 
+    getFormattedList = (obj) => {
+        let list = '';
+        for (let key in obj) {
+            if (list !== '') {
+                list += ', ';
+            }
+
+            if (obj.hasOwnProperty(key)) {
+                if (key == 'items') {
+                    obj[key].map((elem, i) => {
+                        list += `${elem.name} (${elem.probability}%)`;
+                        list += i !== obj[key].length - 1 ? ', ': '';
+                    })
+                } else {
+                    list += `${obj[key]} ${key}`;
+                }
+            }
+        }
+        return list;
+    };
+
     render() {
         if (!this.hero) {
             return null;
@@ -25,8 +49,25 @@ class Quests extends React.Component {
 
         const cols = this.getTableColumns();
         const data = this.getQuestsByHeroLevel();
+        const narrativeQuests = Object.keys(narrative);
 
-        return <Table columns={cols} dataSource={data} pagination={false} />
+        return (
+            <div>
+                <Collapse accordion>
+                    {narrativeQuests.map((quest, i) => {
+                        const q = narrative[quest];
+                        return <Panel header={q.title} key={i}>
+                            <p>{q.description}</p>
+                            <p>You need: {this.getFormattedList(q.questPrice)}</p>
+                            <p>Reward: {this.getFormattedList(q.reward)}</p>
+                            <Button type="primary" size="large" onClick={() => this.executeQuest()}><Icon type={'mouse'} size={20} />{' '}{'execute'}</Button>
+                        </Panel>
+                    })}
+                </Collapse>
+                <div style={{ marginBottom: 30 }}>&nbsp;</div>
+                <Table columns={cols} dataSource={data} pagination={false} />
+            </div>
+        )
     }
 
     checkQuest = params => {
