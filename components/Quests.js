@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { quests } from 'dictionary/quests';
 import narrative from 'dictionary/narrative';
 import { addExp, addCoins, addHp, addItem } from '../actions';
-import { Table, Button, Tooltip, Collapse, message } from 'antd';
+import { Table, Button, Tooltip, Collapse, Row, Col, message } from 'antd';
 
 const Panel = Collapse.Panel;
 
@@ -56,11 +56,18 @@ class Quests extends React.Component {
                 <Collapse accordion>
                     {narrativeQuests.map((quest, i) => {
                         const q = narrative[quest];
-                        return <Panel header={q.title} key={i}>
-                            <p>{q.description}</p>
-                            <p>You need: {this.getFormattedList(q.questPrice)}</p>
-                            <p>Reward: {this.getFormattedList(q.reward)}</p>
-                            <Button type="primary" size="large" onClick={() => this.executeQuest()}><Icon type={'mouse'} size={20} />{' '}{'execute'}</Button>
+                        return <Panel header={<h3>{q.title}</h3>} key={i}>
+                            <Row>
+                                <Col span={5}>
+                                    <p><img src={`img/narrative/${q.icon}.svg`} width="100" alt=""/></p>
+                                </Col>
+                                <Col span={19} className="narrDescBlock">
+                                    <p className="narrDescText">{q.description}</p>
+                                    <p>You need: {this.getFormattedList(q.questPrice)}</p>
+                                    <p>Reward: {this.getFormattedList(q.reward)}</p>
+                                    <p><Button type="primary" size="large" onClick={() => this.executeQuest()}><Icon type={'mouse'} size={20} />{' '}{'execute'}</Button></p>
+                                </Col>
+                            </Row>
                         </Panel>
                     })}
                 </Collapse>

@@ -7,6 +7,7 @@ export default {
             maxHealth: 5
         },
         title: 'Tutorial quest',
+        icon: 'boat',
         description: 'Once upon a time...',
         questPrice: {
             coins: 1,
