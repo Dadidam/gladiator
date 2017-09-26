@@ -4,13 +4,30 @@
 
 Experimental game project based on *React* and *antd*.
 
-Setup all `npm` dependencies, then run: `npm start`
+## Setup and run
+
+Setup all dependencies: `npm install`.
+
+Then run: `npm start`.
+
+Open: `http://localhost:3333`
+
+Enjoy!
 
 ## Milestones and future plans
+
+*Game features:*
 
 * Quest chains and narrative design
 * Craft and loot system
 * Special weapon and armor available for arena rank points
+
+*Tech stack improvements:*
+
+* Move dev-platform to `create-react-app` environment
+* Use `MongoDB` as a data storage
+* Move project to full-stack rails with `Node.js` and `RESTFul`
+* Add unit-test tools and write some tests
 
 ## Changelog
 
