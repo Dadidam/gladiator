@@ -14,10 +14,11 @@ export default {
             sell: 1
         },
         canBuy: 0,
-        level: 1
+        level: 1,
+        icon: 'toySword'
     },
     rustySword: {
-        name: 'Rusty sword',
+        name: 'Stone hammer',
         type: 'weapon',
         params: {
             minDamage: 2,
@@ -27,10 +28,11 @@ export default {
             buy: 15,
             sell: 3
         },
-        level: 1
+        level: 1,
+        icon: 'stoneHammer'
     },
     sharpSword: {
-        name: 'Sharp sword',
+        name: 'Sharp knife',
         type: 'weapon',
         params: {
             minDamage: 3,
@@ -40,7 +42,8 @@ export default {
             buy: 25,
             sell: 5
         },
-        level: 2
+        level: 2,
+        icon: 'cobblersKnife'
     },
     woodenMace: {
         name: 'Wooden mace',
@@ -53,10 +56,11 @@ export default {
             buy: 60,
             sell: 12
         },
-        level: 3
+        level: 3,
+        icon: 'woodenMace'
     },
     rapier: {
-        name: 'Rapier',
+        name: 'Short Spear',
         type: 'weapon',
         params: {
             minDamage: 3,
@@ -67,10 +71,11 @@ export default {
             buy: 150,
             sell: 30
         },
-        level: 4
+        level: 4,
+        icon: 'shortSpear'
     },
     steelMace: {
-        name: 'Steel mace',
+        name: 'Stone mace',
         type: 'weapon',
         params: {
             minDamage: 5,
@@ -80,22 +85,38 @@ export default {
             buy: 280,
             sell: 55
         },
-        level: 5
+        level: 5,
+        icon: 'stoneMace'
     },
 
     // ARMORS
 
-    rustyArmor: {
-        name: 'Rusty armor',
+    shirt: {
+        name: 'Rural shirt',
         type: 'armor',
         params: {
-            maxHealth: 10
+            maxHealth: 2
         },
         price: {
-            buy: 40,
-            sell: 8
+            buy: 10,
+            sell: 1
         },
-        level: 1
+        canBuy: 0,
+        level: 1,
+        icon: 'ruralShirt'
+    },
+    rustyArmor: {
+        name: 'Stout Shirt',
+        type: 'armor',
+        params: {
+            maxHealth: 5
+        },
+        price: {
+            buy: 25,
+            sell: 3
+        },
+        level: 1,
+        icon: 'stoutShirt'
     },
     leatherArmor: {
         name: 'Leather armor',
@@ -108,10 +129,11 @@ export default {
             buy: 150,
             sell: 30
         },
-        level: 3
+        level: 3,
+        icon: 'leatherArmor'
     },
     shinyArmor: {
-        name: 'Shiny armor',
+        name: 'Rusty Mail',
         type: 'armor',
         params: {
             maxHealth: 25
@@ -120,6 +142,7 @@ export default {
             buy: 320,
             sell: 65
         },
-        level: 5
+        level: 5,
+        icon: 'rustyMail'
     },
 };

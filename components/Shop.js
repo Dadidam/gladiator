@@ -75,13 +75,28 @@ class Shop extends React.Component {
         </div>
     };
 
+    renderItemIcon = icon => {
+        if (!icon.type || !icon.img) {
+            return 'no icon';
+        }
+
+        return <div>
+            <img src={`img/${icon.type}/${icon.img}.jpg`} />
+        </div>
+    };
+
     getTableColumns = () => {
         return [{
             title: 'Item',
             dataIndex: 'item',
             key: 'item',
             render: item => this.getItemDescription(item)
-        }, {
+        },{
+            title: 'Icon',
+            dataIndex: 'icon',
+            key: 'icon',
+            render: icon => this.renderItemIcon(icon)
+        },{
             title: 'Purchase',
             dataIndex: 'purchase',
             key: 'purchase',
@@ -103,7 +118,11 @@ class Shop extends React.Component {
                         params: item,
                         key
                     },
-                    item
+                    item,
+                    icon: {
+                        img: item.icon,
+                        type: item.type
+                    }
                 });
 
                 tableKey++;
