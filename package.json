@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Dadidam/gladiator#readme",
   "dependencies": {
-    "antd": "^2.8.3",
+    "antd": "^2.13.4",
     "immutable": "^3.8.1",
     "less": "^2.7.2",
     "mobx": "^3.1.9",

@@ -24,32 +24,34 @@ class ItemsList extends React.Component {
                     {params.map((param, i) => <div key={i}>{param}: {item.params[param]}</div>)}
                 </div>
             );
-
+            
             return (
-                <Row key={i}>
-                    <Col span={12}>
-                        <Tooltip placement="top" title={tooltipContent}>
-                            <span className="inventoryItem">{item.name}</span>
-                        </Tooltip>
-                    </Col>
-                    <Col span={12}>
-                        {this.hero.equipment[this.props.type] !== item.id ?
-                            <Button.Group>
-                                <Button type="dashed" onClick={() => this.props.useItem(item, this.hero)}>
-                                    <Icon type="skin" /> Use It!
-                                </Button>
-                                <Button type="dashed" onClick={() => this.props.sellItem(item, this.hero)}>
-                                    <Icon type="wallet" /> Sell: +{item.price.sell} coin(s)
-                                </Button>
-                                <Button type="dashed" onClick={() => this.props.deleteItem(item, this.hero)}>
-                                    <Icon type="delete" /> Remove
-                                </Button>
-                            </Button.Group>
-                            : <b>The item's equipped by your hero!</b>
-                        }
-                    </Col>
-                </Row>
-            )
+                <Card.Grid style={{ width: '25%', textAlign: 'center' }} key={i}>
+                    <Tooltip placement="top" title={tooltipContent}>
+                        <h3>{item.name}</h3>
+                    </Tooltip>
+                    <Tooltip placement="bottom" title={tooltipContent}>
+                        <img src={`img/${this.props.type}/${item.icon}.jpg`} />
+                    </Tooltip>
+                    {this.hero.equipment[this.props.type] !== item.id ?
+                        <Button.Group>
+                            <Button type="dashed" onClick={() => this.props.useItem(item, this.hero)}>
+                                <Icon type="skin" /> Equip
+                            </Button>
+                            <Button type="dashed" onClick={() => this.props.sellItem(item, this.hero)}>
+                                <Icon type="wallet" /> Sell: +{item.price.sell} coin(s)
+                            </Button>
+                            <Button type="dashed" onClick={() => this.props.deleteItem(item, this.hero)}>
+                                <Icon type="delete" /> Delete
+                            </Button>
+                        </Button.Group>
+                        : 
+                        <Button type="dashed" onClick={() => this.props.useItem(item, this.hero)}>
+                            <Icon type="skin" /> Take off
+                        </Button>
+                    }
+                </Card.Grid>
+            );
         });
 
         return <Card title={this.props.type}>{result}</Card>;
