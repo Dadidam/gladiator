@@ -40,11 +40,12 @@ export default class Inventory extends React.Component {
                 wrapClassName="vertical-center-modal"
                 visible={this.props.show}
                 width={800}
-                footer={[
+                onCancel={this.close}
+                footer={
                     <Button key="submit" type="primary" onClick={this.close}>
                         Close
-                    </Button>,
-                ]}
+                    </Button>
+                }
             >
                 {itemsList}
             </Modal>
