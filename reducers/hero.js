@@ -70,7 +70,7 @@ const hero = (state = getHeroById(player.activeHeroId), action) => {
                     }
                     break;
                 default:
-                    throw new Error('Not supported type of item');
+                    throw new Error('Not supported item type');
             }
             return Object.assign({}, hero);
         case 'DELETE_ITEM':
@@ -95,6 +95,39 @@ const hero = (state = getHeroById(player.activeHeroId), action) => {
             // delete current item from hero inventory
             hero.inventory.splice(index, 1);
 
+            // update hero data
+            return Object.assign({}, hero);
+        case 'TAKE_OFF_ITEM':
+            switch (item.type) {
+                case 'weapon':
+                    hero.equipment.weapon = null;
+                    hero.minDamage -= item.params.minDamage;
+                    hero.maxDamage -= item.params.maxDamage;
+
+                    if (hero.minDamage < 1) {
+                        hero.minDamage = 1;
+                    }
+
+                    if (hero.maxDamage < 1) {
+                        hero.maxDamage = 1;
+                    }
+                    break;
+                case 'armor':
+                    hero.equipment.armor = null;
+                    hero.maxHealth -= item.params.maxHealth;
+
+                    if (hero.maxHealth < 5) {
+                        hero.maxHealth = 5;
+                    }
+
+                    if (hero.health < 0) {
+                        hero.health = 0;
+                    }
+                    break;
+                default:
+                    throw new Error('Not supported item type');
+            }
+            
             // update hero data
             return Object.assign({}, hero);
         default:

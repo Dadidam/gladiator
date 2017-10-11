@@ -65,3 +65,9 @@ export const deleteItem = (item, hero) => ({
     item,
     hero
 });
+
+export const takeOffItem = (item, hero) => ({
+    type: 'TAKE_OFF_ITEM',
+    item,
+    hero
+});

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useItem, addCoins, deleteItem } from '../../actions';
+import { useItem, addCoins, deleteItem, takeOffItem } from '../../actions';
 import {Tooltip, Button, Card, Row, Col, Icon} from 'antd';
 
 class ItemsList extends React.Component {
@@ -30,7 +30,7 @@ class ItemsList extends React.Component {
                     <Tooltip placement="top" title={tooltipContent}>
                         <h3>{item.name}</h3>
                     </Tooltip>
-                    <Tooltip placement="bottom" title={tooltipContent}>
+                    <Tooltip placement="right" title={tooltipContent}>
                         <img src={`img/${this.props.type}/${item.icon}.jpg`} />
                     </Tooltip>
                     {this.hero.equipment[this.props.type] !== item.id ?
@@ -46,7 +46,7 @@ class ItemsList extends React.Component {
                             </Button>
                         </Button.Group>
                         : 
-                        <Button type="dashed" onClick={() => this.props.useItem(item, this.hero)}>
+                        <Button type="dashed" onClick={() => this.props.takeOffItem(item, this.hero)}>
                             <Icon type="skin" /> Take off
                         </Button>
                     }
@@ -75,6 +75,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(addCoins(item.price.sell, hero));
     },
     deleteItem: (item, hero) => dispatch(deleteItem(item, hero)),
+    takeOffItem: (item, hero) => dispatch(takeOffItem(item, hero)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsList);
