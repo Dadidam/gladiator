@@ -1,6 +1,6 @@
 import React from 'react';
 import { resultEnum } from './resultEnum';
-import { Timeline, Progress, Card, Col, Row } from 'antd';
+import { Timeline, Progress, Card, Col, Row, Button } from 'antd';
 
 import './fight.less';
 
@@ -53,7 +53,14 @@ class Fight extends React.Component {
         return <div className="arenaContainer">
             {this.state.fightResult ? <div className="fightResult">
                     <div><span className={result.style}>{result.description}</span></div>
-                    <a onClick={this.props.leaveArena.bind(this, this.playerHero, this.state.fightResult)}>Leave arena</a>
+                    <Button 
+                        type="primary" 
+                        icon="logout" 
+                        size="large"
+                        onClick={this.props.leaveArena.bind(this, this.playerHero, this.state.fightResult)}
+                    >
+                        Leave arena
+                    </Button>
                 </div> : null
             }
             <Row className="fightRow">
