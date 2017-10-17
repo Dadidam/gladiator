@@ -5,7 +5,7 @@ import { Timeline, Progress, Card, Col, Row } from 'antd';
 import './fight.less';
 
 const circleWidth = 80;
-const fightDelay = 1500;
+const fightDelay = 2000;
 
 const fightLogPhrases = [
     'Oh... It was so painful!',
@@ -50,7 +50,7 @@ class Fight extends React.Component {
         const playerHP = Math.round(this.getPercentValue(plHero.health, plHero.maxHealth));
         const opponentHP = Math.round(this.getPercentValue(opHero.health, opHero.maxHealth));
 
-        return <div style={{ background: '#ECECEC', padding: '30px' }}>
+        return <div className="arenaContainer">
             {this.state.fightResult ? <div className="fightResult">
                     <div><span className={result.style}>{result.description}</span></div>
                     <a onClick={this.props.leaveArena.bind(this, this.playerHero, this.state.fightResult)}>Leave arena</a>
@@ -58,7 +58,7 @@ class Fight extends React.Component {
             }
             <Row className="fightRow">
                 <Col span="8" className="fightCol">
-                    <Card title={this.playerHero.name} bordered={false}>
+                    <Card title={`${plHero.name} (HP: ${plHero.health}/${plHero.maxHealth}), Damage: ${plHero.minDamage}-${plHero.maxDamage}`} bordered={false}>
                         <Progress
                             type="circle"
                             percent={playerHP}
@@ -78,7 +78,7 @@ class Fight extends React.Component {
                     </Card>
                 </Col>
                 <Col span="8" className="fightCol">
-                    <Card title={this.playerOpponent.name} bordered={false}>
+                    <Card title={`${opHero.name} (HP: ${opHero.health}/${opHero.maxHealth}), Damage: ${opHero.minDamage}-${opHero.maxDamage}`} bordered={false}>
                         <Progress
                             type="circle"
                             percent={opponentHP}
