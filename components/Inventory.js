@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Button, Tabs} from 'antd';
+import {Modal, Button, Tabs, Icon} from 'antd';
 import ItemsList from 'Inventory/ItemsList';
 
 const TabPane = Tabs.TabPane;
@@ -38,7 +38,7 @@ export default class Inventory extends React.Component {
 
         return (
             <Modal
-                title={`Inventory Items (${itemCount} pcs.)`}
+                title={`Inventory Items`}
                 wrapClassName="vertical-center-modal"
                 visible={this.props.show}
                 width={800}
@@ -50,13 +50,13 @@ export default class Inventory extends React.Component {
                 }
             >
                 <Tabs defaultActiveKey="1">
-                    <TabPane tab="Weapon" key="1">
+                    <TabPane tab={<span><Icon type="shrink" />Weapon</span>} key="1">
                         <ItemsList type={itemTypes[0]} />
                     </TabPane>
-                    <TabPane tab="Armor" key="2">
+                    <TabPane tab={<span><Icon type="skin" />Armor</span>} key="2">
                         <ItemsList type={itemTypes[1]} />
                     </TabPane>
-                    <TabPane tab="Staff" disabled key="3">Other Staff</TabPane>
+                    <TabPane tab={<span><Icon type="tool" />Staff</span>} disabled key="3">Other Staff</TabPane>
                 </Tabs>
             </Modal>
         );
