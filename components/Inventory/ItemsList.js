@@ -54,7 +54,8 @@ class ItemsList extends React.Component {
             );
         });
 
-        return <Card title={this.props.type}>{result}</Card>;
+        {/*return <Card title={this.props.type}>{result}</Card>;*/}
+        return <div>{result}</div>;
     }
 
     filterHeroInventory = (hero, type) => {

@@ -1,6 +1,8 @@
 import React from 'react';
-import {Modal, Button} from 'antd';
+import {Modal, Button, Tabs} from 'antd';
 import ItemsList from 'Inventory/ItemsList';
+
+const TabPane = Tabs.TabPane;
 
 const itemTypes = ['weapon', 'armor'];
 
@@ -47,7 +49,15 @@ export default class Inventory extends React.Component {
                     </Button>
                 }
             >
-                {itemsList}
+                <Tabs defaultActiveKey="1">
+                    <TabPane tab="Weapon" key="1">
+                        <ItemsList type={itemTypes[0]} />
+                    </TabPane>
+                    <TabPane tab="Armor" key="2">
+                        <ItemsList type={itemTypes[1]} />
+                    </TabPane>
+                    <TabPane tab="Staff" disabled key="3">Other Staff</TabPane>
+                </Tabs>
             </Modal>
         );
     }
