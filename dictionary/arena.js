@@ -30,4 +30,20 @@ export const fighters = [{
             rank: 2
         },
     }
+},{
+    key: '3',
+    minRank: 5,
+    textReward: '+15 exp, +50 coins',
+    character: {
+        name: 'Bad Guy',
+        minDamage: 3,
+        maxDamage: 7,
+        maxHealth: 25,
+        health: 25,
+        reward: {
+            exp: 15,
+            coins: 50,
+            rank: 2
+        },
+    }
 }];
