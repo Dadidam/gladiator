@@ -1,4 +1,4 @@
-# gladiator
+# gladiator ![Travis CI](https://travis-ci.org/Dadidam/gladiator.svg?branch=master)
 
 ![Gladiator Demo](demo.jpg)
 
