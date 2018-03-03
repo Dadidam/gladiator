@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { useItem, addCoins, deleteItem, takeOffItem } from '../../actions';
 import {Tooltip, Button, Card, Row, Col, Icon} from 'antd';
 
+import './inventory.less';
+
 class ItemsList extends React.Component {
     constructor(props) {
         super(props);
