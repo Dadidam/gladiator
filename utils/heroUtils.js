@@ -1,9 +1,9 @@
 import * as storage from 'services/localStorage';
 
-const player = storage.get('player');
-
 export const getHeroById = (id) => {
-    if (!id) {
+    const player = storage.get('player');
+
+    if (!id || !player) {
         return null;
     }
 

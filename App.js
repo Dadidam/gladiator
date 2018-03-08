@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Layout } from 'antd';
 import { connect } from 'react-redux';
 import * as storage from 'services/localStorage';
@@ -10,10 +10,10 @@ import AppFooter from './components/UI/Footer';
 
 import './index.less';
 
-const {Content, Header, Sider} = Layout;
+const { Content, Header, Sider } = Layout;
 
 
-class App extends React.Component {
+class App extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.hero) {
             let heroes = [];
@@ -25,7 +25,7 @@ class App extends React.Component {
 
             nextProps.player.heroes = heroes;
             storage.set('player', nextProps.player);
-        }
+        } 
     }
 
     render() {

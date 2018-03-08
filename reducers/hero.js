@@ -1,7 +1,7 @@
 import * as storage from 'services/localStorage';
 import { getHeroById, getHeroLevel } from '../utils/heroUtils';
 
-const player = storage.get('player');
+const player = storage.get('player') || {};
 
 const hero = (state = getHeroById(player.activeHeroId), action) => {
     const hero = action.hero || null;

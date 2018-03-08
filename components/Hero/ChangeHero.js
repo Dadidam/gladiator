@@ -11,7 +11,9 @@ class ChangeHero extends React.Component {
 
     componentDidMount() {
         this.props.changeHero();
-        this.props.updatePlayer(this.props.player);
+        if (this.props.player) {
+            this.props.updatePlayer(this.props.player);
+        }
     }
 
     renderPanel = () => {

@@ -61,6 +61,13 @@ class Player extends React.Component {
             const startHealth = 5;
 
             let newHero = new Character(this.state.heroName, startHealth, startHealth);
+            // TODO: use spread operator instead Character constructor
+            // let newHero = { 
+            //     ...character, 
+            //     name: this.state.heroName, 
+            //     health: startHealth, 
+            //     maxHealth: startHealth 
+            // };
 
             if (player) {
                 newHero.id = player.heroes.length + 1;
