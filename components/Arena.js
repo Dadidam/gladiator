@@ -2,7 +2,7 @@ import React from 'react';
 import Fight from './Fight/Fight';
 import { resultEnum } from './Fight/resultEnum';
 import { fighters } from 'dictionary/arena';
-import Character from './Character';
+import character from './Character';
 import { Table, Button, message } from 'antd';
 import { connect } from 'react-redux';
 import { addExp, addCoins, addArenaPoints, setHp } from '../actions';
@@ -71,18 +71,12 @@ class Arena extends React.Component {
     };
 
     fight = params => {
-        const playerHero = this.cloneCharacter(this.hero);
-        const opponent = this.cloneCharacter(params);
+        const playerHero = { ...character, ...this.hero };
+        const opponent = { ...character, ...params };
 
         return <span>
             <Button type="primary" size="large" onClick={() => this.setState({fight: true, opponent, playerHero, reward: params.reward})}>Fight!</Button>
         </span>;
-    };
-
-    cloneCharacter = params => {
-        const {name, health, maxHealth, minDamage, maxDamage} = params;
-
-        return new Character(name, health, maxHealth, minDamage, maxDamage);
     };
 
     getTableColumns = () => {

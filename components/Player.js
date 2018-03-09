@@ -1,5 +1,5 @@
 import React from 'react';
-import Character from 'Character';
+import character from 'Character';
 import { connect } from 'react-redux';
 import HeroSelector from 'Player/HeroSelector';
 import CreateButton from 'Player/CreateButton';
@@ -60,14 +60,12 @@ class Player extends React.Component {
 
             const startHealth = 5;
 
-            let newHero = new Character(this.state.heroName, startHealth, startHealth);
-            // TODO: use spread operator instead Character constructor
-            // let newHero = { 
-            //     ...character, 
-            //     name: this.state.heroName, 
-            //     health: startHealth, 
-            //     maxHealth: startHealth 
-            // };
+            let newHero = { 
+                ...character, 
+                name: this.state.heroName, 
+                health: startHealth, 
+                maxHealth: startHealth 
+            };
 
             if (player) {
                 newHero.id = player.heroes.length + 1;
