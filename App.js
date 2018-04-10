@@ -12,52 +12,50 @@ import './index.less';
 
 const { Content, Header, Sider } = Layout;
 
-
 class App extends Component {
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.hero) {
-            let heroes = [];
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.hero) {
+      let heroes = [];
 
-            nextProps.player.heroes.forEach((char) => {
-                const character = char.id === nextProps.hero.id ? nextProps.hero : char;
-                heroes.push(character);
-            });
+      nextProps.player.heroes.forEach(char => {
+        const character = char.id === nextProps.hero.id ? nextProps.hero : char;
+        heroes.push(character);
+      });
 
-            nextProps.player.heroes = heroes;
-            storage.set('player', nextProps.player);
-        } 
+      nextProps.player.heroes = heroes;
+      storage.set('player', nextProps.player);
     }
+  }
 
-    render() {
-        const player = this.props.player;
-        const hasActiveHero = player && player.activeHeroId;
-        const hero = this.props.hero;
+  render() {
+    const { player, hero } = this.props;
+    const hasActiveHero = player && player.activeHeroId;
+    const battleWrapper = player.battle ? 'battleWrapper' : '';
 
-        return (
-            <Layout>
-                <Header className="header">
-                    <AppHeader showMainMenu={hasActiveHero} />
-                </Header>
-                <Content className="appContent">
-                    <Layout className="appLayout whiteBg">
-                        {hasActiveHero ?
-                            <Sider width={200} className="whiteBg leftPanel">
-                                <Hero />
-                            </Sider>
-                            : null
-                        }
-                        <AppBody hero={hero} player={player} />
-                    </Layout>
-                </Content>
-                <AppFooter />
-            </Layout>
-        )
-    }
+    return (
+      <Layout className={battleWrapper}>
+        <Header className="header">
+          <AppHeader showMainMenu={hasActiveHero} />
+        </Header>
+        <Content className="appContent">
+          <Layout className="appLayout whiteBg">
+            {hasActiveHero ? (
+              <Sider width={200} className="whiteBg leftPanel">
+                <Hero />
+              </Sider>
+            ) : null}
+            <AppBody hero={hero} player={player} />
+          </Layout>
+        </Content>
+        <AppFooter />
+      </Layout>
+    );
+  }
 }
 
-const mapStateToProps = (state) => ({
-    hero: state.hero,
-    player: state.player
+const mapStateToProps = ({ hero, player }) => ({
+  hero,
+  player
 });
 
 export default connect(mapStateToProps)(App);
