@@ -52,7 +52,8 @@ const hero = (state = getHeroById(player.activeHeroId), action) => {
       return Object.assign({}, hero);
     case 'ADD_ITEM':
       let newItem = Object.assign({}, item); // clone item
-      newItem.id = hero.inventory.length + 1; // set unique item ID
+      const maxInvId = _.maxBy(hero.inventory, 'id').id; // find item with higher ID
+      newItem.id = maxInvId + 1; // set unique item ID
       hero.inventory.push(newItem); // add new item to inventory
       return Object.assign({}, hero);
     case 'USE_ITEM':
@@ -75,25 +76,23 @@ const hero = (state = getHeroById(player.activeHeroId), action) => {
       }
       return Object.assign({}, hero);
     case 'DELETE_ITEM':
-      const updatedHero = { ...state };
-
       // 1) check and remove from equipped items
-      if (item.id == state.equipment.weapon) {
-        updatedHero.equipment.weapon = null;
+      if (item.id == hero.equipment.weapon) {
+        hero.equipment.weapon = null;
       }
 
-      if (item.id == state.equipment.armor) {
-        updatedHero.equipment.armor = null;
+      if (item.id == hero.equipment.armor) {
+        hero.equipment.armor = null;
       }
 
       // 2) delete current item from hero inventory
-      const updatedInventory = _.filter(
-        updatedHero.inventory,
+      hero.inventory = _.filter(
+        hero.inventory,
         invItem => item.id !== invItem.id
       );
 
       // 3) update hero data
-      return { ...state, ...updatedHero, inventory: updatedInventory };
+      return Object.assign({}, hero);
     case 'TAKE_OFF_ITEM':
       switch (item.type) {
         case 'weapon':

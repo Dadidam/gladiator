@@ -20,10 +20,10 @@ export const quests = [
           }
         ]
       },
-      textReward: '+1 coin, +1 exp',
+      textReward: '+1 coin, +1 exp, Toy Sword (5%)',
       icon: 'mouse'
     },
-    reward: '+1 coin, +1 exp',
+    reward: '+1 coin, +1 exp, Toy Sword (5%)',
     cost: '-3 HP',
     level: {
       min: 1,
