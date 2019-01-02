@@ -30,7 +30,7 @@ class App extends Component {
   render() {
     const { player, hero } = this.props;
     const hasActiveHero = player && player.activeHeroId;
-    const battleWrapper = player.battle ? 'battleWrapper' : '';
+    const battleWrapper = player && player.battle ? 'battleWrapper' : '';
 
     return (
       <Layout className={battleWrapper}>
