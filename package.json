@@ -1,6 +1,6 @@
 {
   "name": "gladiator",
-  "version": "1.0.0",
+  "version": "0.2.3",
   "description": "Just a game",
   "main": "index.js",
   "scripts": {

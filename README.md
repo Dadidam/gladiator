@@ -31,6 +31,10 @@ Enjoy!
 
 ## Changelog
 
+#### v.0.2.3 (02.01.2019)
+
+Fixed critical issues (#5, #6, #7).
+
 #### v.0.2.2 (19.07.2017)
 
 Improve reward system:
