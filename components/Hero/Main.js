@@ -6,79 +6,79 @@ import { updateHero } from '../../actions';
 
 const refillInterval = 3000;
 
-
 class Hero extends React.Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-        super(props);
+    // this.hero = props.hero;
+    this.restore = null;
 
-        this.hero = props.hero;
-        this.restore = null;
-
-        this.state = {
-            showInventory: false,
-            refill: this.hero.health < this.hero.maxHealth
-        };
-
-        this.updateHero = props.updateHero;
-    }
-
-    componentDidMount() {
-        this.restore = setInterval(
-            () => this.restoreHealth(),
-            refillInterval
-        );
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.hero = nextProps.hero;
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.restore);
-    }
-
-    render() {
-        return (
-            <div className="heroMainPanel">
-                <InfoPanel
-                    hero={this.hero}
-                    handleInventory={this.toggleInventory}
-                />
-                <Inventory
-                    hero={this.hero}
-                    show={this.state.showInventory}
-                    toggle={this.toggleInventory}
-                />
-            </div>
-        );
-    }
-
-    restoreHealth = () => {
-        if (this.hero.health < this.hero.maxHealth) {
-            this.hero.health++;
-            this.updateHero(this.hero);
-        }
-
-        if (this.hero.health > this.hero.maxHealth) {
-            this.hero.health = this.hero.maxHealth;
-            this.updateHero(this.hero);
-        }
+    this.state = {
+      showInventory: false,
+      refill: props.hero.health < props.hero.maxHealth
     };
 
-    toggleInventory = () => {
-        this.setState({
-            showInventory: !this.state.showInventory
-        });
-    };
+    this.updateHero = props.updateHero;
+  }
+
+  componentDidMount() {
+    this.restore = setInterval(() => this.restoreHealth(), refillInterval);
+  }
+
+  //   componentWillReceiveProps(nextProps) {
+  //     this.hero = nextProps.hero;
+  //   }
+
+  componentWillUnmount() {
+    clearInterval(this.restore);
+  }
+
+  render() {
+    return (
+      <div className="heroMainPanel">
+        <InfoPanel
+          hero={this.props.hero}
+          handleInventory={this.toggleInventory}
+        />
+        <Inventory
+          hero={this.props.hero}
+          show={this.state.showInventory}
+          toggle={this.toggleInventory}
+        />
+      </div>
+    );
+  }
+
+  restoreHealth = () => {
+    if (this.props.hero.health < this.props.hero.maxHealth) {
+      const hero = { ...this.props.hero };
+      hero.health++;
+      this.updateHero(hero);
+    }
+
+    if (this.props.hero.health > this.props.hero.maxHealth) {
+      const hero = { ...this.props.hero };
+      hero.health = this.props.hero.maxHealth;
+      this.updateHero(hero);
+    }
+  };
+
+  toggleInventory = () => {
+    this.setState({
+      showInventory: !this.state.showInventory
+    });
+  };
 }
 
-const mapStateToProps = (state) => ({
-    hero: state.hero
+const mapStateToProps = state => ({
+  hero: state.hero
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateHero: (hero) => dispatch(updateHero(hero)),
+  updateHero: hero => dispatch(updateHero(hero))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Hero);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Hero);
