@@ -1,63 +1,68 @@
-# gladiator ![Travis CI](https://travis-ci.org/Dadidam/gladiator.svg?branch=master)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-![Gladiator Demo](demo.jpg)
+## Available Scripts
 
-Experimental game project based on *React* and *antd*.
+In the project directory, you can run:
 
-## Setup and run
+### `npm start`
 
-Setup all dependencies: `npm install`.
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Then run: `npm start`.
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-Open: `http://localhost:3333`
+### `npm test`
 
-Enjoy!
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Milestones and future plans
+### `npm run build`
 
-*Game features:*
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-* Quest chains and narrative design
-* Craft and loot system
-* Special weapon and armor available for arena rank points
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-*Tech stack improvements:*
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-* Move dev-platform to `create-react-app` environment
-* Use `MongoDB` as a data storage
-* Move project to full-stack rails with `Node.js` and `RESTFul`
-* Add unit-test tools and write some tests
+### `npm run eject`
 
-## Changelog
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-#### v.0.2.3 (02.01.2019)
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Fixed critical issues (#5, #6, #7).
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-#### v.0.2.2 (19.07.2017)
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-Improve reward system:
+## Learn More
 
- * items as a reward
- * probability based on %-values
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-#### v.0.2.1 (18.07.2017)
- 
- Remove `mobx` and use `Redux` instead
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-#### v.0.2 (01.06.2017)
- 
- Release arena battle mechanic :hocho:
+### Code Splitting
 
-#### v.0.1.1 (03.05.2017)
- 
- Add `mobx` support (store application state)
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-#### v.0.1 (06.04.2017)
- 
- Remove `bootstrap` and use `antd` instead
+### Analyzing the Bundle Size
 
-#### v.0.0.1 (05.07.2016)
- 
- Birthday :tada:
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
