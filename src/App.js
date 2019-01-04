@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Routes from 'Routes';
+import { getUser } from 'actions/user';
 import './App.css';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.getUser();
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Routes />
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps({ user }) {
+  return { user };
+}
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUser }
+  )(App)
+);
